@@ -16,6 +16,7 @@ Usage
 
 Installation
 ------------
+pip install git+https://github.com/RealPolitiX/symmetrize.git
 
 Requirements
 ------------

@@ -68,7 +68,7 @@ def vertexGenerator(center, fixedvertex, arot, direction=-1, scale=1, ret='all')
     return np.asarray(vertices, dtype='int32')
 
 
-def symcentcost(pts, center, mean_center_dist, mean_edge_dist, rotsym=6, weights=(1, 1, 1)):
+def _symcentcost(pts, center, mean_center_dist, mean_edge_dist, rotsym=6, weights=(1, 1, 1)):
     """
     Symmetrization-centralization loss function.
 
@@ -117,35 +117,98 @@ def symcentcost(pts, center, mean_center_dist, mean_edge_dist, rotsym=6, weights
     return sc_cost
 
 
-def affineWarping(img, landmarks, refs, ret='image'):
+def _refset(coeffs, landmarks, center, direction=1):
+    """
+    Calculate the reference point set.
+    """
+
+    arots, scales = coeffs.reshape((2, coeffs.size // 2))
+
+    # Generate reference point set
+    refs = vertexGenerator(center, fixedvertex=landmarks[0,:], arot=arots,
+                           direction=direction, scale=scales, ret='generated')
+
+    # Determine the homography that bridges the landmark and reference point sets
+    H, _ = cv2.findHomography(landmarks, refs)
+    # Calculate the actual point set transformed by the homography
+    lmkwarped = np.squeeze(cv2.transform(landmarks[None,...], H))[:,:2]
+
+    return lmkwarped, H
+
+
+def _refsetcost(coeffs, landmarks, center, mcd, med, direction=-1, weights=(1, 1, 1)):
+    """
+    Reference point set generator cost function.
+
+    :Parameters:
+        coeffs : 1D array
+            Point set generator coefficients (angle of rotation and scaling factors).
+        landmarks : list/tuple
+            Pixel coordinates of the landmarks.
+        center : list/tuple
+            Pixel coordinates of the Gamma point.
+        direction : str | -1
+            Direction to generate the point set, -1 (cw) or 1 (ccw).
+        kwds : keyword arguments
+            See symcentcost()
+
+    :Return:
+        rs_cost : float
+            Value of the reference set cost function.
+    """
+
+    landmarks_warped, _ = _refset(coeffs, landmarks, center, direction=direction)
+    rs_cost = _symcentcost(landmarks_warped, center, mcd, med, weights=weights)
+
+    return rs_cost
+
+
+def refsetopt(init, pts, center, mcd, med, niter=200, direction=-1, weights=(1, 1, 1), method='Nelder-Mead', **kwds):
+    """ Optimization to find the optimal reference point set.
+    """
+
+    res = opt.basinhopping(_refsetcost, init, niter=niter, minimizer_kwargs={'method':method,\
+                       'args':(pts, center, mcd, med, direction, weights)}, **kwds)
+    # Calculate the optimal warped point set and the corresponding homography
+    ptsw, H = _refset(res['x'], pts, center, direction)
+
+    return ptsw, H
+
+
+def imgWarping(img, hgmat=None, landmarks=None, refs=None):
     """
     Perform image warping based on a generic affine transform (homography).
 
     :Parameters:
         img : 2D array
-            Input image (distorted)
+            Input image (distorted).
         landmarks : list/array
-            List of pixel positions of the
+            Pixel coordinates of landmarks (distorted).
         refs : list/array
-            List of pixel positions of regular
+            Pixel coordinates of reference points (undistorted).
+        hgmat : 2D array
+            Homography matrix.
 
     :Returns:
         imgaw : 2D array
             Image after affine warping.
-        maw : 2D array
+        hgmat : 2D array
             Homography matrix for the tranform.
     """
 
-    landmarks = np.asarray(landmarks, dtype='float32')
-    refs = np.asarray(refs, dtype='float32')
+    if hgmat is not None:
+        imgaw = cv2.warpPerspective(img, hgmat, img.shape)
 
-    maw, _ = cv2.findHomography(landmarks, refs)
-    imgaw = cv2.warpPerspective(img, maw, img.shape)
-
-    if ret == 'image':
         return imgaw
-    elif ret == 'all':
-        return imgaw, maw
+
+    else:
+        landmarks = np.asarray(landmarks, dtype='float32')
+        refs = np.asarray(refs, dtype='float32')
+
+        hgmat, _ = cv2.findHomography(landmarks, refs)
+        imgaw = cv2.warpPerspective(img, hgmat, img.shape)
+
+        return imgaw, hgmat
 
 
 def applyWarping(imgstack, axis, hgmat):
