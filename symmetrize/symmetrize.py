@@ -5,14 +5,14 @@
 @author: R. Patrick Xian
 """
 
+# ========================= #
+# Operations on point sets  #
+# ========================= #
+
 from __future__ import print_function, division
+from . import pointops as po
 import numpy as np
-from numpy.linalg import norm, lstsq
 import scipy.optimize as opt
-from skimage.draw import line, circle, polygon
-from skimage.feature import peak_local_max
-import astropy.stats as astat
-import photutils as pho
 import cv2
 
 
@@ -66,6 +66,55 @@ def vertexGenerator(center, fixedvertex, arot, direction=-1, scale=1, ret='all')
         vertices.append(rotvertex)
 
     return np.asarray(vertices, dtype='int32')
+
+
+def symcentcost(pts, center, mean_center_dist, mean_edge_dist, rotsym=6, weights=(1, 1, 1)):
+    """
+    Symmetrization-centralization loss function.
+
+    :Parameters:
+        pts : list/tuple
+            List/Tuple of points.
+        center : list/tuple
+            Center coordinates.
+        mean_center_dist : float
+            Mean center-vertex distance.
+        mean_edge_dist : float
+            Mean nearest-neighbor vertex-vertex distance.
+        rotsym : int
+            Order of rotational symmetry.
+        weights : list/tuple/array
+            Weights for the.
+
+    :Return:
+        sc_cost : float
+            The overall cost function.
+    """
+
+    # Extract the point pair
+    halfsym = rotsym // 2
+    pts1 = pts[range(0, halfsym), :]
+    pts2 = pts[range(halfsym, rotsym), :]
+
+    # Calculate the deviation from center
+    centralcoords = (pts1 + pts2) / 2
+    centerdev = centralcoords - center
+    f_centeredness = np.sum(centerdev**2)
+
+    # Calculate the distance-to-center difference between all symmetry points
+    centerdist = po.cvdist(pts, center)
+    f_cvdist = np.sum((centerdist - mean_center_dist)**2)
+
+    # Calculate the edge difference between all neighboring symmetry points
+    edgedist = po.vvdist(pts, 1)
+    f_vvdist = np.sum((edgedist - mean_edge_dist)**2)
+
+    # Calculate the overall cost function
+    weights = np.asarray(weights)
+    fsymcent = np.array([f_centeredness, f_cvdist, f_vvdist])
+    sc_cost = np.dot(weights, fsymcent)
+
+    return sc_cost
 
 
 def affineWarping(img, landmarks, refs, ret='image'):
