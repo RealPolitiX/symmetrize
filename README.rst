@@ -1,12 +1,12 @@
-symmetrise
+symmetrize
 ==========
 
-.. image:: https://img.shields.io/pypi/v/symmetrise.svg
-    :target: https://pypi.python.org/pypi/symmetrise
+.. image:: https://img.shields.io/pypi/v/symmetrize.svg
+    :target: https://pypi.python.org/pypi/symmetrize
     :alt: Latest PyPI version
 
-.. image:: https://www.travis-ci.org/RealPolitiX/symmetrise/.png
-   :target: https://www.travis-ci.org/RealPolitiX/symmetrise/
+.. image:: https://www.travis-ci.org/RealPolitiX/symmetrize/.png
+   :target: https://www.travis-ci.org/RealPolitiX/symmetrize/
    :alt: Latest Travis CI build status
 
 Symmetrization and centering of 2D pattern using nonrigid point set registration
@@ -18,7 +18,7 @@ Installation
 ------------
 
 Requirements
-^^^^^^^^^^^^
+------------
 
 Compatibility
 -------------
@@ -29,4 +29,4 @@ Licence
 Authors
 -------
 
-`symmetrise` was written by `R. Patrick Xian <xrpatrick@gmail.com>`_.
+`symmetrize` was written by `R. Patrick Xian <xrpatrick@gmail.com>`_.
