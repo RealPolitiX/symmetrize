@@ -175,40 +175,51 @@ def refsetopt(init, pts, center, mcd, med, niter=200, direction=-1, weights=(1, 
     return ptsw, H
 
 
-def imgWarping(img, hgmat=None, landmarks=None, refs=None):
+def imgWarping(img, hgmat=None, landmarks=None, refs=None, center=None, rotangle=None):
     """
     Perform image warping based on a generic affine transform (homography).
 
     :Parameters:
         img : 2D array
             Input image (distorted).
+        hgmat : 2D array
+            Homography matrix.
         landmarks : list/array
             Pixel coordinates of landmarks (distorted).
         refs : list/array
             Pixel coordinates of reference points (undistorted).
-        hgmat : 2D array
-            Homography matrix.
+        center : list/tuple
+            Pixel coordinates of the image center (Gamma point).
+        rotangle : float
+            Rotation angle (in degrees).
 
     :Returns:
         imgaw : 2D array
             Image after affine warping.
         hgmat : 2D array
-            Homography matrix for the tranform.
+            (Composite) Homography matrix for the tranform.
     """
 
-    if hgmat is not None:
-        imgaw = cv2.warpPerspective(img, hgmat, img.shape)
+    # Calculate the homography matrix, if not given
+    if hgmat is None:
 
-        return imgaw
-
-    else:
         landmarks = np.asarray(landmarks, dtype='float32')
         refs = np.asarray(refs, dtype='float32')
-
         hgmat, _ = cv2.findHomography(landmarks, refs)
-        imgaw = cv2.warpPerspective(img, hgmat, img.shape)
 
-        return imgaw, hgmat
+    # Add rotation to the transformation, if specified
+    if rotangle is not None:
+
+        rotmat = cv2.getRotationMatrix2D(center, angle=rotangle, scale=1)
+        # Construct rotation matrix in homogeneous coordinate
+        rotmat = np.concatenate((rotmat, np.array([0, 0, 1], ndmin=2)), axis=0)
+        # Construct composite operation
+        hgmat = np.dot(rotmat, hgmat)
+
+    # Perform composite image transformation
+    imgaw = cv2.warpPerspective(img, hgmat, img.shape)
+
+    return imgaw, hgmat
 
 
 def applyWarping(imgstack, axis, hgmat):
