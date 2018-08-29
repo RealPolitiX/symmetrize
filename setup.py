@@ -23,7 +23,7 @@ setup(
     long_description=open('README.rst').read(),
 
     packages=find_packages(exclude=['docs', 'tests*']),
-    install_requires=[],
+    install_requires=install_requires,
     dependency_links=dependency_links,
 
     classifiers=[
