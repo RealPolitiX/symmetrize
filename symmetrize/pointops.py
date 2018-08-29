@@ -87,7 +87,7 @@ def pointset_center(pset, condition='among', method='meancp'):
         return pmean
 
 
-def order_pointset(pset, center=None, direction='cw'):
+def pointset_order(pset, center=None, direction='cw'):
     """
     Order a point set around a center in a clockwise or counterclockwise way.
 
