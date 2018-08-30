@@ -56,7 +56,7 @@ def peakdetect2d(img, method='daofind', **kwds):
 
 def pointset_center(pset, condition='among', method='meancp'):
     """
-    Determine the center position of a point set.
+    Determine the center position of a point set and separate it from the rest.
 
     :Parameters:
         pset : 2D array
@@ -65,7 +65,7 @@ def pointset_center(pset, condition='among', method='meancp'):
             Condition to extract the points
             'among' = use a point among the set
             'unrestricted' = use the centroid coordinate
-        method : str | 'meancp'
+        method : str | 'centroidnn' (the nearest neighbor of centroid)
             Method to determine the point set center.
     """
 
@@ -73,11 +73,16 @@ def pointset_center(pset, condition='among', method='meancp'):
     pmean = np.mean(pset, axis=0)
 
     # Compare the coordinates with the mean position
-    if method == 'meancp':
+    if method == 'centroidnn':
         dist = norm(pset - pmean, axis=1)
-        minid = np.argmin(dist)
-        pscenter = pset[minid, :]
-        prest = np.delete(pset, minid, axis=0)
+        minid = np.argmin(dist) # The point nearest to the centroid
+        pscenter = pset[minid, :] # Center coordinate
+        prest = np.delete(pset, minid, axis=0) # Vertex coordinates
+
+    elif method == 'centroid':
+        pscenter = pmean
+        prest = pset
+
     else:
         raise NotImplementedError
 

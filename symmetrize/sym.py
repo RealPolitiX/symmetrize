@@ -13,6 +13,7 @@ from __future__ import print_function, division
 from . import pointops as po
 import numpy as np
 import scipy.optimize as opt
+import scipy.ndimage as ndi
 import cv2
 
 
@@ -175,7 +176,7 @@ def refsetopt(init, pts, center, mcd, med, niter=200, direction=-1, weights=(1, 
     return ptsw, H
 
 
-def imgWarping(img, hgmat=None, landmarks=None, refs=None, center=None, rotangle=None):
+def imgWarping(img, hgmat=None, landmarks=None, refs=None, rotangle=None, **kwds):
     """
     Perform image warping based on a generic affine transform (homography).
 
@@ -188,10 +189,9 @@ def imgWarping(img, hgmat=None, landmarks=None, refs=None, center=None, rotangle
             Pixel coordinates of landmarks (distorted).
         refs : list/array
             Pixel coordinates of reference points (undistorted).
-        center : list/tuple
-            Pixel coordinates of the image center (Gamma point).
         rotangle : float
             Rotation angle (in degrees).
+        **kwds : keyword argument
 
     :Returns:
         imgaw : 2D array
@@ -210,6 +210,7 @@ def imgWarping(img, hgmat=None, landmarks=None, refs=None, center=None, rotangle
     # Add rotation to the transformation, if specified
     if rotangle is not None:
 
+        center = kwds.pop('çenter', ndi.measurements.center_of_mass(img))
         rotmat = cv2.getRotationMatrix2D(center, angle=rotangle, scale=1)
         # Construct rotation matrix in homogeneous coordinate
         rotmat = np.concatenate((rotmat, np.array([0, 0, 1], ndmin=2)), axis=0)
