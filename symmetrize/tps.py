@@ -7,7 +7,7 @@ import scipy.ndimage as ndi
 # Thin-plate spline adapted from Zachary Pincus' implementation in celltool
 # https://github.com/zpincus/celltool
 
-def tpsWarping(from_points, to_points, images, output_region, interpolation_order=1, approximate_grid=1):
+def tpsWarping(from_points, to_points, images, axis=2, interpolation_order=1, approximate_grid=1, **kwds):
     """
     Define a thin-plate-spline warping transform that warps from the from_points
     to the to_points, and then warp the given images by that transform. This
@@ -28,13 +28,21 @@ def tpsWarping(from_points, to_points, images, output_region, interpolation_orde
             Use the approximate grid (if set > 1) for the transform. The approximate grid is smaller
             than the output image region, and then the transform is bilinearly interpolated to the
             larger region. This is fairly accurate for values up to 10 or so.
+        **kwds : keyword arguments
 
     :Returns:
         Transformed image and the transform
     """
 
+    images = np.moveaxis(images, axis, 0)
+    nim, nr, nc = images.shape
+    output_region = kwds.pop('output_region', (0, 0, nc, nr))
+
     transform = _make_inverse_warp(from_points, to_points, output_region, approximate_grid)
-    return [ndi.map_coordinates(np.asarray(image), transform, order=interpolation_order) for image in images], transform
+    images_tf = np.asarray([ndi.map_coordinates(image, transform, order=interpolation_order) for image in list(images)])
+    images_tf = np.moveaxis(image_tf, 0, axis)
+
+    return images_tf, transform
 
 
 def _make_inverse_warp(from_points, to_points, output_region, approximate_grid):
