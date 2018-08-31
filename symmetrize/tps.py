@@ -4,6 +4,7 @@
 import numpy as np
 import scipy.ndimage as ndi
 
+
 # Thin-plate spline adapted from Zachary Pincus' implementation in celltool
 # https://github.com/zpincus/celltool
 
@@ -17,11 +18,8 @@ def tpsWarping(from_points, to_points, images, axis=2, interpolation_order=1, ap
     :Parameters:
         from_points, to_points : nx2 array
             Correspondence point sets containing n 2D landmarks from the distorted and ideal images.
-        images : list
-            List of image to warp with the given warp transform.
-        output_region : tuple
-            The (xmin, ymin, xmax, ymax) region of the output image that should be produced.
-            (Note: The region is inclusive, i.e. xmin <= x <= xmax)
+        images : nD array
+            nD image to warp with the given warp transform.
         interpolation_order : int | 1
             If 1, then use linear interpolation; if 0 then use nearest-neighbor.
         approximate_grid : int | 1
@@ -29,9 +27,15 @@ def tpsWarping(from_points, to_points, images, axis=2, interpolation_order=1, ap
             than the output image region, and then the transform is bilinearly interpolated to the
             larger region. This is fairly accurate for values up to 10 or so.
         **kwds : keyword arguments
+        output_region : tuple
+            The (xmin, ymin, xmax, ymax) region of the output image that should be produced.
+            (Note: The region is inclusive, i.e. xmin <= x <= xmax).
 
     :Returns:
-        Transformed image and the transform
+        images_tf : nD array
+            Transformed image stack.
+        transform : list
+            Warping transform along x and y axes.
     """
 
     images = np.moveaxis(images, axis, 0)
@@ -40,12 +44,15 @@ def tpsWarping(from_points, to_points, images, axis=2, interpolation_order=1, ap
 
     transform = _make_inverse_warp(from_points, to_points, output_region, approximate_grid)
     images_tf = np.asarray([ndi.map_coordinates(image, transform, order=interpolation_order) for image in list(images)])
-    images_tf = np.moveaxis(image_tf, 0, axis)
+    images_tf = np.moveaxis(images_tf, 0, axis)
 
     return images_tf, transform
 
 
 def _make_inverse_warp(from_points, to_points, output_region, approximate_grid):
+    """
+    Calculate the warping transform.
+    """
 
     x_min, y_min, x_max, y_max = output_region
 
