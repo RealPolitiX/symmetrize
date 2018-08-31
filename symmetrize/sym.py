@@ -210,7 +210,8 @@ def imgWarping(img, hgmat=None, landmarks=None, refs=None, rotangle=None, **kwds
     # Add rotation to the transformation, if specified
     if rotangle is not None:
 
-        center = kwds.pop('çenter', ndi.measurements.center_of_mass(img))
+        center = kwds.pop('center', ndi.measurements.center_of_mass(img))
+        center = tuple(center)
         rotmat = cv2.getRotationMatrix2D(center, angle=rotangle, scale=1)
         # Construct rotation matrix in homogeneous coordinate
         rotmat = np.concatenate((rotmat, np.array([0, 0, 1], ndmin=2)), axis=0)

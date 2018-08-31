@@ -54,7 +54,7 @@ def peakdetect2d(img, method='daofind', **kwds):
     return pks
 
 
-def pointset_center(pset, condition='among', method='meancp'):
+def pointset_center(pset, condition='among', method='centroidnn'):
     """
     Determine the center position of a point set and separate it from the rest.
 
