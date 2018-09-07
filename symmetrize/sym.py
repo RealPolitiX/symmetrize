@@ -17,6 +17,17 @@ import scipy.ndimage as ndi
 import cv2
 
 
+def pointsetTransform(points, hgmat):
+    """
+    Apply transform to the positions of a point set.
+    """
+
+    points_reformatted = po.cart2homo(points)
+    points_transformed = po.homo2cart(cv2.transform(points_reformatted, hgmat))
+
+    return points_transformed
+
+
 def vertexGenerator(center, fixedvertex, arot, direction=-1, scale=1, ret='all'):
     """
     Generation of the vertices of symmetric polygons.
@@ -49,7 +60,7 @@ def vertexGenerator(center, fixedvertex, arot, direction=-1, scale=1, ret='all')
         rotangles = np.cumsum(arot)
 
     # Reformat the input array to satisfy function requirement
-    fixedvertex_reformatted = np.array(fixedvertex, dtype='int32', ndmin=2)[None,...]
+    fixedvertex_reformatted = po.cart2homo(fixedvertex)
 
     if ret == 'all':
         vertices = [fixedvertex]

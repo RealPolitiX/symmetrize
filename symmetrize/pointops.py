@@ -16,6 +16,27 @@ import astropy.stats as astat
 import photutils as pho
 
 
+def cart2homo(points):
+    """ Transform from Cartesian to homogeneous coordinates.
+    """
+
+    pts_homo = np.array(points, dtype='float32', ndmin=2)[None,...]
+
+    return pts_homo
+
+
+def homo2cart(points):
+    """ Transformation from homogeneous to Cartesian coordinates.
+    """
+
+    try:
+        pts_cart = np.squeeze(points)[:,:2]
+    except:
+        pts_cart = np.squeeze(points)[:2]
+
+    return pts_cart
+    
+    
 def peakdetect2d(img, method='daofind', **kwds):
     """
     Peak detection in 2D image.
