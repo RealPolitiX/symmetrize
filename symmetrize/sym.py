@@ -28,7 +28,7 @@ def pointsetTransform(points, hgmat):
     return points_transformed
 
 
-def vertexGenerator(center, fixedvertex, arot, direction=-1, scale=1, ret='all'):
+def vertexGenerator(center, fixedvertex, arot, direction=-1, scale=1, rand_amp=0, ret='all'):
     """
     Generation of the vertices of symmetric polygons.
 
@@ -60,6 +60,7 @@ def vertexGenerator(center, fixedvertex, arot, direction=-1, scale=1, ret='all')
         rotangles = np.cumsum(arot)
 
     # Reformat the input array to satisfy function requirement
+    fixedvertex += rand_amp * np.random.uniform(high=1, low=-1, size=fixedvertex.shape)
     fixedvertex_reformatted = po.cart2homo(fixedvertex)
 
     if ret == 'all':
@@ -67,6 +68,7 @@ def vertexGenerator(center, fixedvertex, arot, direction=-1, scale=1, ret='all')
     elif ret == 'generated':
         vertices = []
 
+    # Augment the scale value into an array
     if type(scale) in (int, float):
         scale = np.ones((nangles,)) * scale
 
@@ -77,7 +79,7 @@ def vertexGenerator(center, fixedvertex, arot, direction=-1, scale=1, ret='all')
         rotvertex = np.squeeze(cv2.transform(fixedvertex_reformatted, rmat)).tolist()
         vertices.append(rotvertex)
 
-    return np.asarray(vertices, dtype='int32')
+    return np.asarray(vertices, dtype='float32')
 
 
 def _symcentcost(pts, center, mean_center_dist, mean_edge_dist, rotsym=6, weights=(1, 1, 1)):
