@@ -40,7 +40,7 @@ def peakdetect2d(img, method='daofind', **kwds):
         threshfactor = kwds.pop('threshfactor', 8)
 
         mean, median, std = astat.sigma_clipped_stats(img, sigma=sg)
-        daofind = pho.DAOStarFinder(fwhm=fwhm, threshold=threshfactor*std)
+        daofind = pho.DAOStarFinder(fwhm=fwhm, threshold=threshfactor*std, **kwds)
         sources = daofind(img)
         pks = np.stack((sources['ycentroid'], sources['xcentroid']), axis=1)
 
@@ -49,7 +49,7 @@ def peakdetect2d(img, method='daofind', **kwds):
         mindist = kwds.pop('mindist', 10)
         numpeaks = kwds.pop('numpeaks', 7)
 
-        pks = peak_local_max(img, min_distance=mindist, num_peaks=numpeaks)
+        pks = peak_local_max(img, min_distance=mindist, num_peaks=numpeaks, **kwds)
 
     return pks
 
