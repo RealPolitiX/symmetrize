@@ -20,7 +20,8 @@ setup(
     author_email="xrpatrick@gmail.com",
 
     description="Symmetrization and centering of 2D pattern using nonrigid point set registration",
-    long_description=open('README.md').read(),
+    setup_requires=['setuptools-markdown'],
+    long_description_markdown_filename='README.md',
 
     packages=find_packages(exclude=['docs', 'tests*']),
     install_requires=install_requires,
