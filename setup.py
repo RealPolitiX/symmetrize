@@ -11,6 +11,9 @@ with open(path.join(here, 'requirements.txt'), encoding='utf-8') as f:
 install_requires = [x.strip() for x in all_reqs if 'git+' not in x]
 dependency_links = [x.strip().replace('git+', '') for x in all_reqs if x.startswith('git+')]
 
+with open(path.join(here, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
+    
 setup(
     name="symmetrize",
     version="0.1.0",
@@ -20,8 +23,9 @@ setup(
     author_email="xrpatrick@gmail.com",
 
     description="Symmetrization and centering of 2D pattern using nonrigid point set registration",
-    setup_requires=['setuptools-markdown'],
-    long_description_markdown_filename='README.md',
+    long_description=long_description,
+    long_description_content_type = 'text/markdown',
+    setup_requires=['setuptools>=38.6.0'],
 
     packages=find_packages(exclude=['docs', 'tests*']),
     install_requires=install_requires,
