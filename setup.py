@@ -33,6 +33,8 @@ setup(
 
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
+        'Operating System :: MacOS :: MacOS X',
+        'Operating System :: Microsoft :: Windows',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
