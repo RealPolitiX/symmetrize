@@ -20,6 +20,16 @@ import cv2
 def pointsetTransform(points, hgmat):
     """
     Apply transform to the positions of a point set.
+
+    :Parameters:
+        points : 2D array
+            Cartesian pixel coordinates of the points.
+        hgmat : 2D array
+            Transformation matrix (homography).
+
+    :Return:
+        points_transformed : 2D array
+            Transformed Cartesian pixel coordinates.
     """
 
     points_reformatted = po.cart2homo(points)
@@ -134,6 +144,22 @@ def _symcentcost(pts, center, mean_center_dist, mean_edge_dist, rotsym=6, weight
 def _refset(coeffs, landmarks, center, direction=1):
     """
     Calculate the reference point set.
+
+    :Parameters:
+        coeffs : 1D array
+            Vertex generator coefficients for fitting.
+        landmarks : 2D array
+            Landmark positions extracted from distorted image.
+        center : list/tuple
+            Pixel position of the image center.
+        direction : int | 1
+            Circular direction to generate the vertices.
+
+    :Returns:
+        lmkwarped : 2D array
+            Exactly transformed landmark positions (acting as reference positions).
+        H : 2D array
+            Estimated homography.
     """
 
     arots, scales = coeffs.reshape((2, coeffs.size // 2))
@@ -145,6 +171,7 @@ def _refset(coeffs, landmarks, center, direction=1):
     # Determine the homography that bridges the landmark and reference point sets
     H, _ = cv2.findHomography(landmarks, refs)
     # Calculate the actual point set transformed by the homography
+    # ([:,:2] is used to transform into Cartesian coordinate)
     lmkwarped = np.squeeze(cv2.transform(landmarks[None,...], H))[:,:2]
 
     return lmkwarped, H
@@ -168,7 +195,7 @@ def _refsetcost(coeffs, landmarks, center, mcd, med, direction=-1, weights=(1, 1
 
     :Return:
         rs_cost : float
-            Value of the reference set cost function.
+            Scalar value of the reference set cost function.
     """
 
     landmarks_warped, _ = _refset(coeffs, landmarks, center, direction=direction)
