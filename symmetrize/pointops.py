@@ -35,8 +35,8 @@ def homo2cart(points):
         pts_cart = np.squeeze(points)[:2]
 
     return pts_cart
-    
-    
+
+
 def peakdetect2d(img, method='daofind', **kwds):
     """
     Peak detection in 2D image.
@@ -162,3 +162,88 @@ def cvdist(verts, center):
     """
 
     return norm(verts - center, axis=1)
+
+
+def reorder(points, maxid, axis=0):
+    """
+    Reorder a point set along an axis.
+    """
+
+    pts_rolled = np.roll(points, shift=maxid-1, axis=axis)
+
+    return pts_rolled
+
+
+def rotmat(theta, to_rad=True):
+    """ Rotation matrix.
+    """
+
+    theta = np.radians(theta)
+    c, s = np.cos(theta), np.sin(theta)
+    R = np.array(((c, -s), (s, c)))
+
+    return R
+
+
+def csm(pcent, pvert, rotsym):
+    """
+    Computation of the continuous (a)symmetry measure, bounded within [0, 1].
+    When csm = 0, the point set is completely symmetric.
+    When csm = 1, the point set is completely asymmetric.
+
+    :Parameters:
+        pcent : tuple/list
+            Pixel coordinates of the center position.
+        pvert : numpy array
+            Pixel coordinates of the vertices.
+        rotsym : int
+            Order of rotational symmetry.
+
+    Return:
+        s : float
+            Calculated continuous (a)symmetry measure.
+    """
+
+    npts = len(pvert)
+    cvd = cvdist(pvert, pcent) # Center-vertex distance
+
+    # Select the longest vector
+    maxind = np.argmax(cvd)
+    maxlen = cvd[maxind]
+
+    # Calculate the normalized vector length
+    cvdnorm = cvd / maxlen
+
+    # Reorder other vectors to start with the longest
+    pts_reord = reorder(pvert, maxind, axis=0)
+
+    # Calculate the average vector length
+    mcv = cvdnorm.mean()
+
+    # Generate the rotation angles
+    rotangles = 360 * (np.linspace(1, rotsym, rotsym) - 1) / rotsym
+
+    # Calculate the unit vector along the new x axis
+    xvec = pts_reord[0, :] - pcent
+    xvec /= norm(xvec)
+
+    # Rotate vector by integer multiples of symmetry angles
+    devangles = [0.]
+    for p, rota in zip(pts_reord[1:,], rotangles[1:]):
+
+        R = rotmat(rota, to_rad=True)
+        rotv = np.dot(R , (p - pcent).T)
+        devangles.append(np.arccos(np.sum(rotv*xvec) / norm(rotv)))
+
+    devangles = np.array(devangles)
+
+    # Calculate the average angle
+    mang = devangles.mean()
+
+    # Calculate the distances d(Pi, Qi)
+    dpq = mcv**2 + cvdnorm**2 - 2*mcv*cvdnorm*np.cos(devangles - mang)
+
+    # Calculate the continuous asymmetry measure s
+    s = dpq.sum() / npts
+
+    return s
