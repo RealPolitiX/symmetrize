@@ -12,8 +12,10 @@
 from __future__ import print_function, division
 from . import pointops as po
 import numpy as np
+from numpy.linalg import norm
 import scipy.optimize as opt
 import scipy.ndimage as ndi
+import skimage.transform as skit
 import cv2
 
 
@@ -98,9 +100,9 @@ def _symcentcost(pts, center, mean_center_dist, mean_edge_dist, rotsym=6, weight
 
     :Parameters:
         pts : list/tuple
-            List/Tuple of points.
+            Pixel coordinates of the points (representing polygon vertices).
         center : list/tuple
-            Center coordinates.
+            Pixel coordinates of the center.
         mean_center_dist : float
             Mean center-vertex distance.
         mean_edge_dist : float
@@ -123,15 +125,20 @@ def _symcentcost(pts, center, mean_center_dist, mean_edge_dist, rotsym=6, weight
     # Calculate the deviation from center
     centralcoords = (pts1 + pts2) / 2
     centerdev = centralcoords - center
-    f_centeredness = np.sum(centerdev**2)
+    # wcent = 1 / np.var(centerdev)
+    f_centeredness = np.sum(centerdev**2) / halfsym
 
     # Calculate the distance-to-center difference between all symmetry points
     centerdist = po.cvdist(pts, center)
-    f_cvdist = np.sum((centerdist - mean_center_dist)**2)
+    cvdev = centerdist - mean_center_dist
+    # wcv = 1 / np.var(cvdev)
+    f_cvdist = np.sum(cvdev**2) / rotsym
 
     # Calculate the edge difference between all neighboring symmetry points
     edgedist = po.vvdist(pts, 1)
-    f_vvdist = np.sum((edgedist - mean_edge_dist)**2)
+    vvdev = edgedist - mean_edge_dist
+    # wvv = 1 / np.var(vvdev)
+    f_vvdist = np.sum(vvdev**2) / rotsym
 
     # Calculate the overall cost function
     weights = np.asarray(weights)
@@ -292,3 +299,51 @@ def applyWarping(imgstack, axis, hgmat):
     imgstack_transformed = np.moveaxis(imgstack_transformed, 0, axis)
 
     return imgstack_transformed
+
+
+def foldcost(image, center, axis=1):
+    """
+    Cost function for folding over an image along an image axis crossing the image center.
+    """
+
+    r, c = image.shape
+    rcent, ccent = center
+
+    if axis == 1:
+        iccent = c-ccent
+        cmin = min(ccent, iccent)
+        if cmin == ccent: # Flip the range 0:ccent
+            flipped = image[:, :ccent][:, ::-1]
+            cropped = image[:, ccent:2*cmin]
+        else:
+            flipped = image[:, ccent-iccent:ccent][:, ::-1]
+            cropped = image[:, ccent:]
+    diff = flipped - cropped
+
+    return norm(diff)
+
+
+def sym_pose_estimate(image, center, axis=1, angle_range=None, angle_start=-90, angle_stop=90, angle_step=0.1):
+    """
+    Estimate the best presenting angle using the rotation-mirroring method.
+    """
+
+    if angle_range is not None:
+        agrange = angle_range
+    else:
+        agrange = np.arange(angle_start, angle_stop, angle_step)
+
+    nangles = len(agrange)
+    fval = np.zeros((2, nangles))
+    for ia, a in enumerate(agrange):
+
+        imr = skit.rotate(image, angle=a, center=center, resize=False)
+
+        # Fold image along one axis
+        fval[0, ia] = a
+        fval[1, ia] = foldcost(imr, center=center, axis=axis)
+
+    aopt = fval[0, np.argmin(fval[1,:])]
+    imrot = skit.rotate(image, angle=aopt, center=center, resize=False)
+
+    return aopt, imrot
