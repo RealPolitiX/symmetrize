@@ -304,6 +304,14 @@ def applyWarping(imgstack, axis, hgmat):
 def foldcost(image, center, axis=1):
     """
     Cost function for folding over an image along an image axis crossing the image center.
+
+    :Parameters:
+        image : 2d array
+            Image to fold over.
+        center : tuple/list
+            Pixel coordinates of the image center (row, column).
+        axis : int | 1
+            Axis along which to fold over the image.
     """
 
     r, c = image.shape
@@ -323,9 +331,31 @@ def foldcost(image, center, axis=1):
     return norm(diff)
 
 
-def sym_pose_estimate(image, center, axis=1, angle_range=None, angle_start=-90, angle_stop=90, angle_step=0.1):
+def sym_pose_estimate(image, center, axis=1, angle_range=None, angle_start=-90,
+                        angle_stop=90, angle_step=0.1):
     """
-    Estimate the best presenting angle using the rotation-mirroring method.
+    Estimate the best presenting angle using rotation-mirroring grid search such that
+    the image is symmetric about an image axis (row or column). The algorithm calculates
+    the intensity difference mirrored from the center of the image at a range of rotation
+    angles and pick the angle that minimizes this difference.
+
+    :Parameters:
+        image : 2d array
+            Input image for optimal presenting angle estimation.
+        center : tuple/list
+            The pixel coordinates of the image center.
+        axis : int | 1
+            The axis of reflection (0 = row, 1 = column).
+        angle_range : list/array | None
+            The range of angles to be tested.
+        angle_start, angle_stop, angle_step : float, float, float | -90, 90, 0.1
+            The bounds and step to generate.
+
+    :Returns:
+        aopt : float
+            The optimal rotation needed for posing image symmetric about an image axis.
+        imrot : 2d array
+            Image rotated to the optimal presenting angle.
     """
 
     if angle_range is not None:
