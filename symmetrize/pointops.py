@@ -18,6 +18,14 @@ import photutils as pho
 
 def cart2homo(points):
     """ Transform from Cartesian to homogeneous coordinates.
+
+    :Parameter:
+        points : tuple/list
+            Pixel coordinates of the points in Cartesian coordinates, (x, y).
+
+    :Return:
+        pts_homo : tuple/list
+            Pixel coordinates of the points in homogeneous coordinates, (x, y, 1).
     """
 
     pts_homo = np.array(points, dtype='float32', ndmin=2)[None,...]
@@ -54,7 +62,7 @@ def peakdetect2d(img, method='daofind', **kwds):
             Pixel coordinates of detected peaks, in (column, row) ordering.
     """
 
-    if method == 'daofind':
+    if method == 'daofind': # DAOFind algorithm
 
         sg = kwds.pop('sigma', 5.0)
         fwhm = kwds.pop('fwhm', 3.0)
@@ -65,7 +73,7 @@ def peakdetect2d(img, method='daofind', **kwds):
         sources = daofind(img)
         pks = np.stack((sources['ycentroid'], sources['xcentroid']), axis=1)
 
-    elif method == 'maxlist':
+    elif method == 'maxlist': # MaxList algorithm
 
         mindist = kwds.pop('mindist', 10)
         numpeaks = kwds.pop('numpeaks', 7)
@@ -98,19 +106,21 @@ def pointset_center(pset, method='centroidnn', ret='cnc'):
     # Separate the center and the non-center points using specified algorithm
     # Compare the coordinates with the mean position
     if method == 'centroidnn':
+
         dist = norm(pset - pmean, axis=1)
         minid = np.argmin(dist) # The point nearest to the centroid
         pscenter = pset[minid, :] # Center coordinate
         prest = np.delete(pset, minid, axis=0) # Vertex coordinates
 
     elif method == 'centroid':
+
         pscenter = pmean
         prest = pset
 
     else:
         raise NotImplementedError
 
-    if ret == 'cnc':
+    if ret == 'cnc': # cnc = center + non-center
         return pscenter, prest
     elif ret == 'all':
         return pscenter, prest, pmean
@@ -151,7 +161,14 @@ def pointset_order(pset, center=None, direction='cw'):
 
 
 def vvdist(verts, neighbor=1):
-    """ Calculate the neighboring vertex-vertex distance
+    """
+    Calculate the neighboring vertex-vertex distance.
+
+    :Parameters:
+        verts : tuple/list
+            Pixel coordinates of the vertices.
+        neighbor : int | 1
+            Neighbor index (1 = nearest).
     """
 
     if neighbor == 1:
@@ -161,24 +178,43 @@ def vvdist(verts, neighbor=1):
 
 
 def cvdist(verts, center):
-    """ Calculate the center-vertex distance
+    """
+    Calculate the center-vertex distance.
+
+    :Parameters:
+        verts : tuple/list
+            Pixel coordinates of the vertices.
+        center : tuple/list
+            Pixel coordinates of the center.
     """
 
     return norm(verts - center, axis=1)
 
 
-def reorder(points, maxid, axis=0):
+def reorder(points, itemid, axis=0):
     """
     Reorder a point set along an axis.
+
+    :Parameters:
+        points : tuple/list
+            Collection of the pixel coordinates of points.
+        itemid : int
+            Index of the entry to be placed at the start.
+        axis : int | 1
+            The axis to apply the shift.
+
+    :Return:
+        pts_rolled : tuple/list
+            Pixel coordinates after position shift.
     """
 
-    pts_rolled = np.roll(points, shift=maxid-1, axis=axis)
+    pts_rolled = np.roll(points, shift=itemid-1, axis=axis)
 
     return pts_rolled
 
 
 def rotmat(theta, to_rad=True):
-    """ Rotation matrix.
+    """ Rotation matrix in 2D.
     """
 
     theta = np.radians(theta)
@@ -190,7 +226,7 @@ def rotmat(theta, to_rad=True):
 
 def csm(pcent, pvert, rotsym):
     """
-    Computation of the continuous (a)symmetry measure, bounded within [0, 1].
+    Computation of the continuous (a)symmetry measure (CSM), bounded within [0, 1].
     When csm = 0, the point set is completely symmetric.
     When csm = 1, the point set is completely asymmetric.
 

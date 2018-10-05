@@ -3,4 +3,4 @@ scipy
 scikit-image
 astropy
 photutils
-opencv-python-headless
+opencv-python
