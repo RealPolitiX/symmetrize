@@ -116,44 +116,38 @@ def _symcentcost(pts, center, mean_center_dist, mean_edge_dist, rotsym=6, weight
         sc_cost : float
             The overall cost function.
     """
-    
-    # Extract the point pair
-    try:
-        halfsym = rotsym // 2
-        pts1 = pts[range(0, halfsym), :]
-        pts2 = pts[range(halfsym, rotsym), :]
-    except:
-        npts = pts.shape[0]
-        halfnpts = npts // 2
-        pts1 = pts[range(0, halfnpts), :]
-        pts2 = pts[range(halfnpts, npts), :]
+
+    halfsym = rotsym // 2
 
     # Calculate the deviation from center
     if np.allclose(weights[0], 0.):
+        f_centeredness = 0
+    else:
+        # Extract the point pair
+        pts1 = pts[range(0, halfsym), :]
+        pts2 = pts[range(halfsym, rotsym), :]
         centralcoords = (pts1 + pts2) / 2
         centerdev = centralcoords - center
         # wcent = 1 / np.var(centerdev)
         f_centeredness = weights[0] * np.sum(centerdev**2) / halfsym
-    else:
-        f_centeredness = 0
 
     # Calculate the distance-to-center difference between all symmetry points
     if np.allclose(weights[1], 0.):
+        f_cvdist = 0
+    else:
         centerdist = po.cvdist(pts, center)
         cvdev = centerdist - mean_center_dist
         # wcv = 1 / np.var(cvdev)
         f_cvdist = weights[1] * np.sum(cvdev**2) / rotsym
-    else:
-        f_cvdist = 0
 
     # Calculate the edge difference between all neighboring symmetry points
     if np.allclose(weights[2], 0.):
+        f_vvdist = 0
+    else:
         edgedist = po.vvdist(pts, 1)
         vvdev = edgedist - mean_edge_dist
         # wvv = 1 / np.var(vvdev)
         f_vvdist = weights[2] * np.sum(vvdev**2) / rotsym
-    else:
-        f_vvdist = 0
 
     # Calculate the overall cost function
     fsymcent = np.array([f_centeredness, f_cvdist, f_vvdist])
