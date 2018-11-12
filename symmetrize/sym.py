@@ -53,7 +53,7 @@ def vertexGenerator(center, fixedvertex, arot, direction=-1, scale=1, rand_amp=0
             Spacing in angle of rotation.
         direction : int | 1
             Direction of angular rotation (1 = anticlockwise, -1 = clockwise)
-        scale : float
+        scale : float | 1
             Radial scaling factor.
         ret : str | 'all'
             Return type. Specify 'all' returns all vertices, specify 'generated'
@@ -110,40 +110,54 @@ def _symcentcost(pts, center, mean_center_dist, mean_edge_dist, rotsym=6, weight
         rotsym : int
             Order of rotational symmetry.
         weights : list/tuple/array
-            Weights for the.
+            Weights to apply to the terms.
 
     :Return:
         sc_cost : float
             The overall cost function.
     """
-
+    
     # Extract the point pair
-    halfsym = rotsym // 2
-    pts1 = pts[range(0, halfsym), :]
-    pts2 = pts[range(halfsym, rotsym), :]
+    try:
+        halfsym = rotsym // 2
+        pts1 = pts[range(0, halfsym), :]
+        pts2 = pts[range(halfsym, rotsym), :]
+    except:
+        npts = pts.shape[0]
+        halfnpts = npts // 2
+        pts1 = pts[range(0, halfnpts), :]
+        pts2 = pts[range(halfnpts, npts), :]
 
     # Calculate the deviation from center
-    centralcoords = (pts1 + pts2) / 2
-    centerdev = centralcoords - center
-    # wcent = 1 / np.var(centerdev)
-    f_centeredness = np.sum(centerdev**2) / halfsym
+    if np.allclose(weights[0], 0.):
+        centralcoords = (pts1 + pts2) / 2
+        centerdev = centralcoords - center
+        # wcent = 1 / np.var(centerdev)
+        f_centeredness = weights[0] * np.sum(centerdev**2) / halfsym
+    else:
+        f_centeredness = 0
 
     # Calculate the distance-to-center difference between all symmetry points
-    centerdist = po.cvdist(pts, center)
-    cvdev = centerdist - mean_center_dist
-    # wcv = 1 / np.var(cvdev)
-    f_cvdist = np.sum(cvdev**2) / rotsym
+    if np.allclose(weights[1], 0.):
+        centerdist = po.cvdist(pts, center)
+        cvdev = centerdist - mean_center_dist
+        # wcv = 1 / np.var(cvdev)
+        f_cvdist = weights[1] * np.sum(cvdev**2) / rotsym
+    else:
+        f_cvdist = 0
 
     # Calculate the edge difference between all neighboring symmetry points
-    edgedist = po.vvdist(pts, 1)
-    vvdev = edgedist - mean_edge_dist
-    # wvv = 1 / np.var(vvdev)
-    f_vvdist = np.sum(vvdev**2) / rotsym
+    if np.allclose(weights[2], 0.):
+        edgedist = po.vvdist(pts, 1)
+        vvdev = edgedist - mean_edge_dist
+        # wvv = 1 / np.var(vvdev)
+        f_vvdist = weights[2] * np.sum(vvdev**2) / rotsym
+    else:
+        f_vvdist = 0
 
     # Calculate the overall cost function
-    weights = np.asarray(weights)
     fsymcent = np.array([f_centeredness, f_cvdist, f_vvdist])
-    sc_cost = np.dot(weights, fsymcent)
+    sc_cost = np.sum(fsymcent)
 
     return sc_cost
 
@@ -273,7 +287,7 @@ def imgWarping(img, hgmat=None, landmarks=None, refs=None, rotangle=None, **kwds
 
 def applyWarping(imgstack, axis, hgmat):
     """
-    Apply warping transform for a stack of images along an axis
+    Apply warping transform to a stack of images along the specified axis.
 
     :Parameters:
         imgstack : 3D array
