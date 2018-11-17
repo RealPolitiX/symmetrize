@@ -110,7 +110,7 @@ def _symcentcost(pts, center, mean_center_dist, mean_edge_dist, rotsym=6, weight
         rotsym : int
             Order of rotational symmetry.
         weights : list/tuple/array
-            Weights to apply to the terms.
+            Weights to apply to the terms (centeredness, center-vertex symmetry, vertex-vertex symmetry).
 
     :Return:
         sc_cost : float

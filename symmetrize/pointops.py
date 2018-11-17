@@ -215,9 +215,16 @@ def reorder(points, itemid, axis=0):
 
 def rotmat(theta, to_rad=True):
     """ Rotation matrix in 2D.
+
+    :Parameters:
+        theta : numeric
+            Rotation angle.
+        to_rad : bool | True
+            Specify the option to convert the angle to radians.
     """
 
-    theta = np.radians(theta)
+    if to_rad:
+        theta = np.radians(theta)
     c, s = np.cos(theta), np.sin(theta)
     R = np.array(((c, -s), (s, c)))
 
