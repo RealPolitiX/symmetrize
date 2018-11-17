@@ -96,8 +96,8 @@ def pointset_center(pset, method='centroidnn', ret='cnc'):
             'centroid' = Use the centroid as the center.
         ret : str | 'cnc'
             Condition to extract the center position.
-            'cnc' = Return the pixel positions of the center and non-center points
-            'all' = Return the pixel positions of the center, non-center points and the centroid.
+            'cnc' = Return the pixel positions of the center and the non-center points.
+            'all' = Return the pixel positions of the center, the non-center points and the centroid.
     """
 
     # Centroid position of point set
@@ -224,9 +224,10 @@ def rotmat(theta, to_rad=True):
     return R
 
 
-def csm(pcent, pvert, rotsym):
+def csm(pcent, pvert, rotsym=None, type='rotation'):
     """
-    Computation of the continuous (a)symmetry measure (CSM), bounded within [0, 1].
+    Computation of the continuous (a)symmetry measure (CSM) for a set of polygon
+    vertices exhibiting a degree of rotational symmetry. The value is bounded within [0, 1].
     When csm = 0, the point set is completely symmetric.
     When csm = 1, the point set is completely asymmetric.
 
@@ -235,54 +236,109 @@ def csm(pcent, pvert, rotsym):
             Pixel coordinates of the center position.
         pvert : numpy array
             Pixel coordinates of the vertices.
-        rotsym : int
+        rotsym : int | None
             Order of rotational symmetry.
+        type : str | 'rotation'
+            The type of the symmetry operation.
 
     Return:
         s : float
             Calculated continuous (a)symmetry measure.
     """
 
-    npts = len(pvert)
-    cvd = cvdist(pvert, pcent) # Center-vertex distance
+    if type == 'rotation':
 
-    # Select the longest vector
-    maxind = np.argmax(cvd)
-    maxlen = cvd[maxind]
+        npts = len(pvert)
+        cvd = cvdist(pvert, pcent) # Center-vertex distance
 
-    # Calculate the normalized vector length
-    cvdnorm = cvd / maxlen
+        # Select the longest vector
+        maxind = np.argmax(cvd)
+        maxlen = cvd[maxind]
 
-    # Reorder other vectors to start with the longest
-    pts_reord = reorder(pvert, maxind, axis=0)
+        # Calculate the normalized vector length
+        cvdnorm = cvd / maxlen
 
-    # Calculate the average vector length
-    mcv = cvdnorm.mean()
+        # Reorder other vectors to start with the longest
+        pts_reord = reorder(pvert, maxind, axis=0)
 
-    # Generate the rotation angles
-    rotangles = 360 * (np.linspace(1, rotsym, rotsym) - 1) / rotsym
+        # Calculate the average vector length
+        mcv = cvdnorm.mean()
 
-    # Calculate the unit vector along the new x axis
-    xvec = pts_reord[0, :] - pcent
-    xvec /= norm(xvec)
+        # Generate the rotation angles
+        rotangles = 360 * (np.linspace(1, rotsym, rotsym) - 1) / rotsym
 
-    # Rotate vector by integer multiples of symmetry angles
-    devangles = [0.]
-    for p, rota in zip(pts_reord[1:,], rotangles[1:]):
+        # Calculate the unit vector along the new x axis
+        xvec = pts_reord[0, :] - pcent
+        xvec /= norm(xvec)
 
-        R = rotmat(rota, to_rad=True)
-        rotv = np.dot(R , (p - pcent).T)
-        devangles.append(np.arccos(np.sum(rotv*xvec) / norm(rotv)))
+        # Rotate vector by integer multiples of symmetry angles
+        devangles = [0.]
+        for p, rota in zip(pts_reord[1:,], rotangles[1:]):
 
-    devangles = np.array(devangles)
+            R = rotmat(rota, to_rad=True)
+            rotv = np.dot(R , (p - pcent).T)
+            devangles.append(np.arccos(np.sum(rotv*xvec) / norm(rotv)))
 
-    # Calculate the average angle
-    mang = devangles.mean()
+        devangles = np.array(devangles)
 
-    # Calculate the distances d(Pi, Qi)
-    dpq = mcv**2 + cvdnorm**2 - 2*mcv*cvdnorm*np.cos(devangles - mang)
+        # Calculate the average angle
+        mang = devangles.mean()
 
-    # Calculate the continuous asymmetry measure s
-    s = dpq.sum() / npts
+        # Calculate the distances d(Pi, Qi)
+        dpq = mcv**2 + cvdnorm**2 - 2*mcv*cvdnorm*np.cos(devangles - mang)
+
+        # Calculate the continuous asymmetry measure s
+        s = dpq.sum() / npts
+
+        return s
+
+
+def polyarea(x=[], y=[], coords=[], coord_order='rc'):
+    """
+    Calculate the area of a convex polygon area using vertex coordinates.
+    The vertices are ordered in a clockwise or counterclockwise fashions.
+
+    :Parameters:
+        x, y : tuple/list/1D array | [], []
+            Collection of vertex coordinates along the x and y coordinates.
+        coords : list/2D array | []
+            Vertex coordinates.
+        coord_order : str | 'rc'
+            The ordering of coordinates in the `coords` array, choose from 'rc' or 'yx', 'cr' or 'xy'.
+            Here r = row (y), c = column (x).
+
+    :Return:
+        A : numeric
+            The area of the convex polygon bounded by the given vertices.
+    """
+
+    # If coords is specified, x and y arguments are ignored.
+    if len(coords) > 0:
+        if (coord_order == 'rc') or (coord_order == 'yx'):
+            y, x = zip(*coords)
+        elif (coord_order == 'cr') or (coord_order == 'xy'):
+            x, y = zip(*coords)
+
+    A = abs(sum(i * j for i, j in zip(x, y[1:] + y[:1]))
+               - sum(i * j for i, j in zip(x[1:] + x[:1], y))) / 2
+
+    return A
+
+
+def arm(Aold, Anew):
+    """
+    Calculate the area retainment measure (ARM).
+
+    :Parameters:
+        Aold, Anew : numeric/numeric
+            The area before (old) and after (new) symmetrization.
+
+    :Return:
+        s : numeric
+            The value of the ARM.
+    """
+
+    rel = abs(1 - Anew/Aold)
+    s = np.tanh(rel)
 
     return s
