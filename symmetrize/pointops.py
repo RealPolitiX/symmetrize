@@ -126,7 +126,7 @@ def pointset_center(pset, method='centroidnn', ret='cnc'):
         return pscenter, prest, pmean
 
 
-def pointset_order(pset, center=None, direction='cw'):
+def pointset_order(pset, center=None, direction='ccw'):
     """
     Order a point set around a center in a clockwise or counterclockwise way.
 
@@ -135,7 +135,7 @@ def pointset_order(pset, center=None, direction='cw'):
             Pixel coordinates of the point set.
         center : list/tuple/1D array | None
             Pixel coordinates of the putative shape center.
-        direction : str | 'cw'
+        direction : str | 'ccw'
             Direction of the ordering ('cw' or 'ccw').
 
     :Return:
@@ -213,20 +213,26 @@ def reorder(points, itemid, axis=0):
     return pts_rolled
 
 
-def rotmat(theta, to_rad=True):
-    """ Rotation matrix in 2D.
+def rotmat(theta, to_rad=True, coordsys='cartesian'):
+    """ Rotation matrix in 2D in different coordinate systems.
 
     :Parameters:
         theta : numeric
             Rotation angle.
         to_rad : bool | True
             Specify the option to convert the angle to radians.
+        coordsys : str | 'cartesian'
+            Coordinate system specification ('cartesian' or 'homogen').
     """
 
     if to_rad:
         theta = np.radians(theta)
+
     c, s = np.cos(theta), np.sin(theta)
-    R = np.array(((c, -s), (s, c)))
+    if coordsys == 'cartesian':
+        R = np.array([[c, -s], [s, c]])
+    elif coordsys == 'homogen':
+        R = np.array([[c, -s, 0], [s, c, 0], [0, 0, 1]])
 
     return R
 
@@ -302,7 +308,8 @@ def csm(pcent, pvert, rotsym=None, type='rotation'):
 
 def polyarea(x=[], y=[], coords=[], coord_order='rc'):
     """
-    Calculate the area of a convex polygon area using vertex coordinates.
+    Calculate the area of a convex polygon area from its vertex coordinates, using
+    the surveyor's formula (also called the shoelace formula).
     The vertices are ordered in a clockwise or counterclockwise fashions.
 
     :Parameters:
