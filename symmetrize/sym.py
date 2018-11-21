@@ -40,21 +40,28 @@ def pointsetTransform(points, hgmat):
     return points_transformed
 
 
-def vertexGenerator(center, fixedvertex, arot, direction=-1, scale=1, rand_amp=0, ret='all'):
+def vertexGenerator(center, fixedvertex=None, cvd=None, arot=None, nside=None, direction=-1,
+                    scale=1, diagdir=None, ret='all', rettype='float32'):
     """
     Generation of the vertices of symmetric polygons.
 
     :Parameters:
         center : (int, int)
             Pixel positions of the symmetry center (row pixel, column pixel).
-        fixedvertex : (int, int)
+        fixedvertex : (int, int) | None
             Pixel position of the fixed vertex (row pixel, column pixel).
-        arot : float
+        cvd : numeric | None
+            Center-vertex distance.
+        arot : float | None
             Spacing in angle of rotation.
-        direction : int | 1
-            Direction of angular rotation (1 = anticlockwise, -1 = clockwise)
+        nside : int | None
+            The total number of sides for the polygon (to be implemented).
+        direction : int | -1
+            Direction of angular rotation (1 = counterclockwise, -1 = clockwise)
         scale : float | 1
             Radial scaling factor.
+        diagdir : str | None
+            Diagonal direction of the polygon ('x' or 'y').
         ret : str | 'all'
             Return type. Specify 'all' returns all vertices, specify 'generated'
             returns only the generated ones (without the fixedvertex in the argument).
@@ -64,23 +71,38 @@ def vertexGenerator(center, fixedvertex, arot, direction=-1, scale=1, rand_amp=0
             Collection of generated vertices.
     """
 
+    try:
+        cvd = abs(cvd)
+    except:
+        pass
+
+    try:
+        center = tuple(center)
+    except:
+        raise TypeError('The center coordinates should be provided in a tuple!')
+
     if type(arot) in (int, float):
-        nangles = int(np.round(360 / arot)) - 1 # Number of angles needed
+        nangles = int(np.round(360 / abs(arot))) - 1 # Number of angles needed
         rotangles = direction*np.linspace(1, nangles, nangles)*arot
     else:
         nangles = len(arot)
         rotangles = np.cumsum(arot)
 
+    # Generating polygon vertices starting with center-vertex distance
+    if fixedvertex is None:
+        if diagdir == 'x':
+            fixedvertex = [center[0], cvd + center[1]]
+        elif diagdir == 'y':
+            fixedvertex = [cvd + center[0], center[1]]
+
     # Reformat the input array to satisfy function requirement
-    fixedvertex += rand_amp * np.random.uniform(high=1, low=-1, size=fixedvertex.shape)
-    fixedvertex_reformatted = po.cart2homo(fixedvertex)
+    fixedvertex_reformatted = np.array(fixedvertex, dtype='float32', ndmin=2)[None,...]
 
     if ret == 'all':
         vertices = [fixedvertex]
     elif ret == 'generated':
         vertices = []
 
-    # Augment the scale value into an array
     if type(scale) in (int, float):
         scale = np.ones((nangles,)) * scale
 
@@ -91,7 +113,7 @@ def vertexGenerator(center, fixedvertex, arot, direction=-1, scale=1, rand_amp=0
         rotvertex = np.squeeze(cv2.transform(fixedvertex_reformatted, rmat)).tolist()
         vertices.append(rotvertex)
 
-    return np.asarray(vertices, dtype='float32')
+    return np.asarray(vertices, dtype=rettype)
 
 
 def _symcentcost(pts, center, mean_center_dist, mean_edge_dist, rotsym=6, weights=(1, 1, 1)):
@@ -156,7 +178,7 @@ def _symcentcost(pts, center, mean_center_dist, mean_edge_dist, rotsym=6, weight
     return sc_cost
 
 
-def _refset(coeffs, landmarks, center, direction=1):
+def _refset(coeffs, landmarks, center, direction=1, include_center=False):
     """
     Calculate the reference point set.
 
@@ -183,6 +205,11 @@ def _refset(coeffs, landmarks, center, direction=1):
     refs = vertexGenerator(center, fixedvertex=landmarks[0,:], arot=arots,
                            direction=direction, scale=scales, ret='generated')
 
+    # Include the center if it needs to be included
+    if include_center:
+        landmarks = np.concatenate((landmarks, np.asarray(center)[None,:]), axis=0)
+        refs = np.concatenate((refs, np.asarray(center)[None,:]), axis=0)
+
     # Determine the homography that bridges the landmark and reference point sets
     H, _ = cv2.findHomography(landmarks, refs)
     # Calculate the actual point set transformed by the homography
@@ -192,7 +219,7 @@ def _refset(coeffs, landmarks, center, direction=1):
     return lmkwarped, H
 
 
-def _refsetcost(coeffs, landmarks, center, mcd, med, direction=-1, weights=(1, 1, 1)):
+def _refsetcost(coeffs, landmarks, center, mcd, med, direction=-1, weights=(1, 1, 1), include_center=False):
     """
     Reference point set generator cost function.
 
@@ -213,20 +240,21 @@ def _refsetcost(coeffs, landmarks, center, mcd, med, direction=-1, weights=(1, 1
             Scalar value of the reference set cost function.
     """
 
-    landmarks_warped, _ = _refset(coeffs, landmarks, center, direction=direction)
+    landmarks_warped, _ = _refset(coeffs, landmarks, center, direction=direction, include_center=include_center)
     rs_cost = _symcentcost(landmarks_warped, center, mcd, med, weights=weights)
 
     return rs_cost
 
 
-def refsetopt(init, pts, center, mcd, med, niter=200, direction=-1, weights=(1, 1, 1), method='Nelder-Mead', **kwds):
+def refsetopt(init, pts, center, mcd, med, niter=200, direction=-1, weights=(1, 1, 1),
+                method='Nelder-Mead', include_center=False, **kwds):
     """ Optimization to find the optimal reference point set.
     """
 
     res = opt.basinhopping(_refsetcost, init, niter=niter, minimizer_kwargs={'method':method,\
-                       'args':(pts, center, mcd, med, direction, weights)}, **kwds)
+                       'args':(pts, center, mcd, med, direction, weights, include_center)}, **kwds)
     # Calculate the optimal warped point set and the corresponding homography
-    ptsw, H = _refset(res['x'], pts, center, direction)
+    ptsw, H = _refset(res['x'], pts, center, direction, include_center)
 
     return ptsw, H
 
