@@ -9,8 +9,7 @@ Symmetrization and centering of 2D pattern using nonrigid point set registration
 
 
 
-Installation
-------------
+###Installation
 
 Install the PyPI version
 
@@ -26,7 +25,15 @@ pip install git+https://github.com/RealPolitiX/symmetrize.git
 
 
 
-Requirements
-------------
+###Requirements
 
 See [requirements](https://github.com/RealPolitiX/symmetrize/blob/master/requirements.txt)
+
+
+
+### Publication
+
+The publication associated with the package is available [here](https://arxiv.org/abs/1901.00312).
+
+
+
