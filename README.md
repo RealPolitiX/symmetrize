@@ -12,7 +12,7 @@ Symmetrization and centering of 2D pattern using nonrigid landmark registration 
 
 
 
-<br>
+<br><br>
 ### Installation
 
 Install the PyPI version
@@ -30,7 +30,7 @@ pip install git+https://github.com/RealPolitiX/symmetrize.git
 
 
 
-<br>
+<br><br>
 ### Requirements
 
 See [requirements](https://github.com/RealPolitiX/symmetrize/blob/master/requirements.txt)
