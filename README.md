@@ -9,9 +9,6 @@ Symmetrization and centering of 2D pattern using nonrigid landmark registration 
 
 ![Banner](https://github.com/RealPolitiX/symmetrize/blob/master/resources/RepoFig.png)
 
-
-
-
 <br><br>
 ### Installation
 
@@ -27,13 +24,7 @@ Install the latest version from source repository
 pip install git+https://github.com/RealPolitiX/symmetrize.git
 ```
 
-
-
-
 <br><br>
 ### Requirements
 
 See [requirements](https://github.com/RealPolitiX/symmetrize/blob/master/requirements.txt)
-
-
-
