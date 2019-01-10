@@ -301,8 +301,10 @@ def imgWarping(img, hgmat=None, landmarks=None, refs=None, rotangle=None, **kwds
         # Construct composite operation
         hgmat = np.dot(rotmat, hgmat)
 
+    imshape = kwds.pop('outshape', img.shape)
+
     # Perform composite image transformation
-    imgaw = cv2.warpPerspective(img, hgmat, img.shape)
+    imgaw = cv2.warpPerspective(img, hgmat, imshape, **kwds)
 
     return imgaw, hgmat
 
