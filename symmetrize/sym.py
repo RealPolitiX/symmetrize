@@ -219,7 +219,7 @@ def _refset(coeffs, landmarks, center, direction=1, include_center=False):
     return lmkwarped, H
 
 
-def _refsetcost(coeffs, landmarks, center, mcd, med, direction=-1, weights=(1, 1, 1), include_center=False):
+def _refsetcost(coeffs, landmarks, center, mcd, med, direction=-1, rotsym=6, weights=(1, 1, 1), include_center=False):
     """
     Reference point set generator cost function.
 
@@ -241,18 +241,18 @@ def _refsetcost(coeffs, landmarks, center, mcd, med, direction=-1, weights=(1, 1
     """
 
     landmarks_warped, _ = _refset(coeffs, landmarks, center, direction=direction, include_center=include_center)
-    rs_cost = _symcentcost(landmarks_warped, center, mcd, med, weights=weights)
+    rs_cost = _symcentcost(landmarks_warped, center, mcd, med, rotsym, weights=weights)
 
     return rs_cost
 
 
-def refsetopt(init, pts, center, mcd, med, niter=200, direction=-1, weights=(1, 1, 1),
+def refsetopt(init, pts, center, mcd, med, niter=200, direction=-1, rotsym=6, weights=(1, 1, 1),
                 method='Nelder-Mead', include_center=False, **kwds):
     """ Optimization to find the optimal reference point set.
     """
 
     res = opt.basinhopping(_refsetcost, init, niter=niter, minimizer_kwargs={'method':method,\
-                       'args':(pts, center, mcd, med, direction, weights, include_center)}, **kwds)
+                       'args':(pts, center, mcd, med, direction, rotsym, weights, include_center)}, **kwds)
     # Calculate the optimal warped point set and the corresponding homography
     ptsw, H = _refset(res['x'], pts, center, direction, include_center)
 
