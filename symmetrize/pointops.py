@@ -14,6 +14,7 @@ from numpy.linalg import norm
 from skimage.feature import peak_local_max
 import astropy.stats as astat
 import photutils as pho
+import matplotlib.pyplot as plt
 
 
 def cart2homo(points):
@@ -356,3 +357,40 @@ def arm(Aold, Anew):
     s = np.tanh(rel)
 
     return s
+
+
+def gridplot(xgrid, ygrid, ax=None, subsamp=5, **kwds):
+    """
+    Plotting transform grid with downsampling. Adapted from StackOverflow,
+    https://stackoverflow.com/questions/47295473/how-to-plot-using-matplotlib-python-colahs-deformed-grid
+
+    :Parameters:
+        xgrid, ygrid : 2D array, 2D array
+            Coordinate grids along the x and y directions.
+        ax : AxesObject
+            Axes object to anchor the plot.
+        subsamp : int | 5
+            Subsampling portion.
+        **kwds : keyword arguments
+            Plotting keywords.
+    """
+
+    ny, nx = xgrid.shape
+
+    # Subsampling the input grid coordinate matrices
+    ss = int(subsamp)
+    if ss != 1:
+        xgrid = xgrid[::ss, ::ss]
+        ygrid = ygrid[::ss, ::ss]
+        nx, ny = nx // ss, ny // ss
+
+    if ax is None:
+        f, ax = plt.subplots(figsize=(4, 4))
+
+    # Plot the y grid
+    for i in range(ny):
+        ax.plot(xgrid[i,:], ygrid[i,:], **kwds)
+
+    # Plot the x grid
+    for i in range(nx):
+        ax.plot(xgrid[:,i], ygrid[:,i], **kwds)
