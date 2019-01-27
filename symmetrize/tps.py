@@ -10,43 +10,58 @@ import scipy.ndimage as ndi
 
 def tpsWarping(from_points, to_points, images, axis=2, interpolation_order=1, approximate_grid=1, **kwds):
     """
-    Define a thin-plate-spline warping transform that warps from the from_points
+    Calculate the thin-plate spline (TPS) warping transform that from the from_points
     to the to_points, and then warp the given images by that transform. This
     transform is described in the paper: "Principal Warps: Thin-Plate Splines and
     the Decomposition of Deformations" by F.L. Bookstein.
 
     :Parameters:
-        from_points, to_points : nx2 array
+        from_points, to_points : 2D array, 2D array (dim = n x 2)
             Correspondence point sets containing n 2D landmarks from the distorted and ideal images.
-        images : nD array
-            nD image to warp with the given warp transform.
+            The coordinates are in the (row, column) convention.
+        images : 3D array
+            3D image to warp with the calculated thin-plate spline transform.
+        axis : int | 2
+            Axis to perform the warping operation.
         interpolation_order : int | 1
             If 1, then use linear interpolation; if 0 then use nearest-neighbor.
+            See `scipy.ndimage.map_coordinates()`.
         approximate_grid : int | 1
             Use the approximate grid (if set > 1) for the transform. The approximate grid is smaller
             than the output image region, and then the transform is bilinearly interpolated to the
             larger region. This is fairly accurate for values up to 10 or so.
         **kwds : keyword arguments
-        output_region : tuple
-            The (xmin, ymin, xmax, ymax) region of the output image that should be produced.
-            (Note: The region is inclusive, i.e. xmin <= x <= xmax).
+            :output_region: tuple | (0, 0, # of columns in image, # of rows in image)
+                The (xmin, ymin, xmax, ymax) region of the output image that should be produced.
+                (Note: The region is inclusive, i.e. xmin <= x <= xmax).
+            :ret: str | 'all'
+                Function return specification.
+                `'image'`: return the transformed image.
+                `'deform'` : return the deformation field.
+                `'all'`: return both the transformed images and deformation field.
 
     :Returns:
         images_tf : nD array
             Transformed image stack.
         transform : list
-            Warping transform along x and y axes.
+            Deformation field along x and y axes.
     """
 
     images = np.moveaxis(images, axis, 0)
     nim, nr, nc = images.shape
     output_region = kwds.pop('output_region', (0, 0, nc, nr))
+    ret = kwds.pop('ret', 'all')
 
     transform = _make_inverse_warp(from_points, to_points, output_region, approximate_grid)
     images_tf = np.asarray([ndi.map_coordinates(image, transform, order=interpolation_order) for image in list(images)])
     images_tf = np.moveaxis(images_tf, 0, axis)
 
-    return images_tf, transform
+    if ret == 'all':
+        return images_tf, transform
+    elif ret == 'image':
+        return images_tf
+    elif ret == 'deform':
+        return transform
 
 
 def _make_inverse_warp(from_points, to_points, output_region, approximate_grid):
@@ -96,7 +111,7 @@ def _make_inverse_warp(from_points, to_points, output_region, approximate_grid):
 
     return transform
 
-_small = 1e-100
+_small = 1e-10
 
 
 def _U(x):
