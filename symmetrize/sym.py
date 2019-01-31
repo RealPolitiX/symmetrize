@@ -40,7 +40,7 @@ def pointsetTransform(points, hgmat):
     return points_transformed
 
 
-def vertexGenerator(center, fixedvertex=None, cvd=None, arot=None, nside=None, direction=-1,
+def rotVertexGenerator(center, fixedvertex=None, cvd=None, arot=None, nside=None, direction=-1,
                     scale=1, diagdir=None, ret='all', rettype='float32'):
     """
     Generation of the vertices of symmetric polygons.
@@ -202,7 +202,7 @@ def _refset(coeffs, landmarks, center, direction=1, include_center=False):
     arots, scales = coeffs.reshape((2, coeffs.size // 2))
 
     # Generate reference point set
-    refs = vertexGenerator(center, fixedvertex=landmarks[0,:], arot=arots,
+    refs = rotVertexGenerator(center, fixedvertex=landmarks[0,:], arot=arots,
                            direction=direction, scale=scales, ret='generated')
 
     # Include the center if it needs to be included
@@ -246,15 +246,57 @@ def _refsetcost(coeffs, landmarks, center, mcd, med, direction=-1, rotsym=6, wei
     return rs_cost
 
 
-def refsetopt(init, pts, center, mcd, med, niter=200, direction=-1, rotsym=6, weights=(1, 1, 1),
-                method='Nelder-Mead', include_center=False, **kwds):
+def refsetopt(init, refpts, center, mcd, med, niter=200, direction=-1, rotsym=6, weights=(1, 1, 1),
+                optfunc='minimize', optmethod='Nelder-Mead', include_center=False, **kwds):
     """ Optimization to find the optimal reference point set.
+
+    :Parameters:
+        init : list/tuple
+            Initial conditions.
+        refpts : 2D array
+            Reference points.
+        center : list/tuple/array
+            Image center position.
+        mcd : numeric
+            Mean center-vertex distance.
+        med : numeric
+            Mean edge distance.
+        niter : int | 200
+            Number of iterations.
+        direction : int | -1
+            Direction of the target generator.
+        rotsym : int | 6
+            Order of rotational symmetry.
+        weights : tuple/list/array | (1, 1, 1)
+            Weights assigned to the objective function.
+        optfunc : str/function | 'minimize'
+            Optimizer function.
+            :'basinhopping': use the `scipy.optimize.basinhopping()` function.
+            :'minimize': use the `scipy.optimize.minimize()` function.
+            :others: use other user-specified optimization function `optfunc`.
+        optmethod : string | 'Nelder-Mead'
+            Name of the optimization method.
+        include_center : bool | False
+            Option to include center.
+        **kwds : keyword arguments
+            Keyword arguments passed to the optimizer function.
     """
 
-    res = opt.basinhopping(_refsetcost, init, niter=niter, minimizer_kwargs={'method':method,\
-                       'args':(pts, center, mcd, med, direction, rotsym, weights, include_center)}, **kwds)
+    if optfunc == 'basinhopping':
+        niter = int(niter)
+        res = opt.basinhopping(_refsetcost, init, niter=niter, minimizer_kwargs={'method':optmethod,
+        'args':(refpts, center, mcd, med, direction, rotsym, weights, include_center)}, **kwds)
+
+    elif optfunc == 'minimize':
+        image = kwds.pop('image', None)
+        res = opt.minimize(_refsetcost, init, args=(refpts, center, mcd, med, direction, rotsym,
+                        weights, include_center), method=optmethod, **kwds)
+
+    else: # Use other optimization function
+        res = optfunc(_refsetcost, init, args, **kwds)
+
     # Calculate the optimal warped point set and the corresponding homography
-    ptsw, H = _refset(res['x'], pts, center, direction, include_center)
+    ptsw, H = _refset(res['x'], refpts, center, direction, include_center)
 
     return ptsw, H
 
@@ -349,21 +391,36 @@ def foldcost(image, center, axis=1):
         center : tuple/list
             Pixel coordinates of the image center (row, column).
         axis : int | 1
-            Axis along which to fold over the image.
+            Axis along which to fold over the image (1 = column-wise, 0 = row-wise).
     """
 
     r, c = image.shape
     rcent, ccent = center
 
     if axis == 1:
+
         iccent = c-ccent
-        cmin = min(ccent, iccent)
-        if cmin == ccent: # Flip the range 0:ccent
+        cmin = min(ccent, iccent) # Minimum distance towards the image center
+
+        if cmin == ccent: # Flip the column index range 0:ccent
             flipped = image[:, :ccent][:, ::-1]
             cropped = image[:, ccent:2*cmin]
-        else:
+        else: # Flip the column index range ccent-iccent:ccent
             flipped = image[:, ccent-iccent:ccent][:, ::-1]
             cropped = image[:, ccent:]
+
+    elif axis == 0:
+
+        irrcent = r-rcent
+        rmin = min(rcent, irrcent)
+
+        if rmin == rcent:
+            flipped = image[:rcent, :][::-1, :]
+            cropped = image[rcent:2*rmin, :]
+        else:
+            flipped = image[rcent-irrcent:rcent, :][::-1, :]
+            cropped = image[rcent:, :]
+
     diff = flipped - cropped
 
     return norm(diff)
