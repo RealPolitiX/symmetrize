@@ -97,7 +97,7 @@ def pointset_center(pset, method='centroidnn', ret='cnc'):
             'centroid' = Use the centroid as the center.
         ret : str | 'cnc'
             Condition to extract the center position.
-            'cnc' = Return the pixel positions of the center and the non-center points.
+            'cnc' = Return the pixel positions of the center (c) and the non-center (nc) points.
             'all' = Return the pixel positions of the center, the non-center points and the centroid.
     """
 

@@ -219,7 +219,8 @@ def _refset(coeffs, landmarks, center, direction=1, include_center=False):
     return lmkwarped, H
 
 
-def _refsetcost(coeffs, landmarks, center, mcd, med, direction=-1, rotsym=6, weights=(1, 1, 1), include_center=False):
+def _refsetcost(coeffs, landmarks, center, mcd, med, direction=-1, rotsym=6,
+                weights=(1, 1, 1), include_center=False):
     """
     Reference point set generator cost function.
 
@@ -232,8 +233,11 @@ def _refsetcost(coeffs, landmarks, center, mcd, med, direction=-1, rotsym=6, wei
             Pixel coordinates of the Gamma point.
         direction : str | -1
             Direction to generate the point set, -1 (cw) or 1 (ccw).
-        kwds : keyword arguments
-            See symcentcost()
+        rotsym : int | 6
+            Order of rotational symmetry
+        weights : tuple/list
+        include_center : bool | False
+            Option to include the center of pattern.
 
     :Return:
         rs_cost : float
@@ -246,7 +250,7 @@ def _refsetcost(coeffs, landmarks, center, mcd, med, direction=-1, rotsym=6, wei
     return rs_cost
 
 
-def refsetopt(init, refpts, center, mcd, med, niter=200, direction=-1, rotsym=6, weights=(1, 1, 1),
+def refsetopt(init, refpts, center, mcd, med, direction=-1, rotsym=6, weights=(1, 1, 1),
                 optfunc='minimize', optmethod='Nelder-Mead', include_center=False, **kwds):
     """ Optimization to find the optimal reference point set.
 
@@ -279,11 +283,11 @@ def refsetopt(init, refpts, center, mcd, med, niter=200, direction=-1, rotsym=6,
         include_center : bool | False
             Option to include center.
         **kwds : keyword arguments
-            Keyword arguments passed to the optimizer function.
+            Keyword arguments passed to the specified optimizer function.
     """
 
     if optfunc == 'basinhopping':
-        niter = int(niter)
+        niter = int(kwds.pop('niter', 50))
         res = opt.basinhopping(_refsetcost, init, niter=niter, minimizer_kwargs={'method':optmethod,
         'args':(refpts, center, mcd, med, direction, rotsym, weights, include_center)}, **kwds)
 

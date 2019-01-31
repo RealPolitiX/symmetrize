@@ -4,9 +4,10 @@
 import numpy as np
 import scipy.ndimage as ndi
 
-
-# Thin-plate spline adapted from Zachary Pincus' implementation in celltool
+# Thin-plate spline adapted and updated from Zachary Pincus' implementation in celltool
 # https://github.com/zpincus/celltool
+
+_small = 1e-10
 
 def tpsWarping(from_points, to_points, images, axis=2, interpolation_order=1, approximate_grid=1, **kwds):
     """
@@ -110,8 +111,6 @@ def _make_inverse_warp(from_points, to_points, output_region, approximate_grid):
         transform = [transform_x, transform_y]
 
     return transform
-
-_small = 1e-10
 
 
 def _U(x):
