@@ -305,6 +305,51 @@ def refsetopt(init, refpts, center, mcd, med, direction=-1, rotsym=6, weights=(1
     return ptsw, H
 
 
+# ======================= #
+#  2D geometric transform #
+# ======================= #
+
+def translation2D(xtrans, ytrans):
+    """ Translation matrix in 2D in homogeneous coordinates.
+    """
+
+    transmat = np.array([[0, 0, -xtrans],
+                         [0, 0, -ytrans],
+                         [0, 0,    0   ]])
+
+    return np.eye(3) + transmat
+
+
+def rotation2D(center, angle):
+    """ Rotation matrix in 2D in homogeneous coordinates.
+    """
+
+    rotmat = cv2.getRotationMatrix2D(center, angle, scale=1)
+
+    return rotmat
+
+
+def scaling2D(xscale, yscale):
+    """ Biaxial scaling matrix in 2D in homogeneous coordinates.
+    """
+
+    scalemat = np.array([[xscale, 0, 0],
+                         [0, yscale, 0]
+                         [0,    0,   1]])
+
+    return scalemat
+
+
+def shearing2D(xshear, yshear):
+    """ Biaxial shearing matrix in 2D in homogeneous coordinates.
+    """
+
+    shearmat = np.array([[0, xshear, 0],
+                         [yshear, 0, 0],
+                         [0,    0,   0]])
+
+    return shearmat
+
 # ====================================== #
 #  Deformation fields and their algebra  #
 # ====================================== #
@@ -399,12 +444,16 @@ def coordinate_matrix_2D(image, coordtype='homogeneous', stackaxis=0):
             Type of generated coordinates ('homogeneous' or 'cartesian').
         stackaxis : int | 0
             The stacking axis for the coordinate matrix, e.g. a stackaxis
-            of 0 means that the coordinates are stacked along the first dimension.
+            of 0 means that the coordinates are stacked along the first dimension,
+            while -1 means the coordinates are stacked along the last dimension.
 
     :Return:
         coordmat : 3D array
             Coordinate matrix stacked along the specified axis.
     """
+
+    if (stackaxis != 0) and (stackaxis != -1):
+        stackaxis = 0
 
     nr, nc = image.shape
     rgrid, cgrid = np.meshgrid(range(0, nc), range(0, nr))
@@ -417,6 +466,61 @@ def coordinate_matrix_2D(image, coordtype='homogeneous', stackaxis=0):
         coordmat = np.stack((cgrid, rgrid, zgrid), axis=stackaxis)
 
     return coordmat
+
+
+def compose_deform_field(coordmat, mat_transform, stackaxis):
+    """ Compose the deformation field from coordinate and transform matrices.
+    """
+
+    if (stackaxis != 0) and (stackaxis != -1):
+        stackaxis = 0
+
+    coordmat_shape = coordmat.shape
+    coord_dim = coordmat_shape[stackaxis]
+    ncoords = np.prod(coordmat_shape) // coord_dim
+
+    if stackaxis == 0:
+        deform_field = np.dot(mat_transform, coordmat.reshape((coord_dim, ncoords))).reshape(coordmat_shape)
+    elif stackaxis == -1:
+        deform_field = np.dot(mat_transform, coordmat.reshape((ncoords, coord_dim)).T).T.reshape(coordmat_shape)
+
+    return deform_field
+
+
+def translationDF(coordmat, stackaxis=0, xtrans=0, ytrans=0):
+    """ Deformation field of 2D translation.
+    """
+
+    translation_matrix = translation2D(xtrans, ytrans)
+
+    return compose_deform_field(coordmat, translation_matrix, stackaxis)
+
+
+def rotationDF(coordmat, stackaxis=0, angle=0, center=(0, 0)):
+    """ Deformation field of 2D rotation.
+    """
+
+    rotation_matrix = rotation2D(center, angle)
+
+    return compose_deform_field(coordmat, rotation_matrix, stackaxis)
+
+
+def scalingDF(coordmat, stackaxis=0, xscale=1, yscale=1):
+    """ Deformation field of 2D scaling.
+    """
+
+    scaling_matrix = scaling2D(xscale, yscale)
+
+    return compose_deform_field(coordmat, scaling_matrix, stackaxis)
+
+
+def shearingDF(coordmat, stackaxis=0, xshear=0, yshear=0):
+    """ Deformation field of 2D shearing.
+    """
+
+    shearing_matrix = shearing2D(xshear, yshear)
+
+    return compose_deform_field(coordmat, shearing_matrix, stackaxis)
 
 
 def deform_field_merge(operation, *fields):
