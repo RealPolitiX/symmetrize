@@ -5,9 +5,9 @@
 @author: R. Patrick Xian
 """
 
-# ========================= #
-# Operations on point sets  #
-# ========================= #
+# ============================================= #
+#  Symmetrizing deformation and its estimation  #
+# ============================================= #
 
 from __future__ import print_function, division
 from . import pointops as po
@@ -305,6 +305,10 @@ def refsetopt(init, refpts, center, mcd, med, direction=-1, rotsym=6, weights=(1
     return ptsw, H
 
 
+# ====================================== #
+#  Deformation fields and their algebra  #
+# ====================================== #
+
 def imgWarping(img, hgmat=None, landmarks=None, refs=None, rotangle=None, **kwds):
     """
     Perform image warping based on a generic affine transform (homography).
@@ -385,6 +389,47 @@ def applyWarping(imgstack, axis, hgmat):
     return imgstack_transformed
 
 
+def coordinate_matrix_2D(image, coordtype='homogeneous', stackaxis=0):
+    """ Generate pixel coordinate matrix for a 2D image.
+
+    :Parameters:
+        image : 2D array
+            2D image matrix.
+        coordtype : str | 'homogeneous'
+            Type of generated coordinates ('homogeneous' or 'cartesian').
+        stackaxis : int | 0
+            The stacking axis for the coordinate matrix, e.g. a stackaxis
+            of 0 means that the coordinates are stacked along the first dimension.
+
+    :Return:
+        coordmat : 3D array
+            Coordinate matrix stacked along the specified axis.
+    """
+
+    nr, nc = image.shape
+    rgrid, cgrid = np.meshgrid(range(0, nc), range(0, nr))
+
+    if coordtype == 'cartesian':
+        coordmat = np.stack((cgrid, rgrid), axis=stackaxis)
+
+    elif coordtype == 'homogeneous':
+        zgrid = np.ones((nr, nc))
+        coordmat = np.stack((cgrid, rgrid, zgrid), axis=stackaxis)
+
+    return coordmat
+
+
+def deform_field_merge(operation, *fields):
+    """ Combine multiple deformation fields.
+    """
+
+    return np.asarray(reduce(operation, fields))
+
+
+# =============================== #
+#  Image pattern pose estimation  #
+# =============================== #
+
 def foldcost(image, center, axis=1):
     """
     Cost function for folding over an image along an image axis crossing the image center.
@@ -401,7 +446,7 @@ def foldcost(image, center, axis=1):
     r, c = image.shape
     rcent, ccent = center
 
-    if axis == 1:
+    if axis == 1: # Column-symmetric pose
 
         iccent = c-ccent
         cmin = min(ccent, iccent) # Minimum distance towards the image center
@@ -413,7 +458,7 @@ def foldcost(image, center, axis=1):
             flipped = image[:, ccent-iccent:ccent][:, ::-1]
             cropped = image[:, ccent:]
 
-    elif axis == 0:
+    elif axis == 0: # Row-symmetric pose
 
         irrcent = r-rcent
         rmin = min(rcent, irrcent)
