@@ -16,6 +16,7 @@ from numpy.linalg import norm
 import scipy.optimize as opt
 import scipy.ndimage as ndi
 import skimage.transform as skit
+import operator as op
 import cv2
 
 
@@ -569,7 +570,10 @@ def deform_field_merge(operation, *fields):
     """ Combine multiple deformation fields.
     """
 
-    return np.asarray(reduce(operation, fields))
+    if operation == 'sum':
+        return np.asarray(reduce(op.sum, fields))
+    else:
+        return np.asarray(reduce(operation, fields))
 
 
 # =============================== #
