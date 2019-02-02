@@ -320,21 +320,53 @@ def translation2D(xtrans, ytrans):
     return np.eye(3) + transmat
 
 
-def rotation2D(center, angle):
+def rotation2D(angle, center=(0, 0), to_rad=True):
+    """ Rotation matrix in 2D in homogeneous coordinates.
+
+    :Parameters:
+        angle : numeric
+            Rotation angle.
+        center : list/tuple/1D array | (0, 0)
+            Coordinate of the image center in (row, column) form.
+        to_rad : bool | True
+            Option to convert the angle into units of radian.
+    """
+
+    y, x = center
+    if to_rad:
+        angle = np.radians(angle)
+    sina, cosa = np.sin(angle), np.cos(angle)
+    rtx, rty = (1-cosa)*x - sina*y, sina*x + (1-cosa)*y
+
+    centered_rotation_matrix = np.array([[cosa,  sina, rtx],
+                                         [-sina, cosa, rty],
+                                         [0,      0,     1]])
+
+    return centered_rotation_matrix
+
+
+def scaledRotation2D(center, angle, scale):
     """ Rotation matrix in 2D in homogeneous coordinates.
     """
 
-    rotmat = cv2.getRotationMatrix2D(center, angle, scale=1)
+    scalrotmat = cv2.getRotationMatrix2D(center, angle, scale=scale)
+    scalrotmat = np.concatenate((scalrotmat, np.array([0, 0, 1], ndmin=2)), axis=0)
 
-    return rotmat
+    return scalrotmat
 
 
 def scaling2D(xscale, yscale):
     """ Biaxial scaling matrix in 2D in homogeneous coordinates.
+
+    :Parameters:
+        xscale, yscale : numeric, numeric
+            Scaling factor along x and y directions.
+            A scaling factor in the range [0, 1) amounts to zooming in.
+            A scaling factor in the range (1, +inf) amounts to zomming out.
     """
 
     scalemat = np.array([[xscale, 0, 0],
-                         [0, yscale, 0]
+                         [0, yscale, 0],
                          [0,    0,   1]])
 
     return scalemat
@@ -348,7 +380,8 @@ def shearing2D(xshear, yshear):
                          [yshear, 0, 0],
                          [0,    0,   0]])
 
-    return shearmat
+    return np.eye(3) + shearmat
+
 
 # ====================================== #
 #  Deformation fields and their algebra  #
@@ -390,9 +423,7 @@ def imgWarping(img, hgmat=None, landmarks=None, refs=None, rotangle=None, **kwds
 
         center = kwds.pop('center', ndi.measurements.center_of_mass(img))
         center = tuple(center)
-        rotmat = cv2.getRotationMatrix2D(center, angle=rotangle, scale=1)
-        # Construct rotation matrix in homogeneous coordinate
-        rotmat = np.concatenate((rotmat, np.array([0, 0, 1], ndmin=2)), axis=0)
+        rotmat = scaledRotation2D(center, angle=rotangle, scale=1)
         # Construct composite operation
         hgmat = np.dot(rotmat, hgmat)
 
@@ -444,8 +475,7 @@ def coordinate_matrix_2D(image, coordtype='homogeneous', stackaxis=0):
             Type of generated coordinates ('homogeneous' or 'cartesian').
         stackaxis : int | 0
             The stacking axis for the coordinate matrix, e.g. a stackaxis
-            of 0 means that the coordinates are stacked along the first dimension,
-            while -1 means the coordinates are stacked along the last dimension.
+            of 0 means that the coordinates are stacked along the first dimension.
 
     :Return:
         coordmat : 3D array
@@ -456,20 +486,31 @@ def coordinate_matrix_2D(image, coordtype='homogeneous', stackaxis=0):
         stackaxis = 0
 
     nr, nc = image.shape
-    rgrid, cgrid = np.meshgrid(range(0, nc), range(0, nr))
+    xgrid, ygrid = np.meshgrid(range(0, nc), range(0, nr), indexing='xy')
 
     if coordtype == 'cartesian':
-        coordmat = np.stack((cgrid, rgrid), axis=stackaxis)
+        coordmat = np.stack((xgrid, ygrid), axis=stackaxis)
 
     elif coordtype == 'homogeneous':
-        zgrid = np.ones((nr, nc))
-        coordmat = np.stack((cgrid, rgrid, zgrid), axis=stackaxis)
+        zgrid = np.ones(xgrid.shape)
+        coordmat = np.stack((xgrid, ygrid, zgrid), axis=stackaxis)
 
     return coordmat
 
 
 def compose_deform_field(coordmat, mat_transform, stackaxis):
     """ Compose the deformation field from coordinate and transform matrices.
+
+    :Parameters:
+        coordmat : 3D array
+            Matrix of all pixel coordinates.
+        mat_transform : 2D array
+            Transformation matrix.
+        stackaxis : int
+            Axis of the stacking direction in the coordmat (0 or -1).
+
+    :Returns:
+        Deformations fields of x and y coordinates.
     """
 
     if (stackaxis != 0) and (stackaxis != -1):
@@ -481,10 +522,11 @@ def compose_deform_field(coordmat, mat_transform, stackaxis):
 
     if stackaxis == 0:
         deform_field = np.dot(mat_transform, coordmat.reshape((coord_dim, ncoords))).reshape(coordmat_shape)
+        return deform_field[1,...], deform_field[0,...]
+
     elif stackaxis == -1:
         deform_field = np.dot(mat_transform, coordmat.reshape((ncoords, coord_dim)).T).T.reshape(coordmat_shape)
-
-    return deform_field
+        return deform_field[...,1], deform_field[...,0]
 
 
 def translationDF(coordmat, stackaxis=0, xtrans=0, ytrans=0):
@@ -496,11 +538,11 @@ def translationDF(coordmat, stackaxis=0, xtrans=0, ytrans=0):
     return compose_deform_field(coordmat, translation_matrix, stackaxis)
 
 
-def rotationDF(coordmat, stackaxis=0, angle=0, center=(0, 0)):
+def rotationDF(coordmat, stackaxis=0, angle=0, center=(0, 0), to_rad=True):
     """ Deformation field of 2D rotation.
     """
 
-    rotation_matrix = rotation2D(center, angle)
+    rotation_matrix = rotation2D(angle, center, to_rad)
 
     return compose_deform_field(coordmat, rotation_matrix, stackaxis)
 
