@@ -312,6 +312,10 @@ def refsetopt(init, refpts, center, mcd, med, direction=-1, rotsym=6, weights=(1
 
 def translation2D(xtrans, ytrans):
     """ Translation matrix in 2D in homogeneous coordinates.
+
+    :Parameters:
+        xtrans, ytrans : numeric, numeric
+            Translations along the x and y image axes.
     """
 
     transmat = np.array([[0, 0, -xtrans],
@@ -347,7 +351,15 @@ def rotation2D(angle, center=(0, 0), to_rad=True):
 
 
 def scaledRotation2D(center, angle, scale):
-    """ Rotation matrix in 2D in homogeneous coordinates.
+    """ Scaled rotation matrix in 2D in homogeneous coordinates.
+
+    :Parameters:
+        center : list/tuple
+            Coordinates of the center point of rotation.
+        angle : numeric
+            Angle of rotation (in degrees).
+        scale : numeric
+            Scaling factor.
     """
 
     scalrotmat = cv2.getRotationMatrix2D(center, angle, scale=scale)
@@ -375,6 +387,10 @@ def scaling2D(xscale, yscale):
 
 def shearing2D(xshear, yshear):
     """ Biaxial shearing matrix in 2D in homogeneous coordinates.
+
+    :Parameters:
+        xshear, yshear : numeric, numeric
+            Shearing parameters for the x and y axes.
     """
 
     shearmat = np.array([[0, xshear, 0],
@@ -568,6 +584,12 @@ def shearingDF(coordmat, stackaxis=0, xshear=0, yshear=0):
 
 def deform_field_merge(operation, *fields):
     """ Combine multiple deformation fields.
+
+    :Parameters:
+        operation : func/str
+            Function for merging the deformation fields.
+        fields : list/tuple
+            Collections of deformaiton fields.
     """
 
     if operation == 'sum':
