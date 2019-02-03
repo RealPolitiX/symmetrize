@@ -318,9 +318,9 @@ def translation2D(xtrans, ytrans):
             Translations along the x and y image axes.
     """
 
-    transmat = np.array([[0, 0, -xtrans],
-                         [0, 0, -ytrans],
-                         [0, 0,    0   ]])
+    transmat = np.array([[0, 0, xtrans],
+                         [0, 0, ytrans],
+                         [0, 0,    0  ]])
 
     return np.eye(3) + transmat
 
@@ -330,7 +330,7 @@ def rotation2D(angle, center=(0, 0), to_rad=True):
 
     :Parameters:
         angle : numeric
-            Rotation angle.
+            Rotation angle in image coordinates.
         center : list/tuple/1D array | (0, 0)
             Coordinate of the image center in (row, column) form.
         to_rad : bool | True
@@ -561,16 +561,16 @@ def compose_deform_field(coordmat, mat_transform, stackaxis, ret='deformation', 
 
 
 def translationDF(coordmat, stackaxis=0, xtrans=0, ytrans=0, **kwds):
-    """ Deformation field of 2D translation.
+    """ Deformation field of 2D translation in image coordinates.
     """
 
-    translation_matrix = translation2D(xtrans, ytrans)
+    translation_matrix = translation2D(-xtrans, -ytrans)
 
     return compose_deform_field(coordmat, translation_matrix, stackaxis, **kwds)
 
 
 def rotationDF(coordmat, stackaxis=0, angle=0, center=(0, 0), to_rad=True, **kwds):
-    """ Deformation field of 2D rotation.
+    """ Deformation field of 2D rotation in image coordinates.
     """
 
     rotation_matrix = rotation2D(angle, center, to_rad)
@@ -579,7 +579,7 @@ def rotationDF(coordmat, stackaxis=0, angle=0, center=(0, 0), to_rad=True, **kwd
 
 
 def scalingDF(coordmat, stackaxis=0, xscale=1, yscale=1, **kwds):
-    """ Deformation field of 2D scaling.
+    """ Deformation field of 2D scaling in image coordinates.
     """
 
     scaling_matrix = scaling2D(xscale, yscale)
@@ -588,7 +588,7 @@ def scalingDF(coordmat, stackaxis=0, xscale=1, yscale=1, **kwds):
 
 
 def shearingDF(coordmat, stackaxis=0, xshear=0, yshear=0, **kwds):
-    """ Deformation field of 2D shearing.
+    """ Deformation field of 2D shearing in image coordinates.
     """
 
     shearing_matrix = shearing2D(xshear, yshear)
