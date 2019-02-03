@@ -515,8 +515,8 @@ def coordinate_matrix_2D(image, coordtype='homogeneous', stackaxis=0):
     return coordmat
 
 
-def compose_deform_field(coordmat, mat_transform, stackaxis):
-    """ Compose the deformation field from coordinate and transform matrices.
+def compose_deform_field(coordmat, mat_transform, stackaxis, ret='deformation', ret_indexing='rc'):
+    """ Compose the deformation/displacement field from coordinate and transform matrices.
 
     :Parameters:
         coordmat : 3D array
@@ -525,6 +525,11 @@ def compose_deform_field(coordmat, mat_transform, stackaxis):
             Transformation matrix.
         stackaxis : int
             Axis of the stacking direction in the coordmat (0 or -1).
+        ret : str | 'deformation'
+            Option to return 'deformation' or 'displacement' fields.
+        ret_indexing : str | 'xy'
+            Indexing of return matrices, 'rc' (row deformation, column deformation)
+            or 'xy' (x deformation, y deformation). Same for displacements.
 
     :Returns:
         Deformations fields of x and y coordinates.
@@ -538,48 +543,57 @@ def compose_deform_field(coordmat, mat_transform, stackaxis):
     ncoords = np.prod(coordmat_shape) // coord_dim
 
     if stackaxis == 0:
-        deform_field = np.dot(mat_transform, coordmat.reshape((coord_dim, ncoords))).reshape(coordmat_shape)
-        return deform_field[1,...], deform_field[0,...]
+        field = np.dot(mat_transform, coordmat.reshape((coord_dim, ncoords))).reshape(coordmat_shape)
+        if ret == 'displacement':
+            field -= coordmat
+        xfield, yfield = field[0,...], field[1,...]
 
     elif stackaxis == -1:
-        deform_field = np.dot(mat_transform, coordmat.reshape((ncoords, coord_dim)).T).T.reshape(coordmat_shape)
-        return deform_field[...,1], deform_field[...,0]
+        field = np.dot(mat_transform, coordmat.reshape((ncoords, coord_dim)).T).T.reshape(coordmat_shape)
+        if ret == 'displacement':
+            field -= coordmat
+        xfield, yfield = field[...,0], field[...,1]
+
+    if ret_indexing == 'xy':
+        return xfield, yfield
+    elif ret_indexing == 'rc':
+        return yfield, xfield
 
 
-def translationDF(coordmat, stackaxis=0, xtrans=0, ytrans=0):
+def translationDF(coordmat, stackaxis=0, xtrans=0, ytrans=0, **kwds):
     """ Deformation field of 2D translation.
     """
 
     translation_matrix = translation2D(xtrans, ytrans)
 
-    return compose_deform_field(coordmat, translation_matrix, stackaxis)
+    return compose_deform_field(coordmat, translation_matrix, stackaxis, **kwds)
 
 
-def rotationDF(coordmat, stackaxis=0, angle=0, center=(0, 0), to_rad=True):
+def rotationDF(coordmat, stackaxis=0, angle=0, center=(0, 0), to_rad=True, **kwds):
     """ Deformation field of 2D rotation.
     """
 
     rotation_matrix = rotation2D(angle, center, to_rad)
 
-    return compose_deform_field(coordmat, rotation_matrix, stackaxis)
+    return compose_deform_field(coordmat, rotation_matrix, stackaxis, **kwds)
 
 
-def scalingDF(coordmat, stackaxis=0, xscale=1, yscale=1):
+def scalingDF(coordmat, stackaxis=0, xscale=1, yscale=1, **kwds):
     """ Deformation field of 2D scaling.
     """
 
     scaling_matrix = scaling2D(xscale, yscale)
 
-    return compose_deform_field(coordmat, scaling_matrix, stackaxis)
+    return compose_deform_field(coordmat, scaling_matrix, stackaxis, **kwds)
 
 
-def shearingDF(coordmat, stackaxis=0, xshear=0, yshear=0):
+def shearingDF(coordmat, stackaxis=0, xshear=0, yshear=0, **kwds):
     """ Deformation field of 2D shearing.
     """
 
     shearing_matrix = shearing2D(xshear, yshear)
 
-    return compose_deform_field(coordmat, shearing_matrix, stackaxis)
+    return compose_deform_field(coordmat, shearing_matrix, stackaxis, **kwds)
 
 
 def deform_field_merge(operation, *fields):
