@@ -564,9 +564,9 @@ def translationDF(coordmat, stackaxis=0, xtrans=0, ytrans=0, **kwds):
     """ Deformation field of 2D translation in image coordinates.
     """
 
-    translation_matrix = translation2D(-xtrans, -ytrans)
+    translation_matrix = translation2D(xtrans=-xtrans, ytrans=-ytrans)
 
-    return compose_deform_field(coordmat, translation_matrix, stackaxis, **kwds)
+    return compose_deform_field(coordmat, mat_transform=translation_matrix, stackaxis=stackaxis, **kwds)
 
 
 def rotationDF(coordmat, stackaxis=0, angle=0, center=(0, 0), to_rad=True, **kwds):
@@ -575,25 +575,25 @@ def rotationDF(coordmat, stackaxis=0, angle=0, center=(0, 0), to_rad=True, **kwd
 
     rotation_matrix = rotation2D(angle, center, to_rad)
 
-    return compose_deform_field(coordmat, rotation_matrix, stackaxis, **kwds)
+    return compose_deform_field(coordmat, mat_transform=rotation_matrix, stackaxis=stackaxis, **kwds)
 
 
 def scalingDF(coordmat, stackaxis=0, xscale=1, yscale=1, **kwds):
     """ Deformation field of 2D scaling in image coordinates.
     """
 
-    scaling_matrix = scaling2D(xscale, yscale)
+    scaling_matrix = scaling2D(xscale=xscale, yscale=yscale)
 
-    return compose_deform_field(coordmat, scaling_matrix, stackaxis, **kwds)
+    return compose_deform_field(coordmat, mat_transform=scaling_matrix, stackaxis=stackaxis, **kwds)
 
 
 def shearingDF(coordmat, stackaxis=0, xshear=0, yshear=0, **kwds):
     """ Deformation field of 2D shearing in image coordinates.
     """
 
-    shearing_matrix = shearing2D(xshear, yshear)
+    shearing_matrix = shearing2D(xshear=xshear, yshear=yshear)
 
-    return compose_deform_field(coordmat, shearing_matrix, stackaxis, **kwds)
+    return compose_deform_field(coordmat, mat_transform=shearing_matrix, stackaxis=stackaxis, **kwds)
 
 
 def deform_field_merge(operation, *fields):

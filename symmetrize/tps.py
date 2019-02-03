@@ -152,9 +152,6 @@ def _calculate_f(coeffs, points, x, y):
 
     w = coeffs[:-3]
     a1, ax, ay = coeffs[-3:]
-    # The following uses too much RAM:
-    # distances = _U(numpy.sqrt((points[:,0]-x[...,numpy.newaxis])**2 + (points[:,1]-y[...,numpy.newaxis])**2))
-    # summation = (w * distances).sum(axis=-1)
     summation = np.zeros(x.shape)
 
     for wi, Pi in zip(w, points):
