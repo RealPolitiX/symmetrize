@@ -452,7 +452,7 @@ def imgWarping(img, hgmat=None, landmarks=None, refs=None, rotangle=None, **kwds
     return imgaw, hgmat
 
 
-def applyWarping(imgstack, axis, hgmat):
+def applyWarping(imgstack, axis, warptype='matrix', hgmat=None, dfield=None, **kwds):
     """
     Apply warping transform to a stack of images along the specified axis.
 
@@ -461,8 +461,12 @@ def applyWarping(imgstack, axis, hgmat):
             Image stack before warping correction.
         axis : int
             Axis to iterate over to apply the transform.
-        hgmat : 2D array
-            Homography matrix.
+        warptype : str | 'matrix'
+            Type of warping ('matrix' or 'deform_field').
+        hgmat : 2D array | None
+            3 x 3 homography matrix.
+        dfield : list | None
+            Deformation field.
 
     :Return:
         imstack_transformed : 3D array
@@ -473,9 +477,18 @@ def applyWarping(imgstack, axis, hgmat):
     imgstack_transformed = np.zeros_like(imgstack)
     nimg = imgstack.shape[0]
 
-    for i in range(nimg):
-        img = imgstack[i,...]
-        imgstack_transformed[i,...] = cv2.warpPerspective(img, hgmat, img.shape)
+    outahape = kwds.pop('outshape', imgstack[0,...].shape)
+    interp_order = kwds.pop('order', 1)
+
+    if warptype == 'matrix':
+        for i in range(nimg):
+            imgstack_transformed[i,...] = cv2.warpPerspective(imgstack[i,...], M=hgmat,
+                                            dsize=outshape)
+
+    elif warptype == 'deform_field':
+        for i in range(nimg):
+            imgstack_transformed[i,...] = ndi.map_coordinates(imgstack[i,...], dfield,
+                                            order=interp_order, **kwds)
 
     imgstack_transformed = np.moveaxis(imgstack_transformed, 0, axis)
 
