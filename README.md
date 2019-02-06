@@ -1,7 +1,7 @@
 symmetrize
 ==========
 
-![PyPI version](https://img.shields.io/pypi/v/symmetrize.svg) ![Travis CI build Status](https://www.travis-ci.org/RealPolitiX/symmetrize.svg)
+![PyPI version](https://img.shields.io/pypi/v/symmetrize.svg) ![Travis CI build Status](https://www.travis-ci.org/RealPolitiX/symmetrize.svg) [![Downloads](https://pepy.tech/badge/symmetrize)](https://pepy.tech/project/symmetrize)
 
 
 
