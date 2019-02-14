@@ -169,8 +169,9 @@ def tpsWarping(from_points, to_points, images, axis=None, interpolation_order=1,
     if axis is None: # For 2D image
         nr, nc = images.shape
         output_region = kwds.pop('output_region', (0, 0, nc, nr))
+
         transform = _make_inverse_warp(from_points, to_points, output_region, approximate_grid)
-        images_tf = ndi.map_coordinates(image, transform, order=interpolation_order)
+        images_tf = ndi.map_coordinates(images, transform, order=interpolation_order)
 
     else: # For stack of 2D images
         images = np.moveaxis(images, axis, 0)
