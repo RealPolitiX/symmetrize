@@ -374,13 +374,13 @@ def scaling2D(xscale, yscale):
     :Parameters:
         xscale, yscale : numeric, numeric
             Scaling factor along x and y directions.
-            A scaling factor in the range [0, 1) amounts to zooming in.
-            A scaling factor in the range (1, +inf) amounts to zomming out.
+            A scaling factor in the range (1, +inf) amounts to zooming in.
+            A scaling factor in the range [0, 1) amounts to zomming out.
     """
 
-    scalemat = np.array([[xscale, 0, 0],
-                         [0, yscale, 0],
-                         [0,    0,   1]])
+    scalemat = np.array([[1/xscale, 0, 0],
+                         [0, 1/yscale, 0],
+                         [0,     0,    1]])
 
     return scalemat
 
