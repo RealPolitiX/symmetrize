@@ -58,7 +58,7 @@ def rotVertexGenerator(center, fixedvertex=None, cvd=None, arot=None, nside=None
         nside : int | None
             The total number of sides for the polygon (to be implemented).
         direction : int | -1
-            Direction of angular rotation (1 = counterclockwise, -1 = clockwise)
+            Direction of angular rotation (1 = counterclockwise, -1 = clockwise).
         scale : float | 1
             Radial scaling factor.
         diagdir : str | None
@@ -235,7 +235,7 @@ def _refsetcost(coeffs, landmarks, center, mcd, med, direction=-1, rotsym=6,
         direction : str | -1
             Direction to generate the point set, -1 (cw) or 1 (ccw).
         rotsym : int | 6
-            Order of rotational symmetry
+            Order of rotational symmetry.
         weights : tuple/list
         include_center : bool | False
             Option to include the center of pattern.
@@ -420,6 +420,11 @@ def imgWarping(img, hgmat=None, landmarks=None, refs=None, rotangle=None, **kwds
         rotangle : float
             Rotation angle (in degrees).
         **kwds : keyword argument
+            :center: tuple/list/1D array
+                Coordinates of the center of rotation.
+            :outshape: tuple/list
+                Shape of the output image.
+            Others see `cv2.warpPerspective()`.
 
     :Returns:
         imgaw : 2D array
@@ -467,6 +472,7 @@ def applyWarping(imgstack, axis, warptype='matrix', hgmat=None, dfield=None, **k
             3 x 3 homography matrix.
         dfield : list | None
             Deformation field.
+        **kwds : keyword arguments
 
     :Return:
         imstack_transformed : 3D array
@@ -477,7 +483,7 @@ def applyWarping(imgstack, axis, warptype='matrix', hgmat=None, dfield=None, **k
     imgstack_transformed = np.zeros_like(imgstack)
     nimg = imgstack.shape[0]
 
-    outahape = kwds.pop('outshape', imgstack[0,...].shape)
+    outshape = kwds.pop('outshape', imgstack[0,...].shape)
     interp_order = kwds.pop('order', 1)
 
     if warptype == 'matrix':
@@ -505,7 +511,8 @@ def coordinate_matrix_2D(image, coordtype='homogeneous', stackaxis=0):
             Type of generated coordinates ('homogeneous' or 'cartesian').
         stackaxis : int | 0
             The stacking axis for the coordinate matrix, e.g. a stackaxis
-            of 0 means that the coordinates are stacked along the first dimension.
+            of 0 means that the coordinates are stacked along the first dimension,
+            while -1 means stacking along the last dimension.
 
     :Return:
         coordmat : 3D array
@@ -555,13 +562,13 @@ def compose_deform_field(coordmat, mat_transform, stackaxis, ret='deformation', 
     coord_dim = coordmat_shape[stackaxis]
     ncoords = np.prod(coordmat_shape) // coord_dim
 
-    if stackaxis == 0:
+    if stackaxis == 0: # coordinates are stacked along the first dimension
         field = np.dot(mat_transform, coordmat.reshape((coord_dim, ncoords))).reshape(coordmat_shape)
         if ret == 'displacement':
             field -= coordmat
         xfield, yfield = field[0,...], field[1,...]
 
-    elif stackaxis == -1:
+    elif stackaxis == -1: # coordinates are stacked along the last dimension
         field = np.dot(mat_transform, coordmat.reshape((ncoords, coord_dim)).T).T.reshape(coordmat_shape)
         if ret == 'displacement':
             field -= coordmat
