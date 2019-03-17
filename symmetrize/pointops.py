@@ -17,34 +17,36 @@ import photutils as pho
 import matplotlib.pyplot as plt
 
 
-def cart2homo(points):
+def cart2homo(points, dtyp='float32'):
     """
-    Transform from Cartesian to homogeneous coordinates.
+    Transform points from Cartesian to homogeneous coordinates.
 
     :Parameter:
-        points : tuple/list
+        points : tuple/list/array
             Pixel coordinates of the points in Cartesian coordinates, (x, y).
 
     :Return:
-        pts_homo : tuple/list
+        pts_homo : 2D array
             Pixel coordinates of the points (pts) in homogeneous coordinates, (x, y, 1).
     """
 
-    pts_homo = np.array(points, dtype='float32', ndmin=2)[None,...]
+    pts = np.array(points, dtype=dtyp, ndmin=2)
+    ones = np.ones((len(pts), 1))
+    pts_homo = np.squeeze(np.concatenate((pts, ones), axis=1))
 
     return pts_homo
 
 
 def homo2cart(points):
     """
-    Transformation from homogeneous to Cartesian coordinates.
+    Transform points from homogeneous to Cartesian coordinates.
 
     :Parameter:
-        points : tuple/list
+        points : tuple/list/array
             Pixel coordinates of the points in homogeneous coordinates, (x, y, 1).
 
     :Return:
-        pts_cart : tuple/list
+        pts_cart : array
             Pixel coordinates of the points (pts) in Cartesian coordinates, (x, y).
     """
 
@@ -66,7 +68,7 @@ def peakdetect2d(img, method='daofind', **kwds):
         method : str | 'daofind'
             Detection method ('daofind' or 'maxlist').
         **kwds : keyword arguments
-            Arguments passed to the specific methods chosen.
+            Additional arguments passed to the specific methods chosen.
             :'daofind': See `astropy.stats.sigma_clipped_stats()` and `photutils.detection.DAOStarFinder()`.
             :'maxlist': See `skimage.feature.peak_local_max()`.
 
