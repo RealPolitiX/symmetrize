@@ -18,7 +18,8 @@ import matplotlib.pyplot as plt
 
 
 def cart2homo(points):
-    """ Transform from Cartesian to homogeneous coordinates.
+    """
+    Transform from Cartesian to homogeneous coordinates.
 
     :Parameter:
         points : tuple/list
@@ -26,7 +27,7 @@ def cart2homo(points):
 
     :Return:
         pts_homo : tuple/list
-            Pixel coordinates of the points in homogeneous coordinates, (x, y, 1).
+            Pixel coordinates of the points (pts) in homogeneous coordinates, (x, y, 1).
     """
 
     pts_homo = np.array(points, dtype='float32', ndmin=2)[None,...]
@@ -35,7 +36,16 @@ def cart2homo(points):
 
 
 def homo2cart(points):
-    """ Transformation from homogeneous to Cartesian coordinates.
+    """
+    Transformation from homogeneous to Cartesian coordinates.
+
+    :Parameter:
+        points : tuple/list
+            Pixel coordinates of the points in homogeneous coordinates, (x, y, 1).
+
+    :Return:
+        pts_cart : tuple/list
+            Pixel coordinates of the points (pts) in Cartesian coordinates, (x, y).
     """
 
     try:
@@ -57,6 +67,8 @@ def peakdetect2d(img, method='daofind', **kwds):
             Detection method ('daofind' or 'maxlist').
         **kwds : keyword arguments
             Arguments passed to the specific methods chosen.
+            :'daofind': See `astropy.stats.sigma_clipped_stats()` and `photutils.detection.DAOStarFinder()`.
+            :'maxlist': See `skimage.feature.peak_local_max()`.
 
     :Return:
         pks : 2D array
@@ -206,7 +218,7 @@ def reorder(points, itemid, axis=0):
 
     :Return:
         pts_rolled : tuple/list
-            Pixel coordinates after position shift.
+            The points' pixel coordinates after position shift.
     """
 
     pts_rolled = np.roll(points, shift=itemid-1, axis=axis)
@@ -361,7 +373,7 @@ def arm(Aold, Anew):
 
 def gridplot(xgrid, ygrid, ax=None, subsamp=5, **kwds):
     """
-    Plotting transform grid with downsampling. Adapted from StackOverflow,
+    Plotting transform grid with downsampling. Adapted from the StackOverflow post,
     https://stackoverflow.com/questions/47295473/how-to-plot-using-matplotlib-python-colahs-deformed-grid
 
     :Parameters:

@@ -253,7 +253,8 @@ def _refsetcost(coeffs, landmarks, center, mcd, med, direction=-1, rotsym=6,
 
 def refsetopt(init, refpts, center, mcd, med, direction=-1, rotsym=6, weights=(1, 1, 1),
                 optfunc='minimize', optmethod='Nelder-Mead', include_center=False, **kwds):
-    """ Optimization to find the optimal reference point set.
+    """
+    Optimization to find the optimal reference point set.
 
     :Parameters:
         init : list/tuple
@@ -285,6 +286,12 @@ def refsetopt(init, refpts, center, mcd, med, direction=-1, rotsym=6, weights=(1
             Option to include center.
         **kwds : keyword arguments
             Keyword arguments passed to the specified optimizer function.
+
+    :Returns:
+        ptsw : 2D array
+            Collection of landmarks (pts = points) after warping.
+        H : 2D array
+            Coordinate transform matrix.
     """
 
     if optfunc == 'basinhopping':
@@ -311,7 +318,8 @@ def refsetopt(init, refpts, center, mcd, med, direction=-1, rotsym=6, weights=(1
 # ======================= #
 
 def translation2D(xtrans, ytrans):
-    """ Translation matrix in 2D in homogeneous coordinates.
+    """
+    Translation matrix in 2D in homogeneous coordinates.
 
     :Parameters:
         xtrans, ytrans : numeric, numeric
@@ -326,7 +334,8 @@ def translation2D(xtrans, ytrans):
 
 
 def rotation2D(angle, center=(0, 0), to_rad=True):
-    """ Rotation matrix in 2D in homogeneous coordinates.
+    """
+    Rotation matrix in 2D in homogeneous coordinates.
 
     :Parameters:
         angle : numeric
@@ -351,7 +360,8 @@ def rotation2D(angle, center=(0, 0), to_rad=True):
 
 
 def scaledRotation2D(center, angle, scale):
-    """ Scaled rotation matrix in 2D in homogeneous coordinates.
+    """
+    Scaled rotation matrix in 2D in homogeneous coordinates.
 
     :Parameters:
         center : list/tuple
@@ -369,7 +379,8 @@ def scaledRotation2D(center, angle, scale):
 
 
 def scaling2D(xscale, yscale):
-    """ Biaxial scaling matrix in 2D in homogeneous coordinates.
+    """
+    Biaxial scaling matrix in 2D in homogeneous coordinates.
 
     :Parameters:
         xscale, yscale : numeric, numeric
@@ -386,7 +397,8 @@ def scaling2D(xscale, yscale):
 
 
 def shearing2D(xshear, yshear):
-    """ Biaxial shearing matrix in 2D in homogeneous coordinates.
+    """
+    Biaxial shearing matrix in 2D in homogeneous coordinates.
 
     :Parameters:
         xshear, yshear : numeric, numeric
@@ -502,7 +514,8 @@ def applyWarping(imgstack, axis, warptype='matrix', hgmat=None, dfield=None, **k
 
 
 def coordinate_matrix_2D(image, coordtype='homogeneous', stackaxis=0):
-    """ Generate pixel coordinate matrix for a 2D image.
+    """
+    Generate pixel coordinate matrix for a 2D image.
 
     :Parameters:
         image : 2D array
@@ -536,7 +549,8 @@ def coordinate_matrix_2D(image, coordtype='homogeneous', stackaxis=0):
 
 
 def compose_deform_field(coordmat, mat_transform, stackaxis, ret='deformation', ret_indexing='rc'):
-    """ Compose the deformation/displacement field from coordinate and transform matrices.
+    """
+    Compose the deformation/displacement field from coordinate and transform matrices.
 
     :Parameters:
         coordmat : 3D array
@@ -582,6 +596,7 @@ def compose_deform_field(coordmat, mat_transform, stackaxis, ret='deformation', 
 
 def translationDF(coordmat, stackaxis=0, xtrans=0, ytrans=0, **kwds):
     """ Deformation field of 2D translation in image coordinates.
+    See `symmetrize.sym.translation2D()`.
     """
 
     translation_matrix = translation2D(xtrans=-xtrans, ytrans=-ytrans)
@@ -591,6 +606,7 @@ def translationDF(coordmat, stackaxis=0, xtrans=0, ytrans=0, **kwds):
 
 def rotationDF(coordmat, stackaxis=0, angle=0, center=(0, 0), to_rad=True, **kwds):
     """ Deformation field of 2D rotation in image coordinates.
+    See `symmetrize.sym.rotation2D()`.
     """
 
     rotation_matrix = rotation2D(angle, center, to_rad)
@@ -600,6 +616,7 @@ def rotationDF(coordmat, stackaxis=0, angle=0, center=(0, 0), to_rad=True, **kwd
 
 def scalingDF(coordmat, stackaxis=0, xscale=1, yscale=1, **kwds):
     """ Deformation field of 2D scaling in image coordinates.
+    See `symmetrize.sym.scaling2D()`.
     """
 
     scaling_matrix = scaling2D(xscale=xscale, yscale=yscale)
@@ -609,6 +626,7 @@ def scalingDF(coordmat, stackaxis=0, xscale=1, yscale=1, **kwds):
 
 def shearingDF(coordmat, stackaxis=0, xshear=0, yshear=0, **kwds):
     """ Deformation field of 2D shearing in image coordinates.
+    See `symmetrize.sym.shearing2D()`.
     """
 
     shearing_matrix = shearing2D(xshear=xshear, yshear=yshear)
@@ -617,13 +635,17 @@ def shearingDF(coordmat, stackaxis=0, xshear=0, yshear=0, **kwds):
 
 
 def deform_field_merge(operation, *fields):
-    """ Combine multiple deformation fields.
+    """
+    Combine multiple deformation fields.
 
     :Parameters:
         operation : func/str
             Function for merging the deformation fields.
         fields : list/tuple
             Collections of deformaiton fields.
+
+    :Return:
+        Combined deformation field.
     """
 
     if operation == 'sum':
@@ -647,6 +669,10 @@ def foldcost(image, center, axis=1):
             Pixel coordinates of the image center (row, column).
         axis : int | 1
             Axis along which to fold over the image (1 = column-wise, 0 = row-wise).
+
+    :Return:
+        Cost in the form of root-mean-squared (RMS) difference between folded and
+        the unfolded part of the image matrix.
     """
 
     r, c = image.shape
