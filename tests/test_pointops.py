@@ -25,7 +25,7 @@ class TestPointops(unit.TestCase):
 
         # Test the single coordinate case
         self.assertTrue(np.allclose(po.cart2homo(coord_cart_single), coord_homo_single))
-        self.asserttrue(np.allclose(po.homo2cart(coord_homo_single), coord_cart_single))
+        self.assertTrue(np.allclose(po.homo2cart(coord_homo_single), coord_cart_single))
         # Test the multiple coordinate case
         self.assertTrue(np.allclose(po.cart2homo(coord_cart_multiple), coord_homo_multiple))
         self.assertTrue(np.allclose(po.homo2cart(coord_homo_multiple), coord_cart_multiple))
@@ -37,12 +37,12 @@ class TestPointops(unit.TestCase):
         cent_1 = np.array([0.5, 0.5])
         verts_1 = np.array([[0., 1.], [0., 0.], [1., 0.], [1., 1.]])
         cent_2 = cent_1 - 0.5
-        verts_2 = verts_1 - np.array([0.5., 0.5.])
+        verts_2 = verts_1 - np.array([0.5, 0.5])
 
         # Compare the center-vertex distances between point sets with rigidly shifted coordinates
-        self.assertTrue(all(po.cvdist(verts_1, cent_1), po.cvdist(verts_2, cent_2)))
+        self.assertTrue(all(po.cvdist(verts_1, cent_1) == po.cvdist(verts_2, cent_2)))
         # Compare the vertex-vertex distances between point sets with rigidly shifted coordinates
-        self.assertTrue(all(po.vvdist(verts_1), po.vvdist(verts_2)))
+        self.assertTrue(all(po.vvdist(verts_1) == po.vvdist(verts_2)))
 
     def test_polyarea(self):
         """ Testing the polygon area calculator.
@@ -52,7 +52,7 @@ class TestPointops(unit.TestCase):
         xycoords = np.stack((xcoords, ycoords), axis=1)
 
         # Area calculation from separately provided x, y coordinates
-        self.asserEqual(po.polyarea(x=xcoords, y=ycoords), 1.)
+        self.assertEqual(po.polyarea(x=xcoords, y=ycoords), 1.)
         # Area calculation from combined x, y coordinates
         self.assertEqual(po.polyarea(coords=xycoords), 1.)
 
