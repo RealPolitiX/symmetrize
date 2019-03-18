@@ -9,6 +9,7 @@
 # Operations on point sets  #
 # ========================= #
 
+from __future__ import print_function, division
 import numpy as np
 from numpy.linalg import norm
 from skimage.feature import peak_local_max
@@ -68,9 +69,9 @@ def peakdetect2d(img, method='daofind', **kwds):
         method : str | 'daofind'
             Detection method ('daofind' or 'maxlist').
         ``**kwds`` : keyword arguments
-            Additional arguments passed to the specific methods chosen.
-            :'daofind': See `astropy.stats.sigma_clipped_stats()` and `photutils.detection.DAOStarFinder()`.
-            :'maxlist': See `skimage.feature.peak_local_max()`.
+            Additional arguments passed to the specific methods chosen.\n
+            `'daofind'` See `astropy.stats.sigma_clipped_stats()` and `photutils.detection.DAOStarFinder()`.\n
+            `'maxlist'` See `skimage.feature.peak_local_max()`.
 
     :Return:
         pks : 2D array
@@ -106,13 +107,13 @@ def pointset_center(pset, method='centroidnn', ret='cnc'):
         pset : 2D array
             Pixel coordinates of the point set.
         method : str | 'centroidnn' (the nearest neighbor of centroid)
-            Method to determine the point set center.
-            'centroidnn' = Use the point with the minimal distance to the centroid as the center.
-            'centroid' = Use the centroid as the center.
+            Method to determine the point set center.\n
+            `'centroidnn'` Use the point with the minimal distance to the centroid as the center.\n
+            `'centroid'` Use the centroid as the center.
         ret : str | 'cnc'
-            Condition to extract the center position.
-            'cnc' = Return the pixel positions of the center (c) and the non-center (nc) points.
-            'all' = Return the pixel positions of the center, the non-center points and the centroid.
+            Condition to extract the center position.\n
+            `'cnc'` Return the pixel positions of the center (c) and the non-center (nc) points.\n
+            `'all'` Return the pixel positions of the center, the non-center points and the centroid.
     """
 
     # Centroid position of point set
@@ -255,8 +256,8 @@ def rotmat(theta, to_rad=True, coordsys='cartesian'):
 def csm(pcent, pvert, rotsym=None, type='rotation'):
     """
     Computation of the continuous (a)symmetry measure (CSM) for a set of polygon
-    vertices exhibiting a degree of rotational symmetry. The value is bounded within [0, 1].
-    When csm = 0, the point set is completely symmetric.
+    vertices exhibiting a degree of rotational symmetry. The value is bounded within [0, 1].\n
+    When csm = 0, the point set is completely symmetric.\n
     When csm = 1, the point set is completely asymmetric.
 
     :Parameters:

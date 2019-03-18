@@ -2,10 +2,11 @@
 numpy
 scipy
 scikit-image
+matplotlib
 astropy
 photutils
 opencv-python
 
-# Package
+# Packaging
 sphinx_rtd_theme
 sphinx

@@ -369,7 +369,7 @@ def scaledRotation2D(center, angle, scale):
         angle : numeric
             Angle of rotation (in degrees).
         scale : numeric
-            Scaling factor.
+            Radial scaling factor.
     """
 
     scalrotmat = cv2.getRotationMatrix2D(center, angle, scale=scale)
@@ -384,9 +384,9 @@ def scaling2D(xscale, yscale):
 
     :Parameters:
         xscale, yscale : numeric, numeric
-            Scaling factor along x and y directions.
-            A scaling factor in the range (1, +inf) amounts to zooming in.
-            A scaling factor in the range [0, 1) amounts to zomming out.
+            Scaling factors along x and y directions.\n
+            A scaling factor in the range (1, +inf) amounts to zooming in.\n
+            A scaling factor in the range [0, 1) amounts to zomming out.\n
     """
 
     scalemat = np.array([[1/xscale, 0, 0],
@@ -685,7 +685,7 @@ def foldcost(image, center, axis=1):
         axis : int | 1
             Axis along which to fold over the image (1 = column-wise, 0 = row-wise).
 
-    :Return:
+    :Return:\n
         Cost in the form of root-mean-squared (RMS) difference between folded and
         the unfolded part of the image matrix.
     """
