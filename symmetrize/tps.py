@@ -147,7 +147,7 @@ def tpsWarping(from_points, to_points, images, axis=None, interpolation_order=1,
             Use the approximate grid (if set > 1) for the transform. The approximate grid is smaller
             than the output image region, and then the transform is bilinearly interpolated to the
             larger region. This is fairly accurate for values up to 10 or so.
-        **kwds : keyword arguments
+        kwds : keyword arguments
             :output_region: tuple | (0, 0, # of columns in image, # of rows in image)
                 The (xmin, ymin, xmax, ymax) region of the output image that should be produced.
                 (Note: The region is inclusive, i.e. xmin <= x <= xmax).

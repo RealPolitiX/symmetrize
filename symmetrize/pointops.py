@@ -67,7 +67,7 @@ def peakdetect2d(img, method='daofind', **kwds):
             Image matrix.
         method : str | 'daofind'
             Detection method ('daofind' or 'maxlist').
-        **kwds : keyword arguments
+        ``**kwds`` : keyword arguments
             Additional arguments passed to the specific methods chosen.
             :'daofind': See `astropy.stats.sigma_clipped_stats()` and `photutils.detection.DAOStarFinder()`.
             :'maxlist': See `skimage.feature.peak_local_max()`.
@@ -385,7 +385,7 @@ def gridplot(xgrid, ygrid, ax=None, subsamp=5, **kwds):
             Axes object to anchor the plot.
         subsamp : int | 5
             Subsampling portion.
-        **kwds : keyword arguments
+        ``**kwds`` : keyword arguments
             Plotting keywords.
     """
 

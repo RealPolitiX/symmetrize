@@ -1,0 +1,530 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  
+  <!-- Licensed under the Apache 2.0 License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/open-sans/stylesheet.css" />
+  <!-- Licensed under the SIL Open Font License -->
+  <link rel="stylesheet" type="text/css" href="_static/fonts/source-serif-pro/source-serif-pro.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="_static/css/bootstrap-theme.min.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <title>Point operations module (pointops) &#8212; symmetrize 0.4.2 documentation</title>
+    <link rel="stylesheet" href="_static/guzzle.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.4.2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Thin-plate spline module (tps)" href="tps.html" />
+    <link rel="prev" title="Symmetrizer module (sym)" href="sym.html" />
+  
+   
+
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tps.html" title="Thin-plate spline module (tps)"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="sym.html" title="Symmetrizer module (sym)"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">symmetrize 0.4.2 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="container-wrapper">
+
+      <div id="mobile-toggle">
+        <a href="#"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+      </div>
+  <div id="left-column">
+    <div class="sphinxsidebar">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="sym.html"
+                        title="previous chapter">Symmetrizer module (sym)</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tps.html"
+                        title="next chapter">Thin-plate spline module (tps)</a></p>
+<div class="sidebar-block">
+  <div class="sidebar-wrapper">
+    <div id="main-search">
+      <form class="form-inline" action="search.html" method="GET" role="form">
+        <div class="input-group">
+          <input name="q" type="text" class="form-control" placeholder="Search...">
+        </div>
+        <input type="hidden" name="check_keywords" value="yes" />
+        <input type="hidden" name="area" value="default" />
+      </form>
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+        <div id="right-column">
+          
+          <div role="navigation" aria-label="breadcrumbs navigation">
+            <ol class="breadcrumb">
+              <li><a href="index.html">Docs</a></li>
+              
+              <li>Point operations module (pointops)</li>
+            </ol>
+          </div>
+          
+          <div class="document clearer body">
+            
+  <div class="section" id="module-symmetrize.pointops">
+<span id="point-operations-module-pointops"></span><h1>Point operations module (pointops)<a class="headerlink" href="#module-symmetrize.pointops" title="Permalink to this headline">¶</a></h1>
+<p>&#64;author: R. Patrick Xian</p>
+<dl class="function">
+<dt id="symmetrize.pointops.arm">
+<code class="descclassname">symmetrize.pointops.</code><code class="descname">arm</code><span class="sig-paren">(</span><em>Aold</em>, <em>Anew</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/pointops.html#arm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.arm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the area retainment measure (ARM).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt>Aold, Anew <span class="classifier-delimiter">:</span> <span class="classifier">numeric/numeric</span></dt>
+<dd><p class="first last">The area before (old) and after (new) symmetrization.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return:</th><td class="field-body"><dl class="first last docutils">
+<dt>s <span class="classifier-delimiter">:</span> <span class="classifier">numeric</span></dt>
+<dd><p class="first last">The value of the ARM.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="symmetrize.pointops.cart2homo">
+<code class="descclassname">symmetrize.pointops.</code><code class="descname">cart2homo</code><span class="sig-paren">(</span><em>points</em>, <em>dtyp='float32'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/pointops.html#cart2homo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.cart2homo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform points from Cartesian to homogeneous coordinates.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameter:</th><td class="field-body"><dl class="first docutils">
+<dt>points <span class="classifier-delimiter">:</span> <span class="classifier">tuple/list/array</span></dt>
+<dd><p class="first last">Pixel coordinates of the points in Cartesian coordinates, (x, y).</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return:</th><td class="field-body"><dl class="first last docutils">
+<dt>pts_homo <span class="classifier-delimiter">:</span> <span class="classifier">2D array</span></dt>
+<dd><p class="first last">Pixel coordinates of the points (pts) in homogeneous coordinates, (x, y, 1).</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="symmetrize.pointops.csm">
+<code class="descclassname">symmetrize.pointops.</code><code class="descname">csm</code><span class="sig-paren">(</span><em>pcent</em>, <em>pvert</em>, <em>rotsym=None</em>, <em>type='rotation'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/pointops.html#csm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.csm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computation of the continuous (a)symmetry measure (CSM) for a set of polygon
+vertices exhibiting a degree of rotational symmetry. The value is bounded within [0, 1].
+When csm = 0, the point set is completely symmetric.
+When csm = 1, the point set is completely asymmetric.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt>pcent <span class="classifier-delimiter">:</span> <span class="classifier">tuple/list</span></dt>
+<dd><p class="first last">Pixel coordinates of the center position.</p>
+</dd>
+<dt>pvert <span class="classifier-delimiter">:</span> <span class="classifier">numpy array</span></dt>
+<dd><p class="first last">Pixel coordinates of the vertices.</p>
+</dd>
+<dt>rotsym <span class="classifier-delimiter">:</span> <span class="classifier">int | None</span></dt>
+<dd><p class="first last">Order of rotational symmetry.</p>
+</dd>
+<dt>type <span class="classifier-delimiter">:</span> <span class="classifier">str | ‘rotation’</span></dt>
+<dd><p class="first last">The type of the symmetry operation.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Return:</dt>
+<dd><dl class="first last docutils">
+<dt>s <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd>Calculated continuous (a)symmetry measure.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="symmetrize.pointops.cvdist">
+<code class="descclassname">symmetrize.pointops.</code><code class="descname">cvdist</code><span class="sig-paren">(</span><em>verts</em>, <em>center</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/pointops.html#cvdist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.cvdist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the center-vertex distance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt>verts <span class="classifier-delimiter">:</span> <span class="classifier">tuple/list</span></dt>
+<dd><p class="first last">Pixel coordinates of the vertices.</p>
+</dd>
+<dt>center <span class="classifier-delimiter">:</span> <span class="classifier">tuple/list</span></dt>
+<dd><p class="first last">Pixel coordinates of the center.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="symmetrize.pointops.gridplot">
+<code class="descclassname">symmetrize.pointops.</code><code class="descname">gridplot</code><span class="sig-paren">(</span><em>xgrid</em>, <em>ygrid</em>, <em>ax=None</em>, <em>subsamp=5</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/pointops.html#gridplot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.gridplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plotting transform grid with downsampling. Adapted from the StackOverflow post,
+<a class="reference external" href="https://stackoverflow.com/questions/47295473/how-to-plot-using-matplotlib-python-colahs-deformed-grid">https://stackoverflow.com/questions/47295473/how-to-plot-using-matplotlib-python-colahs-deformed-grid</a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt>xgrid, ygrid <span class="classifier-delimiter">:</span> <span class="classifier">2D array, 2D array</span></dt>
+<dd><p class="first last">Coordinate grids along the x and y directions.</p>
+</dd>
+<dt>ax <span class="classifier-delimiter">:</span> <span class="classifier">AxesObject</span></dt>
+<dd><p class="first last">Axes object to anchor the plot.</p>
+</dd>
+<dt>subsamp <span class="classifier-delimiter">:</span> <span class="classifier">int | 5</span></dt>
+<dd><p class="first last">Subsampling portion.</p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">**kwds</span></code> <span class="classifier-delimiter">:</span> <span class="classifier">keyword arguments</span></dt>
+<dd><p class="first last">Plotting keywords.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="symmetrize.pointops.homo2cart">
+<code class="descclassname">symmetrize.pointops.</code><code class="descname">homo2cart</code><span class="sig-paren">(</span><em>points</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/pointops.html#homo2cart"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.homo2cart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transform points from homogeneous to Cartesian coordinates.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameter:</th><td class="field-body"><dl class="first docutils">
+<dt>points <span class="classifier-delimiter">:</span> <span class="classifier">tuple/list/array</span></dt>
+<dd><p class="first last">Pixel coordinates of the points in homogeneous coordinates, (x, y, 1).</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return:</th><td class="field-body"><dl class="first last docutils">
+<dt>pts_cart <span class="classifier-delimiter">:</span> <span class="classifier">array</span></dt>
+<dd><p class="first last">Pixel coordinates of the points (pts) in Cartesian coordinates, (x, y).</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="symmetrize.pointops.peakdetect2d">
+<code class="descclassname">symmetrize.pointops.</code><code class="descname">peakdetect2d</code><span class="sig-paren">(</span><em>img</em>, <em>method='daofind'</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/pointops.html#peakdetect2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.peakdetect2d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Peak detection in 2D image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt>img <span class="classifier-delimiter">:</span> <span class="classifier">2D array</span></dt>
+<dd><p class="first last">Image matrix.</p>
+</dd>
+<dt>method <span class="classifier-delimiter">:</span> <span class="classifier">str | ‘daofind’</span></dt>
+<dd><p class="first last">Detection method (‘daofind’ or ‘maxlist’).</p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">**kwds</span></code> <span class="classifier-delimiter">:</span> <span class="classifier">keyword arguments</span></dt>
+<dd><p class="first last">Additional arguments passed to the specific methods chosen.
+:’daofind’: See <cite>astropy.stats.sigma_clipped_stats()</cite> and <cite>photutils.detection.DAOStarFinder()</cite>.
+:’maxlist’: See <cite>skimage.feature.peak_local_max()</cite>.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return:</th><td class="field-body"><dl class="first last docutils">
+<dt>pks <span class="classifier-delimiter">:</span> <span class="classifier">2D array</span></dt>
+<dd><p class="first last">Pixel coordinates of detected peaks, in (column, row) ordering.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="symmetrize.pointops.pointset_center">
+<code class="descclassname">symmetrize.pointops.</code><code class="descname">pointset_center</code><span class="sig-paren">(</span><em>pset</em>, <em>method='centroidnn'</em>, <em>ret='cnc'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/pointops.html#pointset_center"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.pointset_center" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determine the center position of a point set and separate it from the rest.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt>pset <span class="classifier-delimiter">:</span> <span class="classifier">2D array</span></dt>
+<dd><p class="first last">Pixel coordinates of the point set.</p>
+</dd>
+<dt>method <span class="classifier-delimiter">:</span> <span class="classifier">str | ‘centroidnn’ (the nearest neighbor of centroid)</span></dt>
+<dd><p class="first last">Method to determine the point set center.
+‘centroidnn’ = Use the point with the minimal distance to the centroid as the center.
+‘centroid’ = Use the centroid as the center.</p>
+</dd>
+<dt>ret <span class="classifier-delimiter">:</span> <span class="classifier">str | ‘cnc’</span></dt>
+<dd><p class="first last">Condition to extract the center position.
+‘cnc’ = Return the pixel positions of the center (c) and the non-center (nc) points.
+‘all’ = Return the pixel positions of the center, the non-center points and the centroid.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="symmetrize.pointops.pointset_order">
+<code class="descclassname">symmetrize.pointops.</code><code class="descname">pointset_order</code><span class="sig-paren">(</span><em>pset</em>, <em>center=None</em>, <em>direction='ccw'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/pointops.html#pointset_order"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.pointset_order" title="Permalink to this definition">¶</a></dt>
+<dd><p>Order a point set around a center in a clockwise or counterclockwise way.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt>pset <span class="classifier-delimiter">:</span> <span class="classifier">2D array</span></dt>
+<dd><p class="first last">Pixel coordinates of the point set.</p>
+</dd>
+<dt>center <span class="classifier-delimiter">:</span> <span class="classifier">list/tuple/1D array | None</span></dt>
+<dd><p class="first last">Pixel coordinates of the putative shape center.</p>
+</dd>
+<dt>direction <span class="classifier-delimiter">:</span> <span class="classifier">str | ‘ccw’</span></dt>
+<dd><p class="first last">Direction of the ordering (‘cw’ or ‘ccw’).</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return:</th><td class="field-body"><dl class="first last docutils">
+<dt>pset_ordered <span class="classifier-delimiter">:</span> <span class="classifier">2D array</span></dt>
+<dd><p class="first last">Sorted pixel coordinates of the point set.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="symmetrize.pointops.polyarea">
+<code class="descclassname">symmetrize.pointops.</code><code class="descname">polyarea</code><span class="sig-paren">(</span><em>x=[]</em>, <em>y=[]</em>, <em>coords=[]</em>, <em>coord_order='rc'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/pointops.html#polyarea"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.polyarea" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the area of a convex polygon area from its vertex coordinates, using
+the surveyor’s formula (also called the shoelace formula).
+The vertices are ordered in a clockwise or counterclockwise fashions.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt>x, y <span class="classifier-delimiter">:</span> <span class="classifier">tuple/list/1D array | [], []</span></dt>
+<dd><p class="first last">Collection of vertex coordinates along the x and y coordinates.</p>
+</dd>
+<dt>coords <span class="classifier-delimiter">:</span> <span class="classifier">list/2D array | []</span></dt>
+<dd><p class="first last">Vertex coordinates.</p>
+</dd>
+<dt>coord_order <span class="classifier-delimiter">:</span> <span class="classifier">str | ‘rc’</span></dt>
+<dd><p class="first last">The ordering of coordinates in the <cite>coords</cite> array, choose from ‘rc’ or ‘yx’, ‘cr’ or ‘xy’.
+Here r = row (y), c = column (x).</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return:</th><td class="field-body"><dl class="first last docutils">
+<dt>A <span class="classifier-delimiter">:</span> <span class="classifier">numeric</span></dt>
+<dd><p class="first last">The area of the convex polygon bounded by the given vertices.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="symmetrize.pointops.reorder">
+<code class="descclassname">symmetrize.pointops.</code><code class="descname">reorder</code><span class="sig-paren">(</span><em>points</em>, <em>itemid</em>, <em>axis=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/pointops.html#reorder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.reorder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reorder a point set along an axis.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt>points <span class="classifier-delimiter">:</span> <span class="classifier">tuple/list</span></dt>
+<dd><p class="first last">Collection of the pixel coordinates of points.</p>
+</dd>
+<dt>itemid <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
+<dd><p class="first last">Index of the entry to be placed at the start.</p>
+</dd>
+<dt>axis <span class="classifier-delimiter">:</span> <span class="classifier">int | 1</span></dt>
+<dd><p class="first last">The axis to apply the shift.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return:</th><td class="field-body"><dl class="first last docutils">
+<dt>pts_rolled <span class="classifier-delimiter">:</span> <span class="classifier">tuple/list</span></dt>
+<dd><p class="first last">The points’ pixel coordinates after position shift.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="symmetrize.pointops.rotmat">
+<code class="descclassname">symmetrize.pointops.</code><code class="descname">rotmat</code><span class="sig-paren">(</span><em>theta</em>, <em>to_rad=True</em>, <em>coordsys='cartesian'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/pointops.html#rotmat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.rotmat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rotation matrix in 2D in different coordinate systems.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt>theta <span class="classifier-delimiter">:</span> <span class="classifier">numeric</span></dt>
+<dd><p class="first last">Rotation angle.</p>
+</dd>
+<dt>to_rad <span class="classifier-delimiter">:</span> <span class="classifier">bool | True</span></dt>
+<dd><p class="first last">Specify the option to convert the angle to radians.</p>
+</dd>
+<dt>coordsys <span class="classifier-delimiter">:</span> <span class="classifier">str | ‘cartesian’</span></dt>
+<dd><p class="first last">Coordinate system specification (‘cartesian’ or ‘homogen’).</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="symmetrize.pointops.vvdist">
+<code class="descclassname">symmetrize.pointops.</code><code class="descname">vvdist</code><span class="sig-paren">(</span><em>verts</em>, <em>neighbor=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/pointops.html#vvdist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.vvdist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculate the neighboring vertex-vertex distance.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt>verts <span class="classifier-delimiter">:</span> <span class="classifier">tuple/list</span></dt>
+<dd><p class="first last">Pixel coordinates of the vertices.</p>
+</dd>
+<dt>neighbor <span class="classifier-delimiter">:</span> <span class="classifier">int | 1</span></dt>
+<dd><p class="first last">Neighbor index (1 = nearest).</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+            
+  <div class="footer-relations">
+    
+      <div class="pull-left">
+        <a class="btn btn-default" href="sym.html" title="previous chapter (use the left arrow)">Symmetrizer module (sym)</a>
+      </div>
+    
+      <div class="pull-right">
+        <a class="btn btn-default" href="tps.html" title="next chapter (use the right arrow)">Thin-plate spline module (tps)</a>
+      </div>
+    </div>
+    <div class="clearer"></div>
+  
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tps.html" title="Thin-plate spline module (tps)"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="sym.html" title="Symmetrizer module (sym)"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">symmetrize 0.4.2 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+<script type="text/javascript">
+  $("#mobile-toggle a").click(function () {
+    $("#left-column").toggle();
+  });
+</script>
+<script type="text/javascript" src="_static/js/bootstrap.js"></script>
+  <div class="footer">
+    &copy; Copyright 2019, R. Patrick Xian. Created using <a href="http://sphinx.pocoo.org/">Sphinx</a>.
+  </div>
+  </body>
+</html>

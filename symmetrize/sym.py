@@ -284,7 +284,7 @@ def refsetopt(init, refpts, center, mcd, med, direction=-1, rotsym=6, weights=(1
             Name of the optimization method.
         include_center : bool | False
             Option to include center.
-        **kwds : keyword arguments
+        ``**kwds`` : keyword arguments
             Keyword arguments passed to the specified optimizer function.
 
     :Returns:
@@ -431,12 +431,13 @@ def imgWarping(img, hgmat=None, landmarks=None, refs=None, rotangle=None, **kwds
             Pixel coordinates of reference points (undistorted).
         rotangle : float
             Rotation angle (in degrees).
-        **kwds : keyword argument
+        ``**kwds`` : keyword argument
             :center: tuple/list/1D array
                 Coordinates of the center of rotation.
             :outshape: tuple/list
                 Shape of the output image.
-            Others see `cv2.warpPerspective()`.
+            :others:
+                See arguments in `cv2.warpPerspective()`.
 
     :Returns:
         imgaw : 2D array
@@ -484,7 +485,13 @@ def applyWarping(imgstack, axis, warptype='matrix', hgmat=None, dfield=None, **k
             3 x 3 homography matrix.
         dfield : list | None
             Deformation field.
-        **kwds : keyword arguments
+        ``**kwds`` : keyword arguments
+            :outshape: tuple/list
+                Shape of the output image.
+            :order: int
+                Interpolation order.
+            :others:
+                See `cv2.warpPerspective()` and `scipy.ndimage.map_coordinates()`.
 
     :Return:
         imstack_transformed : 3D array
@@ -501,7 +508,7 @@ def applyWarping(imgstack, axis, warptype='matrix', hgmat=None, dfield=None, **k
     if warptype == 'matrix':
         for i in range(nimg):
             imgstack_transformed[i,...] = cv2.warpPerspective(imgstack[i,...], M=hgmat,
-                                            dsize=outshape)
+                                            dsize=outshape, **kwds)
 
     elif warptype == 'deform_field':
         for i in range(nimg):
@@ -596,7 +603,9 @@ def compose_deform_field(coordmat, mat_transform, stackaxis, ret='deformation', 
 
 def translationDF(coordmat, stackaxis=0, xtrans=0, ytrans=0, **kwds):
     """ Deformation field of 2D translation in image coordinates.
-    See `symmetrize.sym.translation2D()`.
+
+    :Parameters:
+        See `symmetrize.sym.translation2D()`.
     """
 
     translation_matrix = translation2D(xtrans=-xtrans, ytrans=-ytrans)
@@ -606,7 +615,9 @@ def translationDF(coordmat, stackaxis=0, xtrans=0, ytrans=0, **kwds):
 
 def rotationDF(coordmat, stackaxis=0, angle=0, center=(0, 0), to_rad=True, **kwds):
     """ Deformation field of 2D rotation in image coordinates.
-    See `symmetrize.sym.rotation2D()`.
+
+    :Parameters:
+        See `symmetrize.sym.rotation2D()`.
     """
 
     rotation_matrix = rotation2D(angle, center, to_rad)
@@ -616,7 +627,9 @@ def rotationDF(coordmat, stackaxis=0, angle=0, center=(0, 0), to_rad=True, **kwd
 
 def scalingDF(coordmat, stackaxis=0, xscale=1, yscale=1, **kwds):
     """ Deformation field of 2D scaling in image coordinates.
-    See `symmetrize.sym.scaling2D()`.
+
+    :Parameters:
+        See `symmetrize.sym.scaling2D()`.
     """
 
     scaling_matrix = scaling2D(xscale=xscale, yscale=yscale)
@@ -626,7 +639,9 @@ def scalingDF(coordmat, stackaxis=0, xscale=1, yscale=1, **kwds):
 
 def shearingDF(coordmat, stackaxis=0, xshear=0, yshear=0, **kwds):
     """ Deformation field of 2D shearing in image coordinates.
-    See `symmetrize.sym.shearing2D()`.
+
+    :Parameters:
+        See `symmetrize.sym.shearing2D()`.
     """
 
     shearing_matrix = shearing2D(xshear=xshear, yshear=yshear)
