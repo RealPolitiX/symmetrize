@@ -8,7 +8,7 @@ if "%SPHINXBUILD%" == "" (
 	set SPHINXBUILD=sphinx-build
 )
 set SOURCEDIR=.
-set BUILDDIR=./html
+set BUILDDIR=.
 set SPHINXPROJ=symmetrize
 
 if "%1" == "" goto help

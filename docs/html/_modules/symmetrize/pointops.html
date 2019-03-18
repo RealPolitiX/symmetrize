@@ -169,6 +169,7 @@
 <span class="c1"># Operations on point sets  #</span>
 <span class="c1"># ========================= #</span>
 
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">numpy.linalg</span> <span class="k">import</span> <span class="n">norm</span>
 <span class="kn">from</span> <span class="nn">skimage.feature</span> <span class="k">import</span> <span class="n">peak_local_max</span>
@@ -228,9 +229,9 @@
 <span class="sd">        method : str | &#39;daofind&#39;</span>
 <span class="sd">            Detection method (&#39;daofind&#39; or &#39;maxlist&#39;).</span>
 <span class="sd">        ``**kwds`` : keyword arguments</span>
-<span class="sd">            Additional arguments passed to the specific methods chosen.</span>
-<span class="sd">            :&#39;daofind&#39;: See `astropy.stats.sigma_clipped_stats()` and `photutils.detection.DAOStarFinder()`.</span>
-<span class="sd">            :&#39;maxlist&#39;: See `skimage.feature.peak_local_max()`.</span>
+<span class="sd">            Additional arguments passed to the specific methods chosen.\n</span>
+<span class="sd">            `&#39;daofind&#39;` See `astropy.stats.sigma_clipped_stats()` and `photutils.detection.DAOStarFinder()`.\n</span>
+<span class="sd">            `&#39;maxlist&#39;` See `skimage.feature.peak_local_max()`.</span>
 
 <span class="sd">    :Return:</span>
 <span class="sd">        pks : 2D array</span>
@@ -266,13 +267,13 @@
 <span class="sd">        pset : 2D array</span>
 <span class="sd">            Pixel coordinates of the point set.</span>
 <span class="sd">        method : str | &#39;centroidnn&#39; (the nearest neighbor of centroid)</span>
-<span class="sd">            Method to determine the point set center.</span>
-<span class="sd">            &#39;centroidnn&#39; = Use the point with the minimal distance to the centroid as the center.</span>
-<span class="sd">            &#39;centroid&#39; = Use the centroid as the center.</span>
+<span class="sd">            Method to determine the point set center.\n</span>
+<span class="sd">            `&#39;centroidnn&#39;` Use the point with the minimal distance to the centroid as the center.\n</span>
+<span class="sd">            `&#39;centroid&#39;` Use the centroid as the center.</span>
 <span class="sd">        ret : str | &#39;cnc&#39;</span>
-<span class="sd">            Condition to extract the center position.</span>
-<span class="sd">            &#39;cnc&#39; = Return the pixel positions of the center (c) and the non-center (nc) points.</span>
-<span class="sd">            &#39;all&#39; = Return the pixel positions of the center, the non-center points and the centroid.</span>
+<span class="sd">            Condition to extract the center position.\n</span>
+<span class="sd">            `&#39;cnc&#39;` Return the pixel positions of the center (c) and the non-center (nc) points.\n</span>
+<span class="sd">            `&#39;all&#39;` Return the pixel positions of the center, the non-center points and the centroid.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># Centroid position of point set</span>
@@ -415,8 +416,8 @@
 <div class="viewcode-block" id="csm"><a class="viewcode-back" href="../../pointops.html#symmetrize.pointops.csm">[docs]</a><span class="k">def</span> <span class="nf">csm</span><span class="p">(</span><span class="n">pcent</span><span class="p">,</span> <span class="n">pvert</span><span class="p">,</span> <span class="n">rotsym</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;rotation&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Computation of the continuous (a)symmetry measure (CSM) for a set of polygon</span>
-<span class="sd">    vertices exhibiting a degree of rotational symmetry. The value is bounded within [0, 1].</span>
-<span class="sd">    When csm = 0, the point set is completely symmetric.</span>
+<span class="sd">    vertices exhibiting a degree of rotational symmetry. The value is bounded within [0, 1].\n</span>
+<span class="sd">    When csm = 0, the point set is completely symmetric.\n</span>
 <span class="sd">    When csm = 1, the point set is completely asymmetric.</span>
 
 <span class="sd">    :Parameters:</span>

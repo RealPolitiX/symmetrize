@@ -28,3 +28,7 @@ pip install git+https://github.com/RealPolitiX/symmetrize.git
 ### Requirements
 
 See [requirements](https://github.com/RealPolitiX/symmetrize/blob/master/requirements.txt)
+
+### Documentation and use
+
+Documentation of the package may be found [here](https://realpolitix.github.io/symmetrize/html/index.html) along with examples illustrating the main functionalities in here.

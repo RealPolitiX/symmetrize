@@ -529,7 +529,7 @@
 <span class="sd">        angle : numeric</span>
 <span class="sd">            Angle of rotation (in degrees).</span>
 <span class="sd">        scale : numeric</span>
-<span class="sd">            Scaling factor.</span>
+<span class="sd">            Radial scaling factor.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">scalrotmat</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">getRotationMatrix2D</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">)</span>
@@ -544,9 +544,9 @@
 
 <span class="sd">    :Parameters:</span>
 <span class="sd">        xscale, yscale : numeric, numeric</span>
-<span class="sd">            Scaling factor along x and y directions.</span>
-<span class="sd">            A scaling factor in the range (1, +inf) amounts to zooming in.</span>
-<span class="sd">            A scaling factor in the range [0, 1) amounts to zomming out.</span>
+<span class="sd">            Scaling factors along x and y directions.\n</span>
+<span class="sd">            A scaling factor in the range (1, +inf) amounts to zooming in.\n</span>
+<span class="sd">            A scaling factor in the range [0, 1) amounts to zomming out.\n</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">scalemat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="o">/</span><span class="n">xscale</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
@@ -845,7 +845,7 @@
 <span class="sd">        axis : int | 1</span>
 <span class="sd">            Axis along which to fold over the image (1 = column-wise, 0 = row-wise).</span>
 
-<span class="sd">    :Return:</span>
+<span class="sd">    :Return:\n</span>
 <span class="sd">        Cost in the form of root-mean-squared (RMS) difference between folded and</span>
 <span class="sd">        the unfolded part of the image matrix.</span>
 <span class="sd">    &quot;&quot;&quot;</span>

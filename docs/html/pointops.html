@@ -217,9 +217,9 @@
 <dt id="symmetrize.pointops.csm">
 <code class="descclassname">symmetrize.pointops.</code><code class="descname">csm</code><span class="sig-paren">(</span><em>pcent</em>, <em>pvert</em>, <em>rotsym=None</em>, <em>type='rotation'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/pointops.html#csm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.csm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computation of the continuous (a)symmetry measure (CSM) for a set of polygon
-vertices exhibiting a degree of rotational symmetry. The value is bounded within [0, 1].
-When csm = 0, the point set is completely symmetric.
-When csm = 1, the point set is completely asymmetric.</p>
+vertices exhibiting a degree of rotational symmetry. The value is bounded within [0, 1].</p>
+<p>When csm = 0, the point set is completely symmetric.</p>
+<p>When csm = 1, the point set is completely asymmetric.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -345,9 +345,9 @@ When csm = 1, the point set is completely asymmetric.</p>
 <dd><p class="first last">Detection method (‘daofind’ or ‘maxlist’).</p>
 </dd>
 <dt><code class="docutils literal"><span class="pre">**kwds</span></code> <span class="classifier-delimiter">:</span> <span class="classifier">keyword arguments</span></dt>
-<dd><p class="first last">Additional arguments passed to the specific methods chosen.
-:’daofind’: See <cite>astropy.stats.sigma_clipped_stats()</cite> and <cite>photutils.detection.DAOStarFinder()</cite>.
-:’maxlist’: See <cite>skimage.feature.peak_local_max()</cite>.</p>
+<dd><p class="first">Additional arguments passed to the specific methods chosen.</p>
+<p><cite>‘daofind’</cite> See <cite>astropy.stats.sigma_clipped_stats()</cite> and <cite>photutils.detection.DAOStarFinder()</cite>.</p>
+<p class="last"><cite>‘maxlist’</cite> See <cite>skimage.feature.peak_local_max()</cite>.</p>
 </dd>
 </dl>
 </td>
@@ -376,14 +376,14 @@ When csm = 1, the point set is completely asymmetric.</p>
 <dd><p class="first last">Pixel coordinates of the point set.</p>
 </dd>
 <dt>method <span class="classifier-delimiter">:</span> <span class="classifier">str | ‘centroidnn’ (the nearest neighbor of centroid)</span></dt>
-<dd><p class="first last">Method to determine the point set center.
-‘centroidnn’ = Use the point with the minimal distance to the centroid as the center.
-‘centroid’ = Use the centroid as the center.</p>
+<dd><p class="first">Method to determine the point set center.</p>
+<p><cite>‘centroidnn’</cite> Use the point with the minimal distance to the centroid as the center.</p>
+<p class="last"><cite>‘centroid’</cite> Use the centroid as the center.</p>
 </dd>
 <dt>ret <span class="classifier-delimiter">:</span> <span class="classifier">str | ‘cnc’</span></dt>
-<dd><p class="first last">Condition to extract the center position.
-‘cnc’ = Return the pixel positions of the center (c) and the non-center (nc) points.
-‘all’ = Return the pixel positions of the center, the non-center points and the centroid.</p>
+<dd><p class="first">Condition to extract the center position.</p>
+<p><cite>‘cnc’</cite> Return the pixel positions of the center (c) and the non-center (nc) points.</p>
+<p class="last"><cite>‘all’</cite> Return the pixel positions of the center, the non-center points and the centroid.</p>
 </dd>
 </dl>
 </td>
