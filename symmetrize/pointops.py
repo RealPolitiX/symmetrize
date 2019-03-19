@@ -70,8 +70,9 @@ def peakdetect2d(img, method='daofind', **kwds):
             Detection method ('daofind' or 'maxlist').
         ``**kwds`` : keyword arguments
             Additional arguments passed to the specific methods chosen.\n
-            `'daofind'` See `astropy.stats.sigma_clipped_stats()` and `photutils.detection.DAOStarFinder()`.\n
-            `'maxlist'` See `skimage.feature.peak_local_max()`.
+            ``'daofind'`` See ``astropy.stats.sigma_clipped_stats()``
+                            and ``photutils.detection.DAOStarFinder()``.\n
+            ``'maxlist'`` See ``skimage.feature.peak_local_max()``.
 
     :Return:
         pks : 2D array
@@ -108,12 +109,12 @@ def pointset_center(pset, method='centroidnn', ret='cnc'):
             Pixel coordinates of the point set.
         method : str | 'centroidnn' (the nearest neighbor of centroid)
             Method to determine the point set center.\n
-            `'centroidnn'` Use the point with the minimal distance to the centroid as the center.\n
-            `'centroid'` Use the centroid as the center.
+            ``'centroidnn'`` Use the point with the minimal distance to the centroid as the center.\n
+            ``'centroid'`` Use the centroid as the center.
         ret : str | 'cnc'
             Condition to extract the center position.\n
-            `'cnc'` Return the pixel positions of the center (c) and the non-center (nc) points.\n
-            `'all'` Return the pixel positions of the center, the non-center points and the centroid.
+            ``'cnc'`` Return the pixel positions of the center (c) and the non-center (nc) points.\n
+            ``'all'`` Return the pixel positions of the center, the non-center points and the centroid.
     """
 
     # Centroid position of point set

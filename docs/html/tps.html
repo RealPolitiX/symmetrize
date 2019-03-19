@@ -183,7 +183,7 @@ The coordinates are in the (row, column) convention.</p>
 </dd>
 <dt>interpolation_order <span class="classifier-delimiter">:</span> <span class="classifier">int | 1</span></dt>
 <dd><p class="first last">If 1, then use linear interpolation; if 0 then use nearest-neighbor.
-See <cite>scipy.ndimage.map_coordinates()</cite>.</p>
+See <code class="docutils literal"><span class="pre">scipy.ndimage.map_coordinates()</span></code>.</p>
 </dd>
 <dt>approximate_grid <span class="classifier-delimiter">:</span> <span class="classifier">int | 1</span></dt>
 <dd><p class="first last">Use the approximate grid (if set &gt; 1) for the transform. The approximate grid is smaller
@@ -195,15 +195,17 @@ larger region. This is fairly accurate for values up to 10 or so.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">output_region:</th><td class="field-body">tuple | (0, 0, # of columns in image, # of rows in image)
+<tr class="field-odd field"><th class="field-name">output_region:</th><td class="field-body"><p class="first">tuple | (0, 0, # of columns in image, # of rows in image)
 The (xmin, ymin, xmax, ymax) region of the output image that should be produced.
-(Note: The region is inclusive, i.e. xmin &lt;= x &lt;= xmax).</td>
+(Note: The region is inclusive, i.e. xmin &lt;= x &lt;= xmax).</p>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">ret:</th><td class="field-body">str | ‘all’
-Function return specification.
-<cite>‘image’</cite>: return the transformed image.
-<cite>‘deform’</cite> : return the deformation field.
-<cite>‘all’</cite>: return both the transformed images and deformation field.</td>
+<tr class="field-even field"><th class="field-name">ret:</th><td class="field-body"><p class="first">str | ‘all’
+Function return specification.</p>
+<p><code class="docutils literal"><span class="pre">'image'</span></code>: return the transformed image.</p>
+<p><code class="docutils literal"><span class="pre">'deform'</span></code>: return the deformation field.</p>
+<p class="last"><code class="docutils literal"><span class="pre">'all'</span></code>: return both the transformed images and deformation field.</p>
+</td>
 </tr>
 </tbody>
 </table>

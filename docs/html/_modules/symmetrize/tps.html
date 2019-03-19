@@ -303,7 +303,7 @@
 <span class="sd">            Image stacking axis in 3D image. Specify None to mean 2D image.</span>
 <span class="sd">        interpolation_order : int | 1</span>
 <span class="sd">            If 1, then use linear interpolation; if 0 then use nearest-neighbor.</span>
-<span class="sd">            See `scipy.ndimage.map_coordinates()`.</span>
+<span class="sd">            See ``scipy.ndimage.map_coordinates()``.</span>
 <span class="sd">        approximate_grid : int | 1</span>
 <span class="sd">            Use the approximate grid (if set &gt; 1) for the transform. The approximate grid is smaller</span>
 <span class="sd">            than the output image region, and then the transform is bilinearly interpolated to the</span>
@@ -313,10 +313,10 @@
 <span class="sd">                The (xmin, ymin, xmax, ymax) region of the output image that should be produced.</span>
 <span class="sd">                (Note: The region is inclusive, i.e. xmin &lt;= x &lt;= xmax).</span>
 <span class="sd">            :ret: str | &#39;all&#39;</span>
-<span class="sd">                Function return specification.</span>
-<span class="sd">                `&#39;image&#39;`: return the transformed image.</span>
-<span class="sd">                `&#39;deform&#39;` : return the deformation field.</span>
-<span class="sd">                `&#39;all&#39;`: return both the transformed images and deformation field.</span>
+<span class="sd">                Function return specification.\n</span>
+<span class="sd">                ``&#39;image&#39;``: return the transformed image.\n</span>
+<span class="sd">                ``&#39;deform&#39;``: return the deformation field.\n</span>
+<span class="sd">                ``&#39;all&#39;``: return both the transformed images and deformation field.</span>
 
 <span class="sd">    :Returns:</span>
 <span class="sd">        images_tf : nD array</span>

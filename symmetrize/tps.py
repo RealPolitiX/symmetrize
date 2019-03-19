@@ -143,7 +143,7 @@ def tpsWarping(from_points, to_points, images, axis=None, interpolation_order=1,
             Image stacking axis in 3D image. Specify None to mean 2D image.
         interpolation_order : int | 1
             If 1, then use linear interpolation; if 0 then use nearest-neighbor.
-            See `scipy.ndimage.map_coordinates()`.
+            See ``scipy.ndimage.map_coordinates()``.
         approximate_grid : int | 1
             Use the approximate grid (if set > 1) for the transform. The approximate grid is smaller
             than the output image region, and then the transform is bilinearly interpolated to the
@@ -153,10 +153,10 @@ def tpsWarping(from_points, to_points, images, axis=None, interpolation_order=1,
                 The (xmin, ymin, xmax, ymax) region of the output image that should be produced.
                 (Note: The region is inclusive, i.e. xmin <= x <= xmax).
             :ret: str | 'all'
-                Function return specification.
-                `'image'`: return the transformed image.
-                `'deform'` : return the deformation field.
-                `'all'`: return both the transformed images and deformation field.
+                Function return specification.\n
+                ``'image'``: return the transformed image.\n
+                ``'deform'``: return the deformation field.\n
+                ``'all'``: return both the transformed images and deformation field.
 
     :Returns:
         images_tf : nD array

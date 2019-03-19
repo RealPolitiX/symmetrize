@@ -230,8 +230,9 @@
 <span class="sd">            Detection method (&#39;daofind&#39; or &#39;maxlist&#39;).</span>
 <span class="sd">        ``**kwds`` : keyword arguments</span>
 <span class="sd">            Additional arguments passed to the specific methods chosen.\n</span>
-<span class="sd">            `&#39;daofind&#39;` See `astropy.stats.sigma_clipped_stats()` and `photutils.detection.DAOStarFinder()`.\n</span>
-<span class="sd">            `&#39;maxlist&#39;` See `skimage.feature.peak_local_max()`.</span>
+<span class="sd">            ``&#39;daofind&#39;`` See ``astropy.stats.sigma_clipped_stats()``</span>
+<span class="sd">                            and ``photutils.detection.DAOStarFinder()``.\n</span>
+<span class="sd">            ``&#39;maxlist&#39;`` See ``skimage.feature.peak_local_max()``.</span>
 
 <span class="sd">    :Return:</span>
 <span class="sd">        pks : 2D array</span>
@@ -268,12 +269,12 @@
 <span class="sd">            Pixel coordinates of the point set.</span>
 <span class="sd">        method : str | &#39;centroidnn&#39; (the nearest neighbor of centroid)</span>
 <span class="sd">            Method to determine the point set center.\n</span>
-<span class="sd">            `&#39;centroidnn&#39;` Use the point with the minimal distance to the centroid as the center.\n</span>
-<span class="sd">            `&#39;centroid&#39;` Use the centroid as the center.</span>
+<span class="sd">            ``&#39;centroidnn&#39;`` Use the point with the minimal distance to the centroid as the center.\n</span>
+<span class="sd">            ``&#39;centroid&#39;`` Use the centroid as the center.</span>
 <span class="sd">        ret : str | &#39;cnc&#39;</span>
 <span class="sd">            Condition to extract the center position.\n</span>
-<span class="sd">            `&#39;cnc&#39;` Return the pixel positions of the center (c) and the non-center (nc) points.\n</span>
-<span class="sd">            `&#39;all&#39;` Return the pixel positions of the center, the non-center points and the centroid.</span>
+<span class="sd">            ``&#39;cnc&#39;`` Return the pixel positions of the center (c) and the non-center (nc) points.\n</span>
+<span class="sd">            ``&#39;all&#39;`` Return the pixel positions of the center, the non-center points and the centroid.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># Centroid position of point set</span>
