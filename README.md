@@ -31,4 +31,4 @@ See [requirements](https://github.com/RealPolitiX/symmetrize/blob/master/require
 
 ### Documentation and use
 
-Documentation of the package may be found [here](https://realpolitix.github.io/symmetrize/html/index.html) along with examples illustrating the main functionalities in here.
+Documentation of the package may be found [here](https://realpolitix.github.io/symmetrize/html/index.html) along with examples illustrating the main functionalities in [here](https://github.com/RealPolitiX/symmetrize/tree/master/examples).
