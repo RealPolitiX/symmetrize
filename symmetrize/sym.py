@@ -64,7 +64,7 @@ def rotVertexGenerator(center, fixedvertex=None, cvd=None, arot=None, nside=None
         diagdir : str | None
             Diagonal direction of the polygon ('x' or 'y').
         ret : str | 'all'
-            Return type. Specify 'all' returns all vertices, specify 'generated'
+            Return type. Specify ``'all'`` returns all vertices, specify ``'generated'``
             returns only the generated ones (without the fixedvertex in the argument).
 
     :Return:
@@ -236,7 +236,9 @@ def _refsetcost(coeffs, landmarks, center, mcd, med, direction=-1, rotsym=6,
             Direction to generate the point set, -1 (cw) or 1 (ccw).
         rotsym : int | 6
             Order of rotational symmetry.
-        weights : tuple/list
+        weights : tuple/list | (1, 1, 1)
+            Weights for the components of the cost function related to
+            centeredness, center-vertex symmetry and vertex-vertex symmetry.
         include_center : bool | False
             Option to include the center of pattern.
 
@@ -276,10 +278,10 @@ def refsetopt(init, refpts, center, mcd, med, direction=-1, rotsym=6, weights=(1
         weights : tuple/list/array | (1, 1, 1)
             Weights assigned to the objective function.
         optfunc : str/function | 'minimize'
-            Optimizer function.
-            :'basinhopping': use the `scipy.optimize.basinhopping()` function.
-            :'minimize': use the `scipy.optimize.minimize()` function.
-            :others: use other user-specified optimization function `optfunc`.
+            Name of the optimizer function.\n
+            ``'basinhopping'`` Use the `scipy.optimize.basinhopping()` function.\n
+            ``'minimize'`` Use the `scipy.optimize.minimize()` function.\n
+            ``others`` Use other user-specified optimization function `optfunc`.
         optmethod : string | 'Nelder-Mead'
             Name of the optimization method.
         include_center : bool | False
@@ -386,7 +388,7 @@ def scaling2D(xscale, yscale):
         xscale, yscale : numeric, numeric
             Scaling factors along x and y directions.\n
             A scaling factor in the range (1, +inf) amounts to zooming in.\n
-            A scaling factor in the range [0, 1) amounts to zomming out.\n
+            A scaling factor in the range [0, 1) amounts to zomming out.
     """
 
     scalemat = np.array([[1/xscale, 0, 0],
@@ -604,7 +606,7 @@ def compose_deform_field(coordmat, mat_transform, stackaxis, ret='deformation', 
 def translationDF(coordmat, stackaxis=0, xtrans=0, ytrans=0, **kwds):
     """ Deformation field of 2D translation in image coordinates.
 
-    :Parameters:
+    :Parameters:\n
         See `symmetrize.sym.translation2D()`.
     """
 
@@ -616,7 +618,7 @@ def translationDF(coordmat, stackaxis=0, xtrans=0, ytrans=0, **kwds):
 def rotationDF(coordmat, stackaxis=0, angle=0, center=(0, 0), to_rad=True, **kwds):
     """ Deformation field of 2D rotation in image coordinates.
 
-    :Parameters:
+    :Parameters:\n
         See `symmetrize.sym.rotation2D()`.
     """
 
@@ -628,7 +630,7 @@ def rotationDF(coordmat, stackaxis=0, angle=0, center=(0, 0), to_rad=True, **kwd
 def scalingDF(coordmat, stackaxis=0, xscale=1, yscale=1, **kwds):
     """ Deformation field of 2D scaling in image coordinates.
 
-    :Parameters:
+    :Parameters:\n
         See `symmetrize.sym.scaling2D()`.
     """
 
@@ -640,7 +642,7 @@ def scalingDF(coordmat, stackaxis=0, xscale=1, yscale=1, **kwds):
 def shearingDF(coordmat, stackaxis=0, xshear=0, yshear=0, **kwds):
     """ Deformation field of 2D shearing in image coordinates.
 
-    :Parameters:
+    :Parameters:\n
         See `symmetrize.sym.shearing2D()`.
     """
 

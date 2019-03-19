@@ -461,10 +461,10 @@ Shape of the output image.</td>
 <dd><p class="first last">Weights assigned to the objective function.</p>
 </dd>
 <dt>optfunc <span class="classifier-delimiter">:</span> <span class="classifier">str/function | ‘minimize’</span></dt>
-<dd><p class="first last">Optimizer function.
-:’basinhopping’: use the <cite>scipy.optimize.basinhopping()</cite> function.
-:’minimize’: use the <cite>scipy.optimize.minimize()</cite> function.
-:others: use other user-specified optimization function <cite>optfunc</cite>.</p>
+<dd><p class="first">Name of the optimizer function.</p>
+<p><code class="docutils literal"><span class="pre">'basinhopping'</span></code> Use the <cite>scipy.optimize.basinhopping()</cite> function.</p>
+<p><code class="docutils literal"><span class="pre">'minimize'</span></code> Use the <cite>scipy.optimize.minimize()</cite> function.</p>
+<p class="last"><code class="docutils literal"><span class="pre">others</span></code> Use other user-specified optimization function <cite>optfunc</cite>.</p>
 </dd>
 <dt>optmethod <span class="classifier-delimiter">:</span> <span class="classifier">string | ‘Nelder-Mead’</span></dt>
 <dd><p class="first last">Name of the optimization method.</p>
@@ -526,7 +526,7 @@ Shape of the output image.</td>
 <dd><p class="first last">Diagonal direction of the polygon (‘x’ or ‘y’).</p>
 </dd>
 <dt>ret <span class="classifier-delimiter">:</span> <span class="classifier">str | ‘all’</span></dt>
-<dd><p class="first last">Return type. Specify ‘all’ returns all vertices, specify ‘generated’
+<dd><p class="first last">Return type. Specify <code class="docutils literal"><span class="pre">'all'</span></code> returns all vertices, specify <code class="docutils literal"><span class="pre">'generated'</span></code>
 returns only the generated ones (without the fixedvertex in the argument).</p>
 </dd>
 </dl>

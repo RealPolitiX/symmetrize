@@ -224,7 +224,7 @@
 <span class="sd">        diagdir : str | None</span>
 <span class="sd">            Diagonal direction of the polygon (&#39;x&#39; or &#39;y&#39;).</span>
 <span class="sd">        ret : str | &#39;all&#39;</span>
-<span class="sd">            Return type. Specify &#39;all&#39; returns all vertices, specify &#39;generated&#39;</span>
+<span class="sd">            Return type. Specify ``&#39;all&#39;`` returns all vertices, specify ``&#39;generated&#39;``</span>
 <span class="sd">            returns only the generated ones (without the fixedvertex in the argument).</span>
 
 <span class="sd">    :Return:</span>
@@ -396,7 +396,9 @@
 <span class="sd">            Direction to generate the point set, -1 (cw) or 1 (ccw).</span>
 <span class="sd">        rotsym : int | 6</span>
 <span class="sd">            Order of rotational symmetry.</span>
-<span class="sd">        weights : tuple/list</span>
+<span class="sd">        weights : tuple/list | (1, 1, 1)</span>
+<span class="sd">            Weights for the components of the cost function related to</span>
+<span class="sd">            centeredness, center-vertex symmetry and vertex-vertex symmetry.</span>
 <span class="sd">        include_center : bool | False</span>
 <span class="sd">            Option to include the center of pattern.</span>
 
@@ -436,10 +438,10 @@
 <span class="sd">        weights : tuple/list/array | (1, 1, 1)</span>
 <span class="sd">            Weights assigned to the objective function.</span>
 <span class="sd">        optfunc : str/function | &#39;minimize&#39;</span>
-<span class="sd">            Optimizer function.</span>
-<span class="sd">            :&#39;basinhopping&#39;: use the `scipy.optimize.basinhopping()` function.</span>
-<span class="sd">            :&#39;minimize&#39;: use the `scipy.optimize.minimize()` function.</span>
-<span class="sd">            :others: use other user-specified optimization function `optfunc`.</span>
+<span class="sd">            Name of the optimizer function.\n</span>
+<span class="sd">            ``&#39;basinhopping&#39;`` Use the `scipy.optimize.basinhopping()` function.\n</span>
+<span class="sd">            ``&#39;minimize&#39;`` Use the `scipy.optimize.minimize()` function.\n</span>
+<span class="sd">            ``others`` Use other user-specified optimization function `optfunc`.</span>
 <span class="sd">        optmethod : string | &#39;Nelder-Mead&#39;</span>
 <span class="sd">            Name of the optimization method.</span>
 <span class="sd">        include_center : bool | False</span>
@@ -546,7 +548,7 @@
 <span class="sd">        xscale, yscale : numeric, numeric</span>
 <span class="sd">            Scaling factors along x and y directions.\n</span>
 <span class="sd">            A scaling factor in the range (1, +inf) amounts to zooming in.\n</span>
-<span class="sd">            A scaling factor in the range [0, 1) amounts to zomming out.\n</span>
+<span class="sd">            A scaling factor in the range [0, 1) amounts to zomming out.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">scalemat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="o">/</span><span class="n">xscale</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
@@ -764,7 +766,7 @@
 <div class="viewcode-block" id="translationDF"><a class="viewcode-back" href="../../sym.html#symmetrize.sym.translationDF">[docs]</a><span class="k">def</span> <span class="nf">translationDF</span><span class="p">(</span><span class="n">coordmat</span><span class="p">,</span> <span class="n">stackaxis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">xtrans</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ytrans</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Deformation field of 2D translation in image coordinates.</span>
 
-<span class="sd">    :Parameters:</span>
+<span class="sd">    :Parameters:\n</span>
 <span class="sd">        See `symmetrize.sym.translation2D()`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -776,7 +778,7 @@
 <div class="viewcode-block" id="rotationDF"><a class="viewcode-back" href="../../sym.html#symmetrize.sym.rotationDF">[docs]</a><span class="k">def</span> <span class="nf">rotationDF</span><span class="p">(</span><span class="n">coordmat</span><span class="p">,</span> <span class="n">stackaxis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">to_rad</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Deformation field of 2D rotation in image coordinates.</span>
 
-<span class="sd">    :Parameters:</span>
+<span class="sd">    :Parameters:\n</span>
 <span class="sd">        See `symmetrize.sym.rotation2D()`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -788,7 +790,7 @@
 <div class="viewcode-block" id="scalingDF"><a class="viewcode-back" href="../../sym.html#symmetrize.sym.scalingDF">[docs]</a><span class="k">def</span> <span class="nf">scalingDF</span><span class="p">(</span><span class="n">coordmat</span><span class="p">,</span> <span class="n">stackaxis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">xscale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">yscale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Deformation field of 2D scaling in image coordinates.</span>
 
-<span class="sd">    :Parameters:</span>
+<span class="sd">    :Parameters:\n</span>
 <span class="sd">        See `symmetrize.sym.scaling2D()`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -800,7 +802,7 @@
 <div class="viewcode-block" id="shearingDF"><a class="viewcode-back" href="../../sym.html#symmetrize.sym.shearingDF">[docs]</a><span class="k">def</span> <span class="nf">shearingDF</span><span class="p">(</span><span class="n">coordmat</span><span class="p">,</span> <span class="n">stackaxis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">xshear</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">yshear</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Deformation field of 2D shearing in image coordinates.</span>
 
-<span class="sd">    :Parameters:</span>
+<span class="sd">    :Parameters:\n</span>
 <span class="sd">        See `symmetrize.sym.shearing2D()`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
