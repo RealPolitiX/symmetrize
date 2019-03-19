@@ -279,8 +279,8 @@ def refsetopt(init, refpts, center, mcd, med, direction=-1, rotsym=6, weights=(1
             Weights assigned to the objective function.
         optfunc : str/function | 'minimize'
             Name of the optimizer function.\n
-            ``'basinhopping'`` Use the `scipy.optimize.basinhopping()` function.\n
-            ``'minimize'`` Use the `scipy.optimize.minimize()` function.\n
+            ``'basinhopping'`` Use the ``scipy.optimize.basinhopping()`` function.\n
+            ``'minimize'`` Use the ``scipy.optimize.minimize()`` function.\n
             ``others`` Use other user-specified optimization function `optfunc`.
         optmethod : string | 'Nelder-Mead'
             Name of the optimization method.
@@ -434,12 +434,11 @@ def imgWarping(img, hgmat=None, landmarks=None, refs=None, rotangle=None, **kwds
         rotangle : float
             Rotation angle (in degrees).
         ``**kwds`` : keyword argument
-            :center: tuple/list/1D array
+            :center: tuple/list/1D array\n
                 Coordinates of the center of rotation.
-            :outshape: tuple/list
-                Shape of the output image.
-            :others:
-                See arguments in `cv2.warpPerspective()`.
+            :outshape: tuple/list\n
+                Shape of the output image.\n
+            Other arguments see ``cv2.warpPerspective()``.
 
     :Returns:
         imgaw : 2D array
@@ -493,7 +492,7 @@ def applyWarping(imgstack, axis, warptype='matrix', hgmat=None, dfield=None, **k
             :order: int
                 Interpolation order.
             :others:
-                See `cv2.warpPerspective()` and `scipy.ndimage.map_coordinates()`.
+                See ``cv2.warpPerspective()`` and ``scipy.ndimage.map_coordinates()``.
 
     :Return:
         imstack_transformed : 3D array
@@ -606,8 +605,8 @@ def compose_deform_field(coordmat, mat_transform, stackaxis, ret='deformation', 
 def translationDF(coordmat, stackaxis=0, xtrans=0, ytrans=0, **kwds):
     """ Deformation field of 2D translation in image coordinates.
 
-    :Parameters:\n
-        See `symmetrize.sym.translation2D()`.
+    :Parameters:
+        See ``symmetrize.sym.translation2D()``.
     """
 
     translation_matrix = translation2D(xtrans=-xtrans, ytrans=-ytrans)
@@ -618,8 +617,8 @@ def translationDF(coordmat, stackaxis=0, xtrans=0, ytrans=0, **kwds):
 def rotationDF(coordmat, stackaxis=0, angle=0, center=(0, 0), to_rad=True, **kwds):
     """ Deformation field of 2D rotation in image coordinates.
 
-    :Parameters:\n
-        See `symmetrize.sym.rotation2D()`.
+    :Parameters:
+        See ``symmetrize.sym.rotation2D()``.
     """
 
     rotation_matrix = rotation2D(angle, center, to_rad)
@@ -630,8 +629,8 @@ def rotationDF(coordmat, stackaxis=0, angle=0, center=(0, 0), to_rad=True, **kwd
 def scalingDF(coordmat, stackaxis=0, xscale=1, yscale=1, **kwds):
     """ Deformation field of 2D scaling in image coordinates.
 
-    :Parameters:\n
-        See `symmetrize.sym.scaling2D()`.
+    :Parameters:
+        See ``symmetrize.sym.scaling2D()``.
     """
 
     scaling_matrix = scaling2D(xscale=xscale, yscale=yscale)
@@ -642,8 +641,8 @@ def scalingDF(coordmat, stackaxis=0, xscale=1, yscale=1, **kwds):
 def shearingDF(coordmat, stackaxis=0, xshear=0, yshear=0, **kwds):
     """ Deformation field of 2D shearing in image coordinates.
 
-    :Parameters:\n
-        See `symmetrize.sym.shearing2D()`.
+    :Parameters:
+        See ``symmetrize.sym.shearing2D()``.
     """
 
     shearing_matrix = shearing2D(xshear=xshear, yshear=yshear)
@@ -687,7 +686,7 @@ def foldcost(image, center, axis=1):
         axis : int | 1
             Axis along which to fold over the image (1 = column-wise, 0 = row-wise).
 
-    :Return:\n
+    :Return:
         Cost in the form of root-mean-squared (RMS) difference between folded and
         the unfolded part of the image matrix.
     """

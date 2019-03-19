@@ -196,7 +196,7 @@ Shape of the output image.</td>
 <tr class="field-even field"><th class="field-name">order:</th><td class="field-body">int
 Interpolation order.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">others:</th><td class="field-body">See <cite>cv2.warpPerspective()</cite> and <cite>scipy.ndimage.map_coordinates()</cite>.</td>
+<tr class="field-odd field"><th class="field-name">others:</th><td class="field-body">See <code class="docutils literal"><span class="pre">cv2.warpPerspective()</span></code> and <code class="docutils literal"><span class="pre">scipy.ndimage.map_coordinates()</span></code>.</td>
 </tr>
 </tbody>
 </table>
@@ -363,25 +363,26 @@ the unfolded part of the image matrix.</p>
 <dd><p class="first last">Rotation angle (in degrees).</p>
 </dd>
 <dt><code class="docutils literal"><span class="pre">**kwds</span></code> <span class="classifier-delimiter">:</span> <span class="classifier">keyword argument</span></dt>
-<dd><table class="first last docutils field-list" frame="void" rules="none">
+<dd><table class="first docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">center:</th><td class="field-body">tuple/list/1D array
-Coordinates of the center of rotation.</td>
+<tr class="field-odd field"><th class="field-name">center:</th><td class="field-body"><p class="first">tuple/list/1D array</p>
+<p>Coordinates of the center of rotation.</p>
+</td>
 </tr>
-<tr class="field-even field"><th class="field-name">outshape:</th><td class="field-body">tuple/list
-Shape of the output image.</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">others:</th><td class="field-body">See arguments in <cite>cv2.warpPerspective()</cite>.</td>
+<tr class="field-even field"><th class="field-name">outshape:</th><td class="field-body"><p class="first">tuple/list</p>
+<p class="last">Shape of the output image.</p>
+</td>
 </tr>
 </tbody>
 </table>
+<p class="last">Other arguments see <code class="docutils literal"><span class="pre">cv2.warpPerspective()</span></code>.</p>
 </dd>
 </dl>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
 <dt>imgaw <span class="classifier-delimiter">:</span> <span class="classifier">2D array</span></dt>
 <dd><p class="first last">Image after affine warping.</p>
 </dd>
@@ -462,8 +463,8 @@ Shape of the output image.</td>
 </dd>
 <dt>optfunc <span class="classifier-delimiter">:</span> <span class="classifier">str/function | ‘minimize’</span></dt>
 <dd><p class="first">Name of the optimizer function.</p>
-<p><code class="docutils literal"><span class="pre">'basinhopping'</span></code> Use the <cite>scipy.optimize.basinhopping()</cite> function.</p>
-<p><code class="docutils literal"><span class="pre">'minimize'</span></code> Use the <cite>scipy.optimize.minimize()</cite> function.</p>
+<p><code class="docutils literal"><span class="pre">'basinhopping'</span></code> Use the <code class="docutils literal"><span class="pre">scipy.optimize.basinhopping()</span></code> function.</p>
+<p><code class="docutils literal"><span class="pre">'minimize'</span></code> Use the <code class="docutils literal"><span class="pre">scipy.optimize.minimize()</span></code> function.</p>
 <p class="last"><code class="docutils literal"><span class="pre">others</span></code> Use other user-specified optimization function <cite>optfunc</cite>.</p>
 </dd>
 <dt>optmethod <span class="classifier-delimiter">:</span> <span class="classifier">string | ‘Nelder-Mead’</span></dt>
@@ -576,7 +577,7 @@ returns only the generated ones (without the fixedvertex in the argument).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body">See <cite>symmetrize.sym.rotation2D()</cite>.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body">See <code class="docutils literal"><span class="pre">symmetrize.sym.rotation2D()</span></code>.</td>
 </tr>
 </tbody>
 </table>
@@ -636,7 +637,7 @@ returns only the generated ones (without the fixedvertex in the argument).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body">See <cite>symmetrize.sym.scaling2D()</cite>.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body">See <code class="docutils literal"><span class="pre">symmetrize.sym.scaling2D()</span></code>.</td>
 </tr>
 </tbody>
 </table>
@@ -669,7 +670,7 @@ returns only the generated ones (without the fixedvertex in the argument).</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body">See <cite>symmetrize.sym.shearing2D()</cite>.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body">See <code class="docutils literal"><span class="pre">symmetrize.sym.shearing2D()</span></code>.</td>
 </tr>
 </tbody>
 </table>
@@ -746,7 +747,7 @@ angles and pick the angle that minimizes this difference.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body">See <cite>symmetrize.sym.translation2D()</cite>.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body">See <code class="docutils literal"><span class="pre">symmetrize.sym.translation2D()</span></code>.</td>
 </tr>
 </tbody>
 </table>

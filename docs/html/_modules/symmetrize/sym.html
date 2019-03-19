@@ -439,8 +439,8 @@
 <span class="sd">            Weights assigned to the objective function.</span>
 <span class="sd">        optfunc : str/function | &#39;minimize&#39;</span>
 <span class="sd">            Name of the optimizer function.\n</span>
-<span class="sd">            ``&#39;basinhopping&#39;`` Use the `scipy.optimize.basinhopping()` function.\n</span>
-<span class="sd">            ``&#39;minimize&#39;`` Use the `scipy.optimize.minimize()` function.\n</span>
+<span class="sd">            ``&#39;basinhopping&#39;`` Use the ``scipy.optimize.basinhopping()`` function.\n</span>
+<span class="sd">            ``&#39;minimize&#39;`` Use the ``scipy.optimize.minimize()`` function.\n</span>
 <span class="sd">            ``others`` Use other user-specified optimization function `optfunc`.</span>
 <span class="sd">        optmethod : string | &#39;Nelder-Mead&#39;</span>
 <span class="sd">            Name of the optimization method.</span>
@@ -594,12 +594,11 @@
 <span class="sd">        rotangle : float</span>
 <span class="sd">            Rotation angle (in degrees).</span>
 <span class="sd">        ``**kwds`` : keyword argument</span>
-<span class="sd">            :center: tuple/list/1D array</span>
+<span class="sd">            :center: tuple/list/1D array\n</span>
 <span class="sd">                Coordinates of the center of rotation.</span>
-<span class="sd">            :outshape: tuple/list</span>
-<span class="sd">                Shape of the output image.</span>
-<span class="sd">            :others:</span>
-<span class="sd">                See arguments in `cv2.warpPerspective()`.</span>
+<span class="sd">            :outshape: tuple/list\n</span>
+<span class="sd">                Shape of the output image.\n</span>
+<span class="sd">            Other arguments see ``cv2.warpPerspective()``.</span>
 
 <span class="sd">    :Returns:</span>
 <span class="sd">        imgaw : 2D array</span>
@@ -653,7 +652,7 @@
 <span class="sd">            :order: int</span>
 <span class="sd">                Interpolation order.</span>
 <span class="sd">            :others:</span>
-<span class="sd">                See `cv2.warpPerspective()` and `scipy.ndimage.map_coordinates()`.</span>
+<span class="sd">                See ``cv2.warpPerspective()`` and ``scipy.ndimage.map_coordinates()``.</span>
 
 <span class="sd">    :Return:</span>
 <span class="sd">        imstack_transformed : 3D array</span>
@@ -766,8 +765,8 @@
 <div class="viewcode-block" id="translationDF"><a class="viewcode-back" href="../../sym.html#symmetrize.sym.translationDF">[docs]</a><span class="k">def</span> <span class="nf">translationDF</span><span class="p">(</span><span class="n">coordmat</span><span class="p">,</span> <span class="n">stackaxis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">xtrans</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ytrans</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Deformation field of 2D translation in image coordinates.</span>
 
-<span class="sd">    :Parameters:\n</span>
-<span class="sd">        See `symmetrize.sym.translation2D()`.</span>
+<span class="sd">    :Parameters:</span>
+<span class="sd">        See ``symmetrize.sym.translation2D()``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">translation_matrix</span> <span class="o">=</span> <span class="n">translation2D</span><span class="p">(</span><span class="n">xtrans</span><span class="o">=-</span><span class="n">xtrans</span><span class="p">,</span> <span class="n">ytrans</span><span class="o">=-</span><span class="n">ytrans</span><span class="p">)</span>
@@ -778,8 +777,8 @@
 <div class="viewcode-block" id="rotationDF"><a class="viewcode-back" href="../../sym.html#symmetrize.sym.rotationDF">[docs]</a><span class="k">def</span> <span class="nf">rotationDF</span><span class="p">(</span><span class="n">coordmat</span><span class="p">,</span> <span class="n">stackaxis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">to_rad</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Deformation field of 2D rotation in image coordinates.</span>
 
-<span class="sd">    :Parameters:\n</span>
-<span class="sd">        See `symmetrize.sym.rotation2D()`.</span>
+<span class="sd">    :Parameters:</span>
+<span class="sd">        See ``symmetrize.sym.rotation2D()``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">rotation_matrix</span> <span class="o">=</span> <span class="n">rotation2D</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">to_rad</span><span class="p">)</span>
@@ -790,8 +789,8 @@
 <div class="viewcode-block" id="scalingDF"><a class="viewcode-back" href="../../sym.html#symmetrize.sym.scalingDF">[docs]</a><span class="k">def</span> <span class="nf">scalingDF</span><span class="p">(</span><span class="n">coordmat</span><span class="p">,</span> <span class="n">stackaxis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">xscale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">yscale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Deformation field of 2D scaling in image coordinates.</span>
 
-<span class="sd">    :Parameters:\n</span>
-<span class="sd">        See `symmetrize.sym.scaling2D()`.</span>
+<span class="sd">    :Parameters:</span>
+<span class="sd">        See ``symmetrize.sym.scaling2D()``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">scaling_matrix</span> <span class="o">=</span> <span class="n">scaling2D</span><span class="p">(</span><span class="n">xscale</span><span class="o">=</span><span class="n">xscale</span><span class="p">,</span> <span class="n">yscale</span><span class="o">=</span><span class="n">yscale</span><span class="p">)</span>
@@ -802,8 +801,8 @@
 <div class="viewcode-block" id="shearingDF"><a class="viewcode-back" href="../../sym.html#symmetrize.sym.shearingDF">[docs]</a><span class="k">def</span> <span class="nf">shearingDF</span><span class="p">(</span><span class="n">coordmat</span><span class="p">,</span> <span class="n">stackaxis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">xshear</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">yshear</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Deformation field of 2D shearing in image coordinates.</span>
 
-<span class="sd">    :Parameters:\n</span>
-<span class="sd">        See `symmetrize.sym.shearing2D()`.</span>
+<span class="sd">    :Parameters:</span>
+<span class="sd">        See ``symmetrize.sym.shearing2D()``.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">shearing_matrix</span> <span class="o">=</span> <span class="n">shearing2D</span><span class="p">(</span><span class="n">xshear</span><span class="o">=</span><span class="n">xshear</span><span class="p">,</span> <span class="n">yshear</span><span class="o">=</span><span class="n">yshear</span><span class="p">)</span>
@@ -847,7 +846,7 @@
 <span class="sd">        axis : int | 1</span>
 <span class="sd">            Axis along which to fold over the image (1 = column-wise, 0 = row-wise).</span>
 
-<span class="sd">    :Return:\n</span>
+<span class="sd">    :Return:</span>
 <span class="sd">        Cost in the form of root-mean-squared (RMS) difference between folded and</span>
 <span class="sd">        the unfolded part of the image matrix.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
