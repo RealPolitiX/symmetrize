@@ -1,4 +1,4 @@
-Symmetrizer module (sym)
+Symmetrizer module (symmetrize.sym)
 ===================================
 
 .. automodule:: symmetrize.sym

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Symmetrizer module (sym) &mdash; symmetrize 0.4.2 documentation</title>
+  <title>1. Symmetrizer module (symmetrize.sym) &mdash; symmetrize 0.4.2 documentation</title>
   
 
   
@@ -26,21 +26,21 @@
 
   
   
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
   
 
   
         <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="symmetrize 0.4.2 documentation" href="index.html"/>
-        <link rel="next" title="Point operations module (pointops)" href="pointops.html"/>
-        <link rel="prev" title="Package installation" href="installation.html"/> 
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="symmetrize 0.4.2 documentation" href="../index.html"/>
+        <link rel="next" title="2. Point operations module (symmetrize.pointops)" href="pointops.html"/>
+        <link rel="prev" title="2. Example workflow for shape symmetrization of band mapping data of \(\text{WSe}_2\)" href="../tutorial/workflow.html"/> 
 
   
-  <script src="_static/js/modernizr.min.js"></script>
+  <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -56,7 +56,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> symmetrize
+            <a href="../index.html" class="icon icon-home"> symmetrize
           
 
           
@@ -73,7 +73,7 @@
 
           
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -90,11 +90,16 @@
               
             
             
-              <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Package installation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Symmetrizer module (sym)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pointops.html">Point operations module (pointops)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tps.html">Thin-plate spline module (tps)</a></li>
+              <p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/installation.html">1. Package installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/workflow.html">2. Example workflow for shape symmetrization of band mapping data of <span class="math">\(\text{WSe}_2\)</span></a></li>
+</ul>
+<p class="caption"><span class="caption-text">Function directory</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1. Symmetrizer module (symmetrize.sym)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pointops.html">2. Point operations module (symmetrize.pointops)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tps.html">3. Thin-plate spline module (symmetrize.tps)</a></li>
 </ul>
 
             
@@ -109,7 +114,7 @@
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">symmetrize</a>
+          <a href="../index.html">symmetrize</a>
         
       </nav>
 
@@ -137,15 +142,15 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Symmetrizer module (sym)</li>
+      <li>1. Symmetrizer module (symmetrize.sym)</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/sym.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/library/sym.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -159,11 +164,11 @@
            <div itemprop="articleBody">
             
   <div class="section" id="module-symmetrize.sym">
-<span id="symmetrizer-module-sym"></span><h1>Symmetrizer module (sym)<a class="headerlink" href="#module-symmetrize.sym" title="Permalink to this headline">¶</a></h1>
+<span id="symmetrizer-module-symmetrize-sym"></span><h1>1. Symmetrizer module (symmetrize.sym)<a class="headerlink" href="#module-symmetrize.sym" title="Permalink to this headline">¶</a></h1>
 <p>&#64;author: R. Patrick Xian</p>
 <dl class="function">
 <dt id="symmetrize.sym.applyWarping">
-<code class="descclassname">symmetrize.sym.</code><code class="descname">applyWarping</code><span class="sig-paren">(</span><em>imgstack</em>, <em>axis</em>, <em>warptype='matrix'</em>, <em>hgmat=None</em>, <em>dfield=None</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/sym.html#applyWarping"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.applyWarping" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">symmetrize.sym.</code><code class="descname">applyWarping</code><span class="sig-paren">(</span><em>imgstack</em>, <em>axis</em>, <em>warptype='matrix'</em>, <em>hgmat=None</em>, <em>dfield=None</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/sym.html#applyWarping"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.applyWarping" title="Permalink to this definition">¶</a></dt>
 <dd><p>Apply warping transform to a stack of images along the specified axis.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -217,7 +222,7 @@ Interpolation order.</td>
 
 <dl class="function">
 <dt id="symmetrize.sym.compose_deform_field">
-<code class="descclassname">symmetrize.sym.</code><code class="descname">compose_deform_field</code><span class="sig-paren">(</span><em>coordmat</em>, <em>mat_transform</em>, <em>stackaxis</em>, <em>ret='deformation'</em>, <em>ret_indexing='rc'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/sym.html#compose_deform_field"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.compose_deform_field" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">symmetrize.sym.</code><code class="descname">compose_deform_field</code><span class="sig-paren">(</span><em>coordmat</em>, <em>mat_transform</em>, <em>stackaxis</em>, <em>ret='deformation'</em>, <em>ret_indexing='rc'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/sym.html#compose_deform_field"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.compose_deform_field" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compose the deformation/displacement field from coordinate and transform matrices.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -252,7 +257,7 @@ or ‘xy’ (x deformation, y deformation). Same for displacements.</p>
 
 <dl class="function">
 <dt id="symmetrize.sym.coordinate_matrix_2D">
-<code class="descclassname">symmetrize.sym.</code><code class="descname">coordinate_matrix_2D</code><span class="sig-paren">(</span><em>image</em>, <em>coordtype='homogeneous'</em>, <em>stackaxis=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/sym.html#coordinate_matrix_2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.coordinate_matrix_2D" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">symmetrize.sym.</code><code class="descname">coordinate_matrix_2D</code><span class="sig-paren">(</span><em>image</em>, <em>coordtype='homogeneous'</em>, <em>stackaxis=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/sym.html#coordinate_matrix_2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.coordinate_matrix_2D" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate pixel coordinate matrix for a 2D image.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -286,7 +291,7 @@ while -1 means stacking along the last dimension.</p>
 
 <dl class="function">
 <dt id="symmetrize.sym.deform_field_merge">
-<code class="descclassname">symmetrize.sym.</code><code class="descname">deform_field_merge</code><span class="sig-paren">(</span><em>operation</em>, <em>*fields</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/sym.html#deform_field_merge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.deform_field_merge" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">symmetrize.sym.</code><code class="descname">deform_field_merge</code><span class="sig-paren">(</span><em>operation</em>, <em>*fields</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/sym.html#deform_field_merge"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.deform_field_merge" title="Permalink to this definition">¶</a></dt>
 <dd><p>Combine multiple deformation fields.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -311,7 +316,7 @@ while -1 means stacking along the last dimension.</p>
 
 <dl class="function">
 <dt id="symmetrize.sym.foldcost">
-<code class="descclassname">symmetrize.sym.</code><code class="descname">foldcost</code><span class="sig-paren">(</span><em>image</em>, <em>center</em>, <em>axis=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/sym.html#foldcost"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.foldcost" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">symmetrize.sym.</code><code class="descname">foldcost</code><span class="sig-paren">(</span><em>image</em>, <em>center</em>, <em>axis=1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/sym.html#foldcost"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.foldcost" title="Permalink to this definition">¶</a></dt>
 <dd><p>Cost function for folding over an image along an image axis crossing the image center.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -340,7 +345,7 @@ the unfolded part of the image matrix.</p>
 
 <dl class="function">
 <dt id="symmetrize.sym.imgWarping">
-<code class="descclassname">symmetrize.sym.</code><code class="descname">imgWarping</code><span class="sig-paren">(</span><em>img</em>, <em>hgmat=None</em>, <em>landmarks=None</em>, <em>refs=None</em>, <em>rotangle=None</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/sym.html#imgWarping"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.imgWarping" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">symmetrize.sym.</code><code class="descname">imgWarping</code><span class="sig-paren">(</span><em>img</em>, <em>hgmat=None</em>, <em>landmarks=None</em>, <em>refs=None</em>, <em>rotangle=None</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/sym.html#imgWarping"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.imgWarping" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform image warping based on a generic affine transform (homography).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -398,7 +403,7 @@ the unfolded part of the image matrix.</p>
 
 <dl class="function">
 <dt id="symmetrize.sym.pointsetTransform">
-<code class="descclassname">symmetrize.sym.</code><code class="descname">pointsetTransform</code><span class="sig-paren">(</span><em>points</em>, <em>hgmat</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/sym.html#pointsetTransform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.pointsetTransform" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">symmetrize.sym.</code><code class="descname">pointsetTransform</code><span class="sig-paren">(</span><em>points</em>, <em>hgmat</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/sym.html#pointsetTransform"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.pointsetTransform" title="Permalink to this definition">¶</a></dt>
 <dd><p>Apply transform to the positions of a point set.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -427,8 +432,8 @@ the unfolded part of the image matrix.</p>
 
 <dl class="function">
 <dt id="symmetrize.sym.refsetopt">
-<code class="descclassname">symmetrize.sym.</code><code class="descname">refsetopt</code><span class="sig-paren">(</span><em>init</em>, <em>refpts</em>, <em>center</em>, <em>mcd</em>, <em>med</em>, <em>direction=-1</em>, <em>rotsym=6</em>, <em>weights=(1</em>, <em>1</em>, <em>1)</em>, <em>optfunc='minimize'</em>, <em>optmethod='Nelder-Mead'</em>, <em>include_center=False</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/sym.html#refsetopt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.refsetopt" title="Permalink to this definition">¶</a></dt>
-<dd><p>Optimization to find the optimal reference point set.</p>
+<code class="descclassname">symmetrize.sym.</code><code class="descname">refsetopt</code><span class="sig-paren">(</span><em>init</em>, <em>refpts</em>, <em>center</em>, <em>mcd</em>, <em>med</em>, <em>direction=-1</em>, <em>rotsym=6</em>, <em>weights=(1</em>, <em>1</em>, <em>1)</em>, <em>optfunc='minimize'</em>, <em>optmethod='Nelder-Mead'</em>, <em>include_center=False</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/sym.html#refsetopt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.refsetopt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optimization of the reference point set for image symmetrization.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -495,7 +500,7 @@ the unfolded part of the image matrix.</p>
 
 <dl class="function">
 <dt id="symmetrize.sym.rotVertexGenerator">
-<code class="descclassname">symmetrize.sym.</code><code class="descname">rotVertexGenerator</code><span class="sig-paren">(</span><em>center</em>, <em>fixedvertex=None</em>, <em>cvd=None</em>, <em>arot=None</em>, <em>nside=None</em>, <em>direction=-1</em>, <em>scale=1</em>, <em>diagdir=None</em>, <em>ret='all'</em>, <em>rettype='float32'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/sym.html#rotVertexGenerator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.rotVertexGenerator" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">symmetrize.sym.</code><code class="descname">rotVertexGenerator</code><span class="sig-paren">(</span><em>center</em>, <em>fixedvertex=None</em>, <em>cvd=None</em>, <em>arot=None</em>, <em>nside=None</em>, <em>direction=-1</em>, <em>scale=1</em>, <em>diagdir=None</em>, <em>ret='all'</em>, <em>rettype='float32'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/sym.html#rotVertexGenerator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.rotVertexGenerator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generation of the vertices of symmetric polygons.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -546,7 +551,7 @@ returns only the generated ones (without the fixedvertex in the argument).</p>
 
 <dl class="function">
 <dt id="symmetrize.sym.rotation2D">
-<code class="descclassname">symmetrize.sym.</code><code class="descname">rotation2D</code><span class="sig-paren">(</span><em>angle</em>, <em>center=(0</em>, <em>0)</em>, <em>to_rad=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/sym.html#rotation2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.rotation2D" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">symmetrize.sym.</code><code class="descname">rotation2D</code><span class="sig-paren">(</span><em>angle</em>, <em>center=(0</em>, <em>0)</em>, <em>to_rad=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/sym.html#rotation2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.rotation2D" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rotation matrix in 2D in homogeneous coordinates.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -571,7 +576,7 @@ returns only the generated ones (without the fixedvertex in the argument).</p>
 
 <dl class="function">
 <dt id="symmetrize.sym.rotationDF">
-<code class="descclassname">symmetrize.sym.</code><code class="descname">rotationDF</code><span class="sig-paren">(</span><em>coordmat</em>, <em>stackaxis=0</em>, <em>angle=0</em>, <em>center=(0</em>, <em>0)</em>, <em>to_rad=True</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/sym.html#rotationDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.rotationDF" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">symmetrize.sym.</code><code class="descname">rotationDF</code><span class="sig-paren">(</span><em>coordmat</em>, <em>stackaxis=0</em>, <em>angle=0</em>, <em>center=(0</em>, <em>0)</em>, <em>to_rad=True</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/sym.html#rotationDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.rotationDF" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deformation field of 2D rotation in image coordinates.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -585,7 +590,7 @@ returns only the generated ones (without the fixedvertex in the argument).</p>
 
 <dl class="function">
 <dt id="symmetrize.sym.scaledRotation2D">
-<code class="descclassname">symmetrize.sym.</code><code class="descname">scaledRotation2D</code><span class="sig-paren">(</span><em>center</em>, <em>angle</em>, <em>scale</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/sym.html#scaledRotation2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.scaledRotation2D" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">symmetrize.sym.</code><code class="descname">scaledRotation2D</code><span class="sig-paren">(</span><em>center</em>, <em>angle</em>, <em>scale</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/sym.html#scaledRotation2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.scaledRotation2D" title="Permalink to this definition">¶</a></dt>
 <dd><p>Scaled rotation matrix in 2D in homogeneous coordinates.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -610,7 +615,7 @@ returns only the generated ones (without the fixedvertex in the argument).</p>
 
 <dl class="function">
 <dt id="symmetrize.sym.scaling2D">
-<code class="descclassname">symmetrize.sym.</code><code class="descname">scaling2D</code><span class="sig-paren">(</span><em>xscale</em>, <em>yscale</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/sym.html#scaling2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.scaling2D" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">symmetrize.sym.</code><code class="descname">scaling2D</code><span class="sig-paren">(</span><em>xscale</em>, <em>yscale</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/sym.html#scaling2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.scaling2D" title="Permalink to this definition">¶</a></dt>
 <dd><p>Biaxial scaling matrix in 2D in homogeneous coordinates.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -631,7 +636,7 @@ returns only the generated ones (without the fixedvertex in the argument).</p>
 
 <dl class="function">
 <dt id="symmetrize.sym.scalingDF">
-<code class="descclassname">symmetrize.sym.</code><code class="descname">scalingDF</code><span class="sig-paren">(</span><em>coordmat</em>, <em>stackaxis=0</em>, <em>xscale=1</em>, <em>yscale=1</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/sym.html#scalingDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.scalingDF" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">symmetrize.sym.</code><code class="descname">scalingDF</code><span class="sig-paren">(</span><em>coordmat</em>, <em>stackaxis=0</em>, <em>xscale=1</em>, <em>yscale=1</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/sym.html#scalingDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.scalingDF" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deformation field of 2D scaling in image coordinates.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -645,7 +650,7 @@ returns only the generated ones (without the fixedvertex in the argument).</p>
 
 <dl class="function">
 <dt id="symmetrize.sym.shearing2D">
-<code class="descclassname">symmetrize.sym.</code><code class="descname">shearing2D</code><span class="sig-paren">(</span><em>xshear</em>, <em>yshear</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/sym.html#shearing2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.shearing2D" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">symmetrize.sym.</code><code class="descname">shearing2D</code><span class="sig-paren">(</span><em>xshear</em>, <em>yshear</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/sym.html#shearing2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.shearing2D" title="Permalink to this definition">¶</a></dt>
 <dd><p>Biaxial shearing matrix in 2D in homogeneous coordinates.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -664,7 +669,7 @@ returns only the generated ones (without the fixedvertex in the argument).</p>
 
 <dl class="function">
 <dt id="symmetrize.sym.shearingDF">
-<code class="descclassname">symmetrize.sym.</code><code class="descname">shearingDF</code><span class="sig-paren">(</span><em>coordmat</em>, <em>stackaxis=0</em>, <em>xshear=0</em>, <em>yshear=0</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/sym.html#shearingDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.shearingDF" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">symmetrize.sym.</code><code class="descname">shearingDF</code><span class="sig-paren">(</span><em>coordmat</em>, <em>stackaxis=0</em>, <em>xshear=0</em>, <em>yshear=0</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/sym.html#shearingDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.shearingDF" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deformation field of 2D shearing in image coordinates.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -678,7 +683,7 @@ returns only the generated ones (without the fixedvertex in the argument).</p>
 
 <dl class="function">
 <dt id="symmetrize.sym.sym_pose_estimate">
-<code class="descclassname">symmetrize.sym.</code><code class="descname">sym_pose_estimate</code><span class="sig-paren">(</span><em>image</em>, <em>center</em>, <em>axis=1</em>, <em>angle_range=None</em>, <em>angle_start=-90</em>, <em>angle_stop=90</em>, <em>angle_step=0.1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/sym.html#sym_pose_estimate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.sym_pose_estimate" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">symmetrize.sym.</code><code class="descname">sym_pose_estimate</code><span class="sig-paren">(</span><em>image</em>, <em>center</em>, <em>axis=1</em>, <em>angle_range=None</em>, <em>angle_start=-90</em>, <em>angle_stop=90</em>, <em>angle_step=0.1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/sym.html#sym_pose_estimate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.sym_pose_estimate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Estimate the best presenting angle using rotation-mirroring grid search such that
 the image is symmetric about an image axis (row or column). The algorithm calculates
 the intensity difference mirrored from the center of the image at a range of rotation
@@ -722,7 +727,7 @@ angles and pick the angle that minimizes this difference.</p>
 
 <dl class="function">
 <dt id="symmetrize.sym.translation2D">
-<code class="descclassname">symmetrize.sym.</code><code class="descname">translation2D</code><span class="sig-paren">(</span><em>xtrans</em>, <em>ytrans</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/sym.html#translation2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.translation2D" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">symmetrize.sym.</code><code class="descname">translation2D</code><span class="sig-paren">(</span><em>xtrans</em>, <em>ytrans</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/sym.html#translation2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.translation2D" title="Permalink to this definition">¶</a></dt>
 <dd><p>Translation matrix in 2D in homogeneous coordinates.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -741,7 +746,7 @@ angles and pick the angle that minimizes this difference.</p>
 
 <dl class="function">
 <dt id="symmetrize.sym.translationDF">
-<code class="descclassname">symmetrize.sym.</code><code class="descname">translationDF</code><span class="sig-paren">(</span><em>coordmat</em>, <em>stackaxis=0</em>, <em>xtrans=0</em>, <em>ytrans=0</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/sym.html#translationDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.translationDF" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">symmetrize.sym.</code><code class="descname">translationDF</code><span class="sig-paren">(</span><em>coordmat</em>, <em>stackaxis=0</em>, <em>xtrans=0</em>, <em>ytrans=0</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/sym.html#translationDF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.translationDF" title="Permalink to this definition">¶</a></dt>
 <dd><p>Deformation field of 2D translation in image coordinates.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -765,10 +770,10 @@ angles and pick the angle that minimizes this difference.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="pointops.html" class="btn btn-neutral float-right" title="Point operations module (pointops)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="pointops.html" class="btn btn-neutral float-right" title="2. Point operations module (symmetrize.pointops)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="installation.html" class="btn btn-neutral" title="Package installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../tutorial/workflow.html" class="btn btn-neutral" title="2. Example workflow for shape symmetrization of band mapping data of \(\text{WSe}_2\)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -798,7 +803,7 @@ angles and pick the angle that minimizes this difference.</p>
 
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
+            URL_ROOT:'../',
             VERSION:'0.4.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
@@ -806,16 +811,16 @@ angles and pick the angle that minimizes this difference.</p>
             SOURCELINK_SUFFIX: '.txt'
         };
     </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
   
   
-    <script type="text/javascript" src="_static/js/theme.js"></script>
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
   
 
   

@@ -89,11 +89,19 @@
               
             
             
-              <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Package installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../sym.html">Symmetrizer module (sym)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../pointops.html">Point operations module (pointops)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tps.html">Thin-plate spline module (tps)</a></li>
+              <p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/T01_installation.html">1. Package installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/T02_algorithm.html">2. Overview of algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/T03_symmetry.html">3. Metrics of symmetrization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/T04_workflow.html">4. Example workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/T05_extensions.html">5. Possible extension</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Function directory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../library/sym.html">1. Symmetrizer module (symmetrize.sym)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library/pointops.html">2. Point operations module (symmetrize.pointops)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library/tps.html">3. Thin-plate spline module (symmetrize.tps)</a></li>
 </ul>
 
             
@@ -178,7 +186,7 @@
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 
-<div class="viewcode-block" id="cart2homo"><a class="viewcode-back" href="../../pointops.html#symmetrize.pointops.cart2homo">[docs]</a><span class="k">def</span> <span class="nf">cart2homo</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">dtyp</span><span class="o">=</span><span class="s1">&#39;float32&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="cart2homo"><a class="viewcode-back" href="../../library/pointops.html#symmetrize.pointops.cart2homo">[docs]</a><span class="k">def</span> <span class="nf">cart2homo</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">dtyp</span><span class="o">=</span><span class="s1">&#39;float32&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Transform points from Cartesian to homogeneous coordinates.</span>
 
@@ -198,7 +206,7 @@
     <span class="k">return</span> <span class="n">pts_homo</span></div>
 
 
-<div class="viewcode-block" id="homo2cart"><a class="viewcode-back" href="../../pointops.html#symmetrize.pointops.homo2cart">[docs]</a><span class="k">def</span> <span class="nf">homo2cart</span><span class="p">(</span><span class="n">points</span><span class="p">):</span>
+<div class="viewcode-block" id="homo2cart"><a class="viewcode-back" href="../../library/pointops.html#symmetrize.pointops.homo2cart">[docs]</a><span class="k">def</span> <span class="nf">homo2cart</span><span class="p">(</span><span class="n">points</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Transform points from homogeneous to Cartesian coordinates.</span>
 
@@ -219,7 +227,7 @@
     <span class="k">return</span> <span class="n">pts_cart</span></div>
 
 
-<div class="viewcode-block" id="peakdetect2d"><a class="viewcode-back" href="../../pointops.html#symmetrize.pointops.peakdetect2d">[docs]</a><span class="k">def</span> <span class="nf">peakdetect2d</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;daofind&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+<div class="viewcode-block" id="peakdetect2d"><a class="viewcode-back" href="../../library/pointops.html#symmetrize.pointops.peakdetect2d">[docs]</a><span class="k">def</span> <span class="nf">peakdetect2d</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;daofind&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Peak detection in 2D image.</span>
 
@@ -260,7 +268,7 @@
     <span class="k">return</span> <span class="n">pks</span></div>
 
 
-<div class="viewcode-block" id="pointset_center"><a class="viewcode-back" href="../../pointops.html#symmetrize.pointops.pointset_center">[docs]</a><span class="k">def</span> <span class="nf">pointset_center</span><span class="p">(</span><span class="n">pset</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;centroidnn&#39;</span><span class="p">,</span> <span class="n">ret</span><span class="o">=</span><span class="s1">&#39;cnc&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="pointset_center"><a class="viewcode-back" href="../../library/pointops.html#symmetrize.pointops.pointset_center">[docs]</a><span class="k">def</span> <span class="nf">pointset_center</span><span class="p">(</span><span class="n">pset</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;centroidnn&#39;</span><span class="p">,</span> <span class="n">ret</span><span class="o">=</span><span class="s1">&#39;cnc&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Determine the center position of a point set and separate it from the rest.</span>
 
@@ -303,7 +311,7 @@
         <span class="k">return</span> <span class="n">pscenter</span><span class="p">,</span> <span class="n">prest</span><span class="p">,</span> <span class="n">pmean</span></div>
 
 
-<div class="viewcode-block" id="pointset_order"><a class="viewcode-back" href="../../pointops.html#symmetrize.pointops.pointset_order">[docs]</a><span class="k">def</span> <span class="nf">pointset_order</span><span class="p">(</span><span class="n">pset</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;ccw&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="pointset_order"><a class="viewcode-back" href="../../library/pointops.html#symmetrize.pointops.pointset_order">[docs]</a><span class="k">def</span> <span class="nf">pointset_order</span><span class="p">(</span><span class="n">pset</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s1">&#39;ccw&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Order a point set around a center in a clockwise or counterclockwise way.</span>
 
@@ -337,7 +345,7 @@
     <span class="k">return</span> <span class="n">pset_ordered</span></div>
 
 
-<div class="viewcode-block" id="vvdist"><a class="viewcode-back" href="../../pointops.html#symmetrize.pointops.vvdist">[docs]</a><span class="k">def</span> <span class="nf">vvdist</span><span class="p">(</span><span class="n">verts</span><span class="p">,</span> <span class="n">neighbor</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<div class="viewcode-block" id="vvdist"><a class="viewcode-back" href="../../library/pointops.html#symmetrize.pointops.vvdist">[docs]</a><span class="k">def</span> <span class="nf">vvdist</span><span class="p">(</span><span class="n">verts</span><span class="p">,</span> <span class="n">neighbor</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculate the neighboring vertex-vertex distance.</span>
 
@@ -354,7 +362,7 @@
     <span class="k">return</span> <span class="n">vvd</span></div>
 
 
-<div class="viewcode-block" id="cvdist"><a class="viewcode-back" href="../../pointops.html#symmetrize.pointops.cvdist">[docs]</a><span class="k">def</span> <span class="nf">cvdist</span><span class="p">(</span><span class="n">verts</span><span class="p">,</span> <span class="n">center</span><span class="p">):</span>
+<div class="viewcode-block" id="cvdist"><a class="viewcode-back" href="../../library/pointops.html#symmetrize.pointops.cvdist">[docs]</a><span class="k">def</span> <span class="nf">cvdist</span><span class="p">(</span><span class="n">verts</span><span class="p">,</span> <span class="n">center</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculate the center-vertex distance.</span>
 
@@ -368,7 +376,7 @@
     <span class="k">return</span> <span class="n">norm</span><span class="p">(</span><span class="n">verts</span> <span class="o">-</span> <span class="n">center</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="reorder"><a class="viewcode-back" href="../../pointops.html#symmetrize.pointops.reorder">[docs]</a><span class="k">def</span> <span class="nf">reorder</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">itemid</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<div class="viewcode-block" id="reorder"><a class="viewcode-back" href="../../library/pointops.html#symmetrize.pointops.reorder">[docs]</a><span class="k">def</span> <span class="nf">reorder</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">itemid</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Reorder a point set along an axis.</span>
 
@@ -390,7 +398,7 @@
     <span class="k">return</span> <span class="n">pts_rolled</span></div>
 
 
-<div class="viewcode-block" id="rotmat"><a class="viewcode-back" href="../../pointops.html#symmetrize.pointops.rotmat">[docs]</a><span class="k">def</span> <span class="nf">rotmat</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">to_rad</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">coordsys</span><span class="o">=</span><span class="s1">&#39;cartesian&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="rotmat"><a class="viewcode-back" href="../../library/pointops.html#symmetrize.pointops.rotmat">[docs]</a><span class="k">def</span> <span class="nf">rotmat</span><span class="p">(</span><span class="n">theta</span><span class="p">,</span> <span class="n">to_rad</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">coordsys</span><span class="o">=</span><span class="s1">&#39;cartesian&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Rotation matrix in 2D in different coordinate systems.</span>
 
 <span class="sd">    :Parameters:</span>
@@ -414,7 +422,7 @@
     <span class="k">return</span> <span class="n">R</span></div>
 
 
-<div class="viewcode-block" id="csm"><a class="viewcode-back" href="../../pointops.html#symmetrize.pointops.csm">[docs]</a><span class="k">def</span> <span class="nf">csm</span><span class="p">(</span><span class="n">pcent</span><span class="p">,</span> <span class="n">pvert</span><span class="p">,</span> <span class="n">rotsym</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;rotation&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="csm"><a class="viewcode-back" href="../../library/pointops.html#symmetrize.pointops.csm">[docs]</a><span class="k">def</span> <span class="nf">csm</span><span class="p">(</span><span class="n">pcent</span><span class="p">,</span> <span class="n">pvert</span><span class="p">,</span> <span class="n">rotsym</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;rotation&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Computation of the continuous (a)symmetry measure (CSM) for a set of polygon</span>
 <span class="sd">    vertices exhibiting a degree of rotational symmetry. The value is bounded within [0, 1].\n</span>
@@ -483,7 +491,7 @@
         <span class="k">return</span> <span class="n">s</span></div>
 
 
-<div class="viewcode-block" id="polyarea"><a class="viewcode-back" href="../../pointops.html#symmetrize.pointops.polyarea">[docs]</a><span class="k">def</span> <span class="nf">polyarea</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="p">[],</span> <span class="n">y</span><span class="o">=</span><span class="p">[],</span> <span class="n">coords</span><span class="o">=</span><span class="p">[],</span> <span class="n">coord_order</span><span class="o">=</span><span class="s1">&#39;rc&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="polyarea"><a class="viewcode-back" href="../../library/pointops.html#symmetrize.pointops.polyarea">[docs]</a><span class="k">def</span> <span class="nf">polyarea</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="p">[],</span> <span class="n">y</span><span class="o">=</span><span class="p">[],</span> <span class="n">coords</span><span class="o">=</span><span class="p">[],</span> <span class="n">coord_order</span><span class="o">=</span><span class="s1">&#39;rc&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculate the area of a convex polygon area from its vertex coordinates, using</span>
 <span class="sd">    the surveyor&#39;s formula (also called the shoelace formula).</span>
@@ -516,7 +524,7 @@
     <span class="k">return</span> <span class="n">A</span></div>
 
 
-<div class="viewcode-block" id="arm"><a class="viewcode-back" href="../../pointops.html#symmetrize.pointops.arm">[docs]</a><span class="k">def</span> <span class="nf">arm</span><span class="p">(</span><span class="n">Aold</span><span class="p">,</span> <span class="n">Anew</span><span class="p">):</span>
+<div class="viewcode-block" id="arm"><a class="viewcode-back" href="../../library/pointops.html#symmetrize.pointops.arm">[docs]</a><span class="k">def</span> <span class="nf">arm</span><span class="p">(</span><span class="n">Aold</span><span class="p">,</span> <span class="n">Anew</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculate the area retainment measure (ARM).</span>
 
@@ -535,7 +543,7 @@
     <span class="k">return</span> <span class="n">s</span></div>
 
 
-<div class="viewcode-block" id="gridplot"><a class="viewcode-back" href="../../pointops.html#symmetrize.pointops.gridplot">[docs]</a><span class="k">def</span> <span class="nf">gridplot</span><span class="p">(</span><span class="n">xgrid</span><span class="p">,</span> <span class="n">ygrid</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">subsamp</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+<div class="viewcode-block" id="gridplot"><a class="viewcode-back" href="../../library/pointops.html#symmetrize.pointops.gridplot">[docs]</a><span class="k">def</span> <span class="nf">gridplot</span><span class="p">(</span><span class="n">xgrid</span><span class="p">,</span> <span class="n">ygrid</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">subsamp</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Plotting transform grid with downsampling. Adapted from the StackOverflow post,</span>
 <span class="sd">    https://stackoverflow.com/questions/47295473/how-to-plot-using-matplotlib-python-colahs-deformed-grid</span>
@@ -616,7 +624,7 @@
       <script type="text/javascript" src="../../_static/jquery.js"></script>
       <script type="text/javascript" src="../../_static/underscore.js"></script>
       <script type="text/javascript" src="../../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

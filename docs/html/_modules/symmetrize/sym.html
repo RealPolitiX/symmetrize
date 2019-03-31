@@ -89,11 +89,19 @@
               
             
             
-              <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Package installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../sym.html">Symmetrizer module (sym)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../pointops.html">Point operations module (pointops)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tps.html">Thin-plate spline module (tps)</a></li>
+              <p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/T01_installation.html">1. Package installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/T02_algorithm.html">2. Overview of algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/T03_symmetry.html">3. Metrics of symmetrization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/T04_workflow.html">4. Example workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/T05_extensions.html">5. Possible extension</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Function directory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../library/sym.html">1. Symmetrizer module (symmetrize.sym)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library/pointops.html">2. Point operations module (symmetrize.pointops)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library/tps.html">3. Thin-plate spline module (symmetrize.tps)</a></li>
 </ul>
 
             
@@ -180,7 +188,7 @@
 <span class="kn">import</span> <span class="nn">cv2</span>
 
 
-<div class="viewcode-block" id="pointsetTransform"><a class="viewcode-back" href="../../sym.html#symmetrize.sym.pointsetTransform">[docs]</a><span class="k">def</span> <span class="nf">pointsetTransform</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">hgmat</span><span class="p">):</span>
+<div class="viewcode-block" id="pointsetTransform"><a class="viewcode-back" href="../../library/sym.html#symmetrize.sym.pointsetTransform">[docs]</a><span class="k">def</span> <span class="nf">pointsetTransform</span><span class="p">(</span><span class="n">points</span><span class="p">,</span> <span class="n">hgmat</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Apply transform to the positions of a point set.</span>
 
@@ -201,7 +209,7 @@
     <span class="k">return</span> <span class="n">points_transformed</span></div>
 
 
-<div class="viewcode-block" id="rotVertexGenerator"><a class="viewcode-back" href="../../sym.html#symmetrize.sym.rotVertexGenerator">[docs]</a><span class="k">def</span> <span class="nf">rotVertexGenerator</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">fixedvertex</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cvd</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">arot</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">nside</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">direction</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+<div class="viewcode-block" id="rotVertexGenerator"><a class="viewcode-back" href="../../library/sym.html#symmetrize.sym.rotVertexGenerator">[docs]</a><span class="k">def</span> <span class="nf">rotVertexGenerator</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">fixedvertex</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cvd</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">arot</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">nside</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">direction</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
                     <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">diagdir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ret</span><span class="o">=</span><span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="n">rettype</span><span class="o">=</span><span class="s1">&#39;float32&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generation of the vertices of symmetric polygons.</span>
@@ -413,10 +421,10 @@
     <span class="k">return</span> <span class="n">rs_cost</span>
 
 
-<div class="viewcode-block" id="refsetopt"><a class="viewcode-back" href="../../sym.html#symmetrize.sym.refsetopt">[docs]</a><span class="k">def</span> <span class="nf">refsetopt</span><span class="p">(</span><span class="n">init</span><span class="p">,</span> <span class="n">refpts</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">mcd</span><span class="p">,</span> <span class="n">med</span><span class="p">,</span> <span class="n">direction</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">rotsym</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<div class="viewcode-block" id="refsetopt"><a class="viewcode-back" href="../../library/sym.html#symmetrize.sym.refsetopt">[docs]</a><span class="k">def</span> <span class="nf">refsetopt</span><span class="p">(</span><span class="n">init</span><span class="p">,</span> <span class="n">refpts</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">mcd</span><span class="p">,</span> <span class="n">med</span><span class="p">,</span> <span class="n">direction</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">rotsym</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
                 <span class="n">optfunc</span><span class="o">=</span><span class="s1">&#39;minimize&#39;</span><span class="p">,</span> <span class="n">optmethod</span><span class="o">=</span><span class="s1">&#39;Nelder-Mead&#39;</span><span class="p">,</span> <span class="n">include_center</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Optimization to find the optimal reference point set.</span>
+<span class="sd">    Optimization of the reference point set for image symmetrization.</span>
 
 <span class="sd">    :Parameters:</span>
 <span class="sd">        init : list/tuple</span>
@@ -479,7 +487,7 @@
 <span class="c1">#  2D geometric transform #</span>
 <span class="c1"># ======================= #</span>
 
-<div class="viewcode-block" id="translation2D"><a class="viewcode-back" href="../../sym.html#symmetrize.sym.translation2D">[docs]</a><span class="k">def</span> <span class="nf">translation2D</span><span class="p">(</span><span class="n">xtrans</span><span class="p">,</span> <span class="n">ytrans</span><span class="p">):</span>
+<div class="viewcode-block" id="translation2D"><a class="viewcode-back" href="../../library/sym.html#symmetrize.sym.translation2D">[docs]</a><span class="k">def</span> <span class="nf">translation2D</span><span class="p">(</span><span class="n">xtrans</span><span class="p">,</span> <span class="n">ytrans</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Translation matrix in 2D in homogeneous coordinates.</span>
 
@@ -495,7 +503,7 @@
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="n">transmat</span></div>
 
 
-<div class="viewcode-block" id="rotation2D"><a class="viewcode-back" href="../../sym.html#symmetrize.sym.rotation2D">[docs]</a><span class="k">def</span> <span class="nf">rotation2D</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">to_rad</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="rotation2D"><a class="viewcode-back" href="../../library/sym.html#symmetrize.sym.rotation2D">[docs]</a><span class="k">def</span> <span class="nf">rotation2D</span><span class="p">(</span><span class="n">angle</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">to_rad</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Rotation matrix in 2D in homogeneous coordinates.</span>
 
@@ -521,7 +529,7 @@
     <span class="k">return</span> <span class="n">centered_rotation_matrix</span></div>
 
 
-<div class="viewcode-block" id="scaledRotation2D"><a class="viewcode-back" href="../../sym.html#symmetrize.sym.scaledRotation2D">[docs]</a><span class="k">def</span> <span class="nf">scaledRotation2D</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">scale</span><span class="p">):</span>
+<div class="viewcode-block" id="scaledRotation2D"><a class="viewcode-back" href="../../library/sym.html#symmetrize.sym.scaledRotation2D">[docs]</a><span class="k">def</span> <span class="nf">scaledRotation2D</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">scale</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Scaled rotation matrix in 2D in homogeneous coordinates.</span>
 
@@ -540,7 +548,7 @@
     <span class="k">return</span> <span class="n">scalrotmat</span></div>
 
 
-<div class="viewcode-block" id="scaling2D"><a class="viewcode-back" href="../../sym.html#symmetrize.sym.scaling2D">[docs]</a><span class="k">def</span> <span class="nf">scaling2D</span><span class="p">(</span><span class="n">xscale</span><span class="p">,</span> <span class="n">yscale</span><span class="p">):</span>
+<div class="viewcode-block" id="scaling2D"><a class="viewcode-back" href="../../library/sym.html#symmetrize.sym.scaling2D">[docs]</a><span class="k">def</span> <span class="nf">scaling2D</span><span class="p">(</span><span class="n">xscale</span><span class="p">,</span> <span class="n">yscale</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Biaxial scaling matrix in 2D in homogeneous coordinates.</span>
 
@@ -558,7 +566,7 @@
     <span class="k">return</span> <span class="n">scalemat</span></div>
 
 
-<div class="viewcode-block" id="shearing2D"><a class="viewcode-back" href="../../sym.html#symmetrize.sym.shearing2D">[docs]</a><span class="k">def</span> <span class="nf">shearing2D</span><span class="p">(</span><span class="n">xshear</span><span class="p">,</span> <span class="n">yshear</span><span class="p">):</span>
+<div class="viewcode-block" id="shearing2D"><a class="viewcode-back" href="../../library/sym.html#symmetrize.sym.shearing2D">[docs]</a><span class="k">def</span> <span class="nf">shearing2D</span><span class="p">(</span><span class="n">xshear</span><span class="p">,</span> <span class="n">yshear</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Biaxial shearing matrix in 2D in homogeneous coordinates.</span>
 
@@ -578,7 +586,7 @@
 <span class="c1">#  Deformation fields and their algebra  #</span>
 <span class="c1"># ====================================== #</span>
 
-<div class="viewcode-block" id="imgWarping"><a class="viewcode-back" href="../../sym.html#symmetrize.sym.imgWarping">[docs]</a><span class="k">def</span> <span class="nf">imgWarping</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">hgmat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">landmarks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">refs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rotangle</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+<div class="viewcode-block" id="imgWarping"><a class="viewcode-back" href="../../library/sym.html#symmetrize.sym.imgWarping">[docs]</a><span class="k">def</span> <span class="nf">imgWarping</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">hgmat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">landmarks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">refs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rotangle</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Perform image warping based on a generic affine transform (homography).</span>
 
@@ -631,7 +639,7 @@
     <span class="k">return</span> <span class="n">imgaw</span><span class="p">,</span> <span class="n">hgmat</span></div>
 
 
-<div class="viewcode-block" id="applyWarping"><a class="viewcode-back" href="../../sym.html#symmetrize.sym.applyWarping">[docs]</a><span class="k">def</span> <span class="nf">applyWarping</span><span class="p">(</span><span class="n">imgstack</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">warptype</span><span class="o">=</span><span class="s1">&#39;matrix&#39;</span><span class="p">,</span> <span class="n">hgmat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dfield</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+<div class="viewcode-block" id="applyWarping"><a class="viewcode-back" href="../../library/sym.html#symmetrize.sym.applyWarping">[docs]</a><span class="k">def</span> <span class="nf">applyWarping</span><span class="p">(</span><span class="n">imgstack</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">warptype</span><span class="o">=</span><span class="s1">&#39;matrix&#39;</span><span class="p">,</span> <span class="n">hgmat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dfield</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Apply warping transform to a stack of images along the specified axis.</span>
 
@@ -681,7 +689,7 @@
     <span class="k">return</span> <span class="n">imgstack_transformed</span></div>
 
 
-<div class="viewcode-block" id="coordinate_matrix_2D"><a class="viewcode-back" href="../../sym.html#symmetrize.sym.coordinate_matrix_2D">[docs]</a><span class="k">def</span> <span class="nf">coordinate_matrix_2D</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">coordtype</span><span class="o">=</span><span class="s1">&#39;homogeneous&#39;</span><span class="p">,</span> <span class="n">stackaxis</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<div class="viewcode-block" id="coordinate_matrix_2D"><a class="viewcode-back" href="../../library/sym.html#symmetrize.sym.coordinate_matrix_2D">[docs]</a><span class="k">def</span> <span class="nf">coordinate_matrix_2D</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">coordtype</span><span class="o">=</span><span class="s1">&#39;homogeneous&#39;</span><span class="p">,</span> <span class="n">stackaxis</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generate pixel coordinate matrix for a 2D image.</span>
 
@@ -716,7 +724,7 @@
     <span class="k">return</span> <span class="n">coordmat</span></div>
 
 
-<div class="viewcode-block" id="compose_deform_field"><a class="viewcode-back" href="../../sym.html#symmetrize.sym.compose_deform_field">[docs]</a><span class="k">def</span> <span class="nf">compose_deform_field</span><span class="p">(</span><span class="n">coordmat</span><span class="p">,</span> <span class="n">mat_transform</span><span class="p">,</span> <span class="n">stackaxis</span><span class="p">,</span> <span class="n">ret</span><span class="o">=</span><span class="s1">&#39;deformation&#39;</span><span class="p">,</span> <span class="n">ret_indexing</span><span class="o">=</span><span class="s1">&#39;rc&#39;</span><span class="p">):</span>
+<div class="viewcode-block" id="compose_deform_field"><a class="viewcode-back" href="../../library/sym.html#symmetrize.sym.compose_deform_field">[docs]</a><span class="k">def</span> <span class="nf">compose_deform_field</span><span class="p">(</span><span class="n">coordmat</span><span class="p">,</span> <span class="n">mat_transform</span><span class="p">,</span> <span class="n">stackaxis</span><span class="p">,</span> <span class="n">ret</span><span class="o">=</span><span class="s1">&#39;deformation&#39;</span><span class="p">,</span> <span class="n">ret_indexing</span><span class="o">=</span><span class="s1">&#39;rc&#39;</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Compose the deformation/displacement field from coordinate and transform matrices.</span>
 
@@ -762,7 +770,7 @@
         <span class="k">return</span> <span class="n">yfield</span><span class="p">,</span> <span class="n">xfield</span></div>
 
 
-<div class="viewcode-block" id="translationDF"><a class="viewcode-back" href="../../sym.html#symmetrize.sym.translationDF">[docs]</a><span class="k">def</span> <span class="nf">translationDF</span><span class="p">(</span><span class="n">coordmat</span><span class="p">,</span> <span class="n">stackaxis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">xtrans</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ytrans</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+<div class="viewcode-block" id="translationDF"><a class="viewcode-back" href="../../library/sym.html#symmetrize.sym.translationDF">[docs]</a><span class="k">def</span> <span class="nf">translationDF</span><span class="p">(</span><span class="n">coordmat</span><span class="p">,</span> <span class="n">stackaxis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">xtrans</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ytrans</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Deformation field of 2D translation in image coordinates.</span>
 
 <span class="sd">    :Parameters:</span>
@@ -774,7 +782,7 @@
     <span class="k">return</span> <span class="n">compose_deform_field</span><span class="p">(</span><span class="n">coordmat</span><span class="p">,</span> <span class="n">mat_transform</span><span class="o">=</span><span class="n">translation_matrix</span><span class="p">,</span> <span class="n">stackaxis</span><span class="o">=</span><span class="n">stackaxis</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="rotationDF"><a class="viewcode-back" href="../../sym.html#symmetrize.sym.rotationDF">[docs]</a><span class="k">def</span> <span class="nf">rotationDF</span><span class="p">(</span><span class="n">coordmat</span><span class="p">,</span> <span class="n">stackaxis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">to_rad</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+<div class="viewcode-block" id="rotationDF"><a class="viewcode-back" href="../../library/sym.html#symmetrize.sym.rotationDF">[docs]</a><span class="k">def</span> <span class="nf">rotationDF</span><span class="p">(</span><span class="n">coordmat</span><span class="p">,</span> <span class="n">stackaxis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">angle</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">to_rad</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Deformation field of 2D rotation in image coordinates.</span>
 
 <span class="sd">    :Parameters:</span>
@@ -786,7 +794,7 @@
     <span class="k">return</span> <span class="n">compose_deform_field</span><span class="p">(</span><span class="n">coordmat</span><span class="p">,</span> <span class="n">mat_transform</span><span class="o">=</span><span class="n">rotation_matrix</span><span class="p">,</span> <span class="n">stackaxis</span><span class="o">=</span><span class="n">stackaxis</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="scalingDF"><a class="viewcode-back" href="../../sym.html#symmetrize.sym.scalingDF">[docs]</a><span class="k">def</span> <span class="nf">scalingDF</span><span class="p">(</span><span class="n">coordmat</span><span class="p">,</span> <span class="n">stackaxis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">xscale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">yscale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+<div class="viewcode-block" id="scalingDF"><a class="viewcode-back" href="../../library/sym.html#symmetrize.sym.scalingDF">[docs]</a><span class="k">def</span> <span class="nf">scalingDF</span><span class="p">(</span><span class="n">coordmat</span><span class="p">,</span> <span class="n">stackaxis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">xscale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">yscale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Deformation field of 2D scaling in image coordinates.</span>
 
 <span class="sd">    :Parameters:</span>
@@ -798,7 +806,7 @@
     <span class="k">return</span> <span class="n">compose_deform_field</span><span class="p">(</span><span class="n">coordmat</span><span class="p">,</span> <span class="n">mat_transform</span><span class="o">=</span><span class="n">scaling_matrix</span><span class="p">,</span> <span class="n">stackaxis</span><span class="o">=</span><span class="n">stackaxis</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="shearingDF"><a class="viewcode-back" href="../../sym.html#symmetrize.sym.shearingDF">[docs]</a><span class="k">def</span> <span class="nf">shearingDF</span><span class="p">(</span><span class="n">coordmat</span><span class="p">,</span> <span class="n">stackaxis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">xshear</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">yshear</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+<div class="viewcode-block" id="shearingDF"><a class="viewcode-back" href="../../library/sym.html#symmetrize.sym.shearingDF">[docs]</a><span class="k">def</span> <span class="nf">shearingDF</span><span class="p">(</span><span class="n">coordmat</span><span class="p">,</span> <span class="n">stackaxis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">xshear</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">yshear</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Deformation field of 2D shearing in image coordinates.</span>
 
 <span class="sd">    :Parameters:</span>
@@ -810,7 +818,7 @@
     <span class="k">return</span> <span class="n">compose_deform_field</span><span class="p">(</span><span class="n">coordmat</span><span class="p">,</span> <span class="n">mat_transform</span><span class="o">=</span><span class="n">shearing_matrix</span><span class="p">,</span> <span class="n">stackaxis</span><span class="o">=</span><span class="n">stackaxis</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="deform_field_merge"><a class="viewcode-back" href="../../sym.html#symmetrize.sym.deform_field_merge">[docs]</a><span class="k">def</span> <span class="nf">deform_field_merge</span><span class="p">(</span><span class="n">operation</span><span class="p">,</span> <span class="o">*</span><span class="n">fields</span><span class="p">):</span>
+<div class="viewcode-block" id="deform_field_merge"><a class="viewcode-back" href="../../library/sym.html#symmetrize.sym.deform_field_merge">[docs]</a><span class="k">def</span> <span class="nf">deform_field_merge</span><span class="p">(</span><span class="n">operation</span><span class="p">,</span> <span class="o">*</span><span class="n">fields</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Combine multiple deformation fields.</span>
 
@@ -834,7 +842,7 @@
 <span class="c1">#  Image pattern pose estimation  #</span>
 <span class="c1"># =============================== #</span>
 
-<div class="viewcode-block" id="foldcost"><a class="viewcode-back" href="../../sym.html#symmetrize.sym.foldcost">[docs]</a><span class="k">def</span> <span class="nf">foldcost</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+<div class="viewcode-block" id="foldcost"><a class="viewcode-back" href="../../library/sym.html#symmetrize.sym.foldcost">[docs]</a><span class="k">def</span> <span class="nf">foldcost</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Cost function for folding over an image along an image axis crossing the image center.</span>
 
@@ -883,7 +891,7 @@
     <span class="k">return</span> <span class="n">norm</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="sym_pose_estimate"><a class="viewcode-back" href="../../sym.html#symmetrize.sym.sym_pose_estimate">[docs]</a><span class="k">def</span> <span class="nf">sym_pose_estimate</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">angle_range</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">angle_start</span><span class="o">=-</span><span class="mi">90</span><span class="p">,</span>
+<div class="viewcode-block" id="sym_pose_estimate"><a class="viewcode-back" href="../../library/sym.html#symmetrize.sym.sym_pose_estimate">[docs]</a><span class="k">def</span> <span class="nf">sym_pose_estimate</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">angle_range</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">angle_start</span><span class="o">=-</span><span class="mi">90</span><span class="p">,</span>
                         <span class="n">angle_stop</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">angle_step</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Estimate the best presenting angle using rotation-mirroring grid search such that</span>
@@ -975,7 +983,7 @@
       <script type="text/javascript" src="../../_static/jquery.js"></script>
       <script type="text/javascript" src="../../_static/underscore.js"></script>
       <script type="text/javascript" src="../../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

@@ -21,6 +21,8 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 import sphinx_rtd_theme
+import recommonmark
+from recommonmark.transform import AutoStructify
 
 # -- General configuration ------------------------------------------------
 
@@ -37,7 +39,7 @@ extensions = ['sphinx.ext.autodoc',
     'sphinx.ext.mathjax',
     'sphinx.ext.viewcode',
     'sphinx.ext.githubpages']
-
+# 'sphinx.ext.imgmath'
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
@@ -45,7 +47,11 @@ templates_path = ['_templates']
 # You can specify multiple suffix as a list of string:
 #
 # source_suffix = ['.rst', '.md']
-source_suffix = '.rst'
+source_suffix = ['.rst', '.md']
+
+source_parsers = {
+   '.md': 'recommonmark.parser.CommonMarkParser',
+}
 
 # The master toctree document.
 master_doc = 'index'
@@ -74,7 +80,7 @@ language = None
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This patterns also effect to html_static_path and html_extra_path
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '.ipynb_checkpoints']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
@@ -123,7 +129,7 @@ htmlhelp_basename = 'symmetrizedoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
-
+latex_engine = 'xelatex'
 latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
     #
@@ -172,8 +178,26 @@ texinfo_documents = [
      'Miscellaneous'),
 ]
 
+mathjax_path = 'http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
 
-
+mathjax_config = {
+    'extensions': ['tex2jax.js'],
+    'jax': ['input/TeX', 'output/HTML-CSS'],
+    'tex2jax': {
+      'inlineMath': [['$','$'], ["\\(","\\)"]],
+      'displayMath': [['$$','$$'], ["\\[","\\]"]],
+      'processEscapes': True
+    }
+}
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {'https://docs.python.org/': None}
+
+
+# Deploy AutoStructify when converting markdown
+def setup(app):
+    app.add_config_value('recommonmark_config', {
+            'url_resolver': lambda url: github_doc_root + url,
+            'auto_toc_tree_section': 'Contents',
+            }, True)
+    app.add_transform(AutoStructify)

@@ -1,0 +1,7 @@
+### Metrics of symmetrization
+
+The package provides methods to compute symmetrization-related scores.
+
+1. Continuous symmetry score (CSM)
+2. Area retainment score (ARM)
+3. Symmetry recovery score (SRS)

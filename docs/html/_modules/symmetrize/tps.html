@@ -89,11 +89,19 @@
               
             
             
-              <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Package installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../sym.html">Symmetrizer module (sym)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../pointops.html">Point operations module (pointops)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../tps.html">Thin-plate spline module (tps)</a></li>
+              <p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/T01_installation.html">1. Package installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/T02_algorithm.html">2. Overview of algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/T03_symmetry.html">3. Metrics of symmetrization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/T04_workflow.html">4. Example workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorial/T05_extensions.html">5. Possible extension</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Function directory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../library/sym.html">1. Symmetrizer module (symmetrize.sym)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library/pointops.html">2. Point operations module (symmetrize.pointops)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../library/tps.html">3. Thin-plate spline module (symmetrize.tps)</a></li>
 </ul>
 
             
@@ -286,7 +294,7 @@
     <span class="k">return</span> <span class="n">transform</span>
 
 
-<div class="viewcode-block" id="tpsWarping"><a class="viewcode-back" href="../../tps.html#symmetrize.tps.tpsWarping">[docs]</a><span class="k">def</span> <span class="nf">tpsWarping</span><span class="p">(</span><span class="n">from_points</span><span class="p">,</span> <span class="n">to_points</span><span class="p">,</span> <span class="n">images</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">interpolation_order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">approximate_grid</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+<div class="viewcode-block" id="tpsWarping"><a class="viewcode-back" href="../../library/tps.html#symmetrize.tps.tpsWarping">[docs]</a><span class="k">def</span> <span class="nf">tpsWarping</span><span class="p">(</span><span class="n">from_points</span><span class="p">,</span> <span class="n">to_points</span><span class="p">,</span> <span class="n">images</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">interpolation_order</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">approximate_grid</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculate the thin-plate spline (TPS) warping transform that from the from_points</span>
 <span class="sd">    to the to_points, and then warp the given images by that transform. This</span>
@@ -297,8 +305,8 @@
 <span class="sd">        from_points, to_points : 2D array, 2D array (dim = n x 2)</span>
 <span class="sd">            Correspondence point sets containing n 2D landmarks from the distorted and ideal images.</span>
 <span class="sd">            The coordinates are in the (row, column) convention.</span>
-<span class="sd">        images : 3D array</span>
-<span class="sd">            3D image to warp with the calculated thin-plate spline transform.</span>
+<span class="sd">        images : 3D array | None</span>
+<span class="sd">            3D image stack to warp with the calculated thin-plate spline transform.</span>
 <span class="sd">        axis : int | None</span>
 <span class="sd">            Image stacking axis in 3D image. Specify None to mean 2D image.</span>
 <span class="sd">        interpolation_order : int | 1</span>
@@ -326,23 +334,28 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">ret</span> <span class="o">=</span> <span class="n">kwds</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;ret&#39;</span><span class="p">,</span> <span class="s1">&#39;all&#39;</span><span class="p">)</span>
+    <span class="n">images_tf</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="k">if</span> <span class="n">axis</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="c1"># For 2D image</span>
-        <span class="n">nr</span><span class="p">,</span> <span class="n">nc</span> <span class="o">=</span> <span class="n">images</span><span class="o">.</span><span class="n">shape</span>
-        <span class="n">output_region</span> <span class="o">=</span> <span class="n">kwds</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;output_region&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">nc</span><span class="p">,</span> <span class="n">nr</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">images</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">transform</span> <span class="o">=</span> <span class="n">_make_warp</span><span class="p">(</span><span class="n">to_points</span><span class="p">,</span> <span class="n">from_points</span><span class="p">,</span> <span class="n">from_points</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">from_points</span><span class="p">[:,</span><span class="mi">0</span><span class="p">])</span>
 
-        <span class="n">transform</span> <span class="o">=</span> <span class="n">_make_inverse_warp</span><span class="p">(</span><span class="n">from_points</span><span class="p">,</span> <span class="n">to_points</span><span class="p">,</span> <span class="n">output_region</span><span class="p">,</span> <span class="n">approximate_grid</span><span class="p">)</span>
-        <span class="n">images_tf</span> <span class="o">=</span> <span class="n">ndi</span><span class="o">.</span><span class="n">map_coordinates</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">transform</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">interpolation_order</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">axis</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="c1"># For 2D image</span>
+            <span class="n">nr</span><span class="p">,</span> <span class="n">nc</span> <span class="o">=</span> <span class="n">images</span><span class="o">.</span><span class="n">shape</span>
+            <span class="n">output_region</span> <span class="o">=</span> <span class="n">kwds</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;output_region&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">nc</span><span class="p">,</span> <span class="n">nr</span><span class="p">))</span>
 
-    <span class="k">else</span><span class="p">:</span> <span class="c1"># For stack of 2D images</span>
-        <span class="n">images</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">moveaxis</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="n">nim</span><span class="p">,</span> <span class="n">nr</span><span class="p">,</span> <span class="n">nc</span> <span class="o">=</span> <span class="n">images</span><span class="o">.</span><span class="n">shape</span> <span class="c1">#nim = number images stacked together</span>
-        <span class="n">output_region</span> <span class="o">=</span> <span class="n">kwds</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;output_region&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">nc</span><span class="p">,</span> <span class="n">nr</span><span class="p">))</span>
+            <span class="n">transform</span> <span class="o">=</span> <span class="n">_make_inverse_warp</span><span class="p">(</span><span class="n">from_points</span><span class="p">,</span> <span class="n">to_points</span><span class="p">,</span> <span class="n">output_region</span><span class="p">,</span> <span class="n">approximate_grid</span><span class="p">)</span>
+            <span class="n">images_tf</span> <span class="o">=</span> <span class="n">ndi</span><span class="o">.</span><span class="n">map_coordinates</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">transform</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">interpolation_order</span><span class="p">)</span>
 
-        <span class="n">transform</span> <span class="o">=</span> <span class="n">_make_inverse_warp</span><span class="p">(</span><span class="n">from_points</span><span class="p">,</span> <span class="n">to_points</span><span class="p">,</span> <span class="n">output_region</span><span class="p">,</span> <span class="n">approximate_grid</span><span class="p">)</span>
-        <span class="n">images_tf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="n">ndi</span><span class="o">.</span><span class="n">map_coordinates</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">transform</span><span class="p">,</span>
-                                <span class="n">order</span><span class="o">=</span><span class="n">interpolation_order</span><span class="p">)</span> <span class="k">for</span> <span class="n">image</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">images</span><span class="p">)])</span>
-        <span class="n">images_tf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">moveaxis</span><span class="p">(</span><span class="n">images_tf</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c1"># For stack of 2D images</span>
+            <span class="n">images</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">moveaxis</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+            <span class="n">nim</span><span class="p">,</span> <span class="n">nr</span><span class="p">,</span> <span class="n">nc</span> <span class="o">=</span> <span class="n">images</span><span class="o">.</span><span class="n">shape</span> <span class="c1">#nim = number images stacked together</span>
+            <span class="n">output_region</span> <span class="o">=</span> <span class="n">kwds</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;output_region&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">nc</span><span class="p">,</span> <span class="n">nr</span><span class="p">))</span>
+
+            <span class="n">transform</span> <span class="o">=</span> <span class="n">_make_inverse_warp</span><span class="p">(</span><span class="n">from_points</span><span class="p">,</span> <span class="n">to_points</span><span class="p">,</span> <span class="n">output_region</span><span class="p">,</span> <span class="n">approximate_grid</span><span class="p">)</span>
+            <span class="n">images_tf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([</span><span class="n">ndi</span><span class="o">.</span><span class="n">map_coordinates</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">transform</span><span class="p">,</span>
+                                    <span class="n">order</span><span class="o">=</span><span class="n">interpolation_order</span><span class="p">)</span> <span class="k">for</span> <span class="n">image</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">images</span><span class="p">)])</span>
+            <span class="n">images_tf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">moveaxis</span><span class="p">(</span><span class="n">images_tf</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">ret</span> <span class="o">==</span> <span class="s1">&#39;all&#39;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">images_tf</span><span class="p">,</span> <span class="n">transform</span>
@@ -396,7 +409,7 @@
       <script type="text/javascript" src="../../_static/jquery.js"></script>
       <script type="text/javascript" src="../../_static/underscore.js"></script>
       <script type="text/javascript" src="../../_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 

@@ -1,0 +1,253 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>2. Example workflow for shape symmetrization of band mapping data of \(\text{WSe}_2\) &mdash; symmetrize 0.4.2 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="symmetrize 0.4.2 documentation" href="../index.html"/>
+        <link rel="next" title="1. Symmetrizer module (symmetrize.sym)" href="../library/sym.html"/>
+        <link rel="prev" title="1. Package installation" href="installation.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> symmetrize
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.4.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">1. Package installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Example workflow for shape symmetrization of band mapping data of <span class="math">\(\text{WSe}_2\)</span></a></li>
+</ul>
+<p class="caption"><span class="caption-text">Function directory</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../library/sym.html">1. Symmetrizer module (symmetrize.sym)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../library/pointops.html">2. Point operations module (symmetrize.pointops)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../library/tps.html">3. Thin-plate spline module (symmetrize.tps)</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">symmetrize</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>2. Example workflow for shape symmetrization of band mapping data of <span class="math">\(\text{WSe}_2\)</span></li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/tutorial/workflow.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="example-workflow-for-shape-symmetrization-of-band-mapping-data-of-text-wse-2">
+<span id="example-workflow-for-shape-symmetrization-of-band-mapping-data-of-text-wse-2"></span><h1>2. Example workflow for shape symmetrization of band mapping data of <span class="math">\(\text{WSe}_2\)</span><a class="headerlink" href="#example-workflow-for-shape-symmetrization-of-band-mapping-data-of-text-wse-2" title="Permalink to this headline">¶</a></h1>
+<ol class="simple">
+<li>Pick the source image (with distortion) from measured band mapping data, <span class="math">\(I(k_x, k_y, E)​\)</span>, that contains salient features such as discernible intensity local maxima/minima. For <span class="math">\(\text{WSe}_2​\)</span> data, the source image, <span class="math">\(I(k_x, k_y)​\)</span>, is selected from the energy region near the valence band maxima <span class="math">\((E \sim E_{\text{VBM}})​\)</span>, where the sixfold symmetric pattern is visible and sharp.</li>
+<li>Determine the pixel coordinates of the landmarks from the source image by manual selection. The seven landmarks consist of the three <span class="math">\(K\)</span> and <span class="math">\(K’\)</span> points on the outer edge and the <span class="math">\(\Gamma\)</span> point at the center of the source image. These pixel coordinates form the reference point set <span class="math">\(\tilde{P}\)</span>.</li>
+<li>With manual landmark selection, the ordering and specification (i.e. center or vertex) of the points may be determine by the operator directly, but for algorithmically detected point set, subsequent steps are needed to separate the center (<span class="math">\(\Gamma\)</span> point) from the vertices (<span class="math">\(K\)</span> and <span class="math">\(K’\)</span> points) and to order the vertices in a clockwise or counterclockwise fashion with respect to the center.</li>
+<li>Calculate the geometric quantities to be used in the subsequent registration. This includes the average center-vertex distance, <span class="math">\(\overline{\Vert \tilde{P}_i - \tilde{P}_C \Vert}\)</span>, and the average nearest neighbor vertex-vertex distance, <span class="math">\(\overline{\Vert \tilde{P}_i - \tilde{P}_j \Vert}_{\text{NN}}\)</span>.</li>
+<li>Generate a set of points as the target point set using the existing corresponding coordinates from the source image. For <span class="math">\(\text{WSe}_2\)</span> data, select one (e.g. the first) of the <span class="math">\(K\)</span> or <span class="math">\(K’\)</span> points determined in step (4), compute the pixel coordinates of the of perfectly symmetric hexagon vertices with respect to the fixed points.</li>
+<li>Determine the coordinate transform <span class="math">\(\mathcal{L}\)</span> computationally using the reference and target point sets.</li>
+<li>If necessary, adjust the pose (i.e. rotation and position) of the pattern such that a diagonal of the hexagon is parallel with one of the image axes (<span class="math">\(x\)</span> or <span class="math">\(y\)</span>). Combine the additional transforms with the symmetrization transform determined in step (6).</li>
+<li>Apply the final version of the transform to the stack of images along the energy axis.</li>
+</ol>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../library/sym.html" class="btn btn-neutral float-right" title="1. Symmetrizer module (symmetrize.sym)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="installation.html" class="btn btn-neutral" title="1. Package installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, R. Patrick Xian.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.4.2',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

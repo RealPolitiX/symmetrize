@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Thin-plate spline module (tps) &mdash; symmetrize 0.4.2 documentation</title>
+  <title>3. Thin-plate spline module (symmetrize.tps) &mdash; symmetrize 0.4.2 documentation</title>
   
 
   
@@ -26,20 +26,20 @@
 
   
   
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
   
 
   
         <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="symmetrize 0.4.2 documentation" href="index.html"/>
-        <link rel="prev" title="Point operations module (pointops)" href="pointops.html"/> 
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="symmetrize 0.4.2 documentation" href="../index.html"/>
+        <link rel="prev" title="2. Point operations module (symmetrize.pointops)" href="pointops.html"/> 
 
   
-  <script src="_static/js/modernizr.min.js"></script>
+  <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -55,7 +55,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> symmetrize
+            <a href="../index.html" class="icon icon-home"> symmetrize
           
 
           
@@ -72,7 +72,7 @@
 
           
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -89,11 +89,16 @@
               
             
             
-              <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Package installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sym.html">Symmetrizer module (sym)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pointops.html">Point operations module (pointops)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Thin-plate spline module (tps)</a></li>
+              <p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/installation.html">1. Package installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/workflow.html">2. Example workflow for shape symmetrization of band mapping data of <span class="math">\(\text{WSe}_2\)</span></a></li>
+</ul>
+<p class="caption"><span class="caption-text">Function directory</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="sym.html">1. Symmetrizer module (symmetrize.sym)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pointops.html">2. Point operations module (symmetrize.pointops)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">3. Thin-plate spline module (symmetrize.tps)</a></li>
 </ul>
 
             
@@ -108,7 +113,7 @@
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">symmetrize</a>
+          <a href="../index.html">symmetrize</a>
         
       </nav>
 
@@ -136,15 +141,15 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Thin-plate spline module (tps)</li>
+      <li>3. Thin-plate spline module (symmetrize.tps)</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/tps.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/library/tps.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -158,10 +163,10 @@
            <div itemprop="articleBody">
             
   <div class="section" id="module-symmetrize.tps">
-<span id="thin-plate-spline-module-tps"></span><h1>Thin-plate spline module (tps)<a class="headerlink" href="#module-symmetrize.tps" title="Permalink to this headline">¶</a></h1>
+<span id="thin-plate-spline-module-symmetrize-tps"></span><h1>3. Thin-plate spline module (symmetrize.tps)<a class="headerlink" href="#module-symmetrize.tps" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="symmetrize.tps.tpsWarping">
-<code class="descclassname">symmetrize.tps.</code><code class="descname">tpsWarping</code><span class="sig-paren">(</span><em>from_points</em>, <em>to_points</em>, <em>images</em>, <em>axis=None</em>, <em>interpolation_order=1</em>, <em>approximate_grid=1</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/tps.html#tpsWarping"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.tps.tpsWarping" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">symmetrize.tps.</code><code class="descname">tpsWarping</code><span class="sig-paren">(</span><em>from_points</em>, <em>to_points</em>, <em>images=None</em>, <em>axis=None</em>, <em>interpolation_order=1</em>, <em>approximate_grid=1</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/tps.html#tpsWarping"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.tps.tpsWarping" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the thin-plate spline (TPS) warping transform that from the from_points
 to the to_points, and then warp the given images by that transform. This
 transform is described in the paper: “Principal Warps: Thin-Plate Splines and
@@ -175,8 +180,8 @@ the Decomposition of Deformations” by F.L. Bookstein.</p>
 <dd><p class="first last">Correspondence point sets containing n 2D landmarks from the distorted and ideal images.
 The coordinates are in the (row, column) convention.</p>
 </dd>
-<dt>images <span class="classifier-delimiter">:</span> <span class="classifier">3D array</span></dt>
-<dd><p class="first last">3D image to warp with the calculated thin-plate spline transform.</p>
+<dt>images <span class="classifier-delimiter">:</span> <span class="classifier">3D array | None</span></dt>
+<dd><p class="first last">3D image stack to warp with the calculated thin-plate spline transform.</p>
 </dd>
 <dt>axis <span class="classifier-delimiter">:</span> <span class="classifier">int | None</span></dt>
 <dd><p class="first last">Image stacking axis in 3D image. Specify None to mean 2D image.</p>
@@ -240,7 +245,7 @@ Function return specification.</p>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="pointops.html" class="btn btn-neutral" title="Point operations module (pointops)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="pointops.html" class="btn btn-neutral" title="2. Point operations module (symmetrize.pointops)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -270,7 +275,7 @@ Function return specification.</p>
 
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
+            URL_ROOT:'../',
             VERSION:'0.4.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
@@ -278,16 +283,16 @@ Function return specification.</p>
             SOURCELINK_SUFFIX: '.txt'
         };
     </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
   
   
-    <script type="text/javascript" src="_static/js/theme.js"></script>
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
   
 
   

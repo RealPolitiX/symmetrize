@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Point operations module (pointops) &mdash; symmetrize 0.4.2 documentation</title>
+  <title>2. Point operations module (symmetrize.pointops) &mdash; symmetrize 0.4.2 documentation</title>
   
 
   
@@ -26,21 +26,21 @@
 
   
   
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
   
 
   
         <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="symmetrize 0.4.2 documentation" href="index.html"/>
-        <link rel="next" title="Thin-plate spline module (tps)" href="tps.html"/>
-        <link rel="prev" title="Symmetrizer module (sym)" href="sym.html"/> 
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="symmetrize 0.4.2 documentation" href="../index.html"/>
+        <link rel="next" title="3. Thin-plate spline module (symmetrize.tps)" href="tps.html"/>
+        <link rel="prev" title="1. Symmetrizer module (symmetrize.sym)" href="sym.html"/> 
 
   
-  <script src="_static/js/modernizr.min.js"></script>
+  <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -56,7 +56,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> symmetrize
+            <a href="../index.html" class="icon icon-home"> symmetrize
           
 
           
@@ -73,7 +73,7 @@
 
           
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -90,11 +90,16 @@
               
             
             
-              <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Package installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="sym.html">Symmetrizer module (sym)</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Point operations module (pointops)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tps.html">Thin-plate spline module (tps)</a></li>
+              <p class="caption"><span class="caption-text">Tutorial</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/installation.html">1. Package installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial/workflow.html">2. Example workflow for shape symmetrization of band mapping data of <span class="math">\(\text{WSe}_2\)</span></a></li>
+</ul>
+<p class="caption"><span class="caption-text">Function directory</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="sym.html">1. Symmetrizer module (symmetrize.sym)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Point operations module (symmetrize.pointops)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tps.html">3. Thin-plate spline module (symmetrize.tps)</a></li>
 </ul>
 
             
@@ -109,7 +114,7 @@
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">symmetrize</a>
+          <a href="../index.html">symmetrize</a>
         
       </nav>
 
@@ -137,15 +142,15 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Point operations module (pointops)</li>
+      <li>2. Point operations module (symmetrize.pointops)</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/pointops.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/library/pointops.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -159,11 +164,11 @@
            <div itemprop="articleBody">
             
   <div class="section" id="module-symmetrize.pointops">
-<span id="point-operations-module-pointops"></span><h1>Point operations module (pointops)<a class="headerlink" href="#module-symmetrize.pointops" title="Permalink to this headline">¶</a></h1>
+<span id="point-operations-module-symmetrize-pointops"></span><h1>2. Point operations module (symmetrize.pointops)<a class="headerlink" href="#module-symmetrize.pointops" title="Permalink to this headline">¶</a></h1>
 <p>&#64;author: R. Patrick Xian</p>
 <dl class="function">
 <dt id="symmetrize.pointops.arm">
-<code class="descclassname">symmetrize.pointops.</code><code class="descname">arm</code><span class="sig-paren">(</span><em>Aold</em>, <em>Anew</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/pointops.html#arm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.arm" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">symmetrize.pointops.</code><code class="descname">arm</code><span class="sig-paren">(</span><em>Aold</em>, <em>Anew</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/pointops.html#arm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.arm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the area retainment measure (ARM).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -189,7 +194,7 @@
 
 <dl class="function">
 <dt id="symmetrize.pointops.cart2homo">
-<code class="descclassname">symmetrize.pointops.</code><code class="descname">cart2homo</code><span class="sig-paren">(</span><em>points</em>, <em>dtyp='float32'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/pointops.html#cart2homo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.cart2homo" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">symmetrize.pointops.</code><code class="descname">cart2homo</code><span class="sig-paren">(</span><em>points</em>, <em>dtyp='float32'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/pointops.html#cart2homo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.cart2homo" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transform points from Cartesian to homogeneous coordinates.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -215,7 +220,7 @@
 
 <dl class="function">
 <dt id="symmetrize.pointops.csm">
-<code class="descclassname">symmetrize.pointops.</code><code class="descname">csm</code><span class="sig-paren">(</span><em>pcent</em>, <em>pvert</em>, <em>rotsym=None</em>, <em>type='rotation'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/pointops.html#csm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.csm" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">symmetrize.pointops.</code><code class="descname">csm</code><span class="sig-paren">(</span><em>pcent</em>, <em>pvert</em>, <em>rotsym=None</em>, <em>type='rotation'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/pointops.html#csm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.csm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computation of the continuous (a)symmetry measure (CSM) for a set of polygon
 vertices exhibiting a degree of rotational symmetry. The value is bounded within [0, 1].</p>
 <p>When csm = 0, the point set is completely symmetric.</p>
@@ -254,7 +259,7 @@ vertices exhibiting a degree of rotational symmetry. The value is bounded within
 
 <dl class="function">
 <dt id="symmetrize.pointops.cvdist">
-<code class="descclassname">symmetrize.pointops.</code><code class="descname">cvdist</code><span class="sig-paren">(</span><em>verts</em>, <em>center</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/pointops.html#cvdist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.cvdist" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">symmetrize.pointops.</code><code class="descname">cvdist</code><span class="sig-paren">(</span><em>verts</em>, <em>center</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/pointops.html#cvdist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.cvdist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the center-vertex distance.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -276,7 +281,7 @@ vertices exhibiting a degree of rotational symmetry. The value is bounded within
 
 <dl class="function">
 <dt id="symmetrize.pointops.gridplot">
-<code class="descclassname">symmetrize.pointops.</code><code class="descname">gridplot</code><span class="sig-paren">(</span><em>xgrid</em>, <em>ygrid</em>, <em>ax=None</em>, <em>subsamp=5</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/pointops.html#gridplot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.gridplot" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">symmetrize.pointops.</code><code class="descname">gridplot</code><span class="sig-paren">(</span><em>xgrid</em>, <em>ygrid</em>, <em>ax=None</em>, <em>subsamp=5</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/pointops.html#gridplot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.gridplot" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plotting transform grid with downsampling. Adapted from the StackOverflow post,
 <a class="reference external" href="https://stackoverflow.com/questions/47295473/how-to-plot-using-matplotlib-python-colahs-deformed-grid">https://stackoverflow.com/questions/47295473/how-to-plot-using-matplotlib-python-colahs-deformed-grid</a></p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -305,7 +310,7 @@ vertices exhibiting a degree of rotational symmetry. The value is bounded within
 
 <dl class="function">
 <dt id="symmetrize.pointops.homo2cart">
-<code class="descclassname">symmetrize.pointops.</code><code class="descname">homo2cart</code><span class="sig-paren">(</span><em>points</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/pointops.html#homo2cart"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.homo2cart" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">symmetrize.pointops.</code><code class="descname">homo2cart</code><span class="sig-paren">(</span><em>points</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/pointops.html#homo2cart"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.homo2cart" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transform points from homogeneous to Cartesian coordinates.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -331,7 +336,7 @@ vertices exhibiting a degree of rotational symmetry. The value is bounded within
 
 <dl class="function">
 <dt id="symmetrize.pointops.peakdetect2d">
-<code class="descclassname">symmetrize.pointops.</code><code class="descname">peakdetect2d</code><span class="sig-paren">(</span><em>img</em>, <em>method='daofind'</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/pointops.html#peakdetect2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.peakdetect2d" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">symmetrize.pointops.</code><code class="descname">peakdetect2d</code><span class="sig-paren">(</span><em>img</em>, <em>method='daofind'</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/pointops.html#peakdetect2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.peakdetect2d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Peak detection in 2D image.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -369,7 +374,7 @@ vertices exhibiting a degree of rotational symmetry. The value is bounded within
 
 <dl class="function">
 <dt id="symmetrize.pointops.pointset_center">
-<code class="descclassname">symmetrize.pointops.</code><code class="descname">pointset_center</code><span class="sig-paren">(</span><em>pset</em>, <em>method='centroidnn'</em>, <em>ret='cnc'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/pointops.html#pointset_center"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.pointset_center" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">symmetrize.pointops.</code><code class="descname">pointset_center</code><span class="sig-paren">(</span><em>pset</em>, <em>method='centroidnn'</em>, <em>ret='cnc'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/pointops.html#pointset_center"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.pointset_center" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determine the center position of a point set and separate it from the rest.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -398,7 +403,7 @@ vertices exhibiting a degree of rotational symmetry. The value is bounded within
 
 <dl class="function">
 <dt id="symmetrize.pointops.pointset_order">
-<code class="descclassname">symmetrize.pointops.</code><code class="descname">pointset_order</code><span class="sig-paren">(</span><em>pset</em>, <em>center=None</em>, <em>direction='ccw'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/pointops.html#pointset_order"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.pointset_order" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">symmetrize.pointops.</code><code class="descname">pointset_order</code><span class="sig-paren">(</span><em>pset</em>, <em>center=None</em>, <em>direction='ccw'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/pointops.html#pointset_order"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.pointset_order" title="Permalink to this definition">¶</a></dt>
 <dd><p>Order a point set around a center in a clockwise or counterclockwise way.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -430,7 +435,7 @@ vertices exhibiting a degree of rotational symmetry. The value is bounded within
 
 <dl class="function">
 <dt id="symmetrize.pointops.polyarea">
-<code class="descclassname">symmetrize.pointops.</code><code class="descname">polyarea</code><span class="sig-paren">(</span><em>x=[]</em>, <em>y=[]</em>, <em>coords=[]</em>, <em>coord_order='rc'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/pointops.html#polyarea"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.polyarea" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">symmetrize.pointops.</code><code class="descname">polyarea</code><span class="sig-paren">(</span><em>x=[]</em>, <em>y=[]</em>, <em>coords=[]</em>, <em>coord_order='rc'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/pointops.html#polyarea"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.polyarea" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the area of a convex polygon area from its vertex coordinates, using
 the surveyor’s formula (also called the shoelace formula).
 The vertices are ordered in a clockwise or counterclockwise fashions.</p>
@@ -465,7 +470,7 @@ Here r = row (y), c = column (x).</p>
 
 <dl class="function">
 <dt id="symmetrize.pointops.reorder">
-<code class="descclassname">symmetrize.pointops.</code><code class="descname">reorder</code><span class="sig-paren">(</span><em>points</em>, <em>itemid</em>, <em>axis=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/pointops.html#reorder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.reorder" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">symmetrize.pointops.</code><code class="descname">reorder</code><span class="sig-paren">(</span><em>points</em>, <em>itemid</em>, <em>axis=0</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/pointops.html#reorder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.reorder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reorder a point set along an axis.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -497,7 +502,7 @@ Here r = row (y), c = column (x).</p>
 
 <dl class="function">
 <dt id="symmetrize.pointops.rotmat">
-<code class="descclassname">symmetrize.pointops.</code><code class="descname">rotmat</code><span class="sig-paren">(</span><em>theta</em>, <em>to_rad=True</em>, <em>coordsys='cartesian'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/pointops.html#rotmat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.rotmat" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">symmetrize.pointops.</code><code class="descname">rotmat</code><span class="sig-paren">(</span><em>theta</em>, <em>to_rad=True</em>, <em>coordsys='cartesian'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/pointops.html#rotmat"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.rotmat" title="Permalink to this definition">¶</a></dt>
 <dd><p>Rotation matrix in 2D in different coordinate systems.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -522,7 +527,7 @@ Here r = row (y), c = column (x).</p>
 
 <dl class="function">
 <dt id="symmetrize.pointops.vvdist">
-<code class="descclassname">symmetrize.pointops.</code><code class="descname">vvdist</code><span class="sig-paren">(</span><em>verts</em>, <em>neighbor=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/symmetrize/pointops.html#vvdist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.vvdist" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">symmetrize.pointops.</code><code class="descname">vvdist</code><span class="sig-paren">(</span><em>verts</em>, <em>neighbor=1</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/pointops.html#vvdist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.pointops.vvdist" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate the neighboring vertex-vertex distance.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -554,10 +559,10 @@ Here r = row (y), c = column (x).</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="tps.html" class="btn btn-neutral float-right" title="Thin-plate spline module (tps)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="tps.html" class="btn btn-neutral float-right" title="3. Thin-plate spline module (symmetrize.tps)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="sym.html" class="btn btn-neutral" title="Symmetrizer module (sym)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="sym.html" class="btn btn-neutral" title="1. Symmetrizer module (symmetrize.sym)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -587,7 +592,7 @@ Here r = row (y), c = column (x).</p>
 
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
+            URL_ROOT:'../',
             VERSION:'0.4.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
@@ -595,16 +600,16 @@ Here r = row (y), c = column (x).</p>
             SOURCELINK_SUFFIX: '.txt'
         };
     </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
   
   
-    <script type="text/javascript" src="_static/js/theme.js"></script>
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
   
 
   

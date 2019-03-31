@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Search &mdash; symmetrize 0.4.2 documentation</title>
+  <title>2. Overview of algorithm &mdash; symmetrize 0.4.2 documentation</title>
   
 
   
@@ -26,19 +26,21 @@
 
   
   
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   
 
   
 
   
         <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="#"/>
-    <link rel="top" title="symmetrize 0.4.2 documentation" href="index.html"/> 
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="symmetrize 0.4.2 documentation" href="../index.html"/>
+        <link rel="next" title="3. Symmetrization-related metrics" href="T03_symmetry.html"/>
+        <link rel="prev" title="1. Package installation" href="T01_installation.html"/> 
 
   
-  <script src="_static/js/modernizr.min.js"></script>
+  <script src="../_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -54,7 +56,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> symmetrize
+            <a href="../index.html" class="icon icon-home"> symmetrize
           
 
           
@@ -71,7 +73,7 @@
 
           
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="#" method="get">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -89,18 +91,18 @@
             
             
               <p class="caption"><span class="caption-text">Tutorial</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="tutorial/T01_installation.html">1. Package installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial/T02_algorithm.html">2. Overview of algorithm</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial/T03_symmetry.html">3. Metrics of symmetrization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial/T04_workflow.html">4. Example workflow</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial/T05_extensions.html">5. Possible extension</a></li>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="T01_installation.html">1. Package installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">2. Overview of algorithm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="T03_symmetry.html">3. Symmetrization-related metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="T04_workflow.html">4. Example workflow for shape symmetrization of band mapping data of <span class="math">\(\text{WSe}_2\)</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="T05_extensions.html">5. Possible extension</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Function directory</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="library/sym.html">1. Symmetrizer module (symmetrize.sym)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="library/pointops.html">2. Point operations module (symmetrize.pointops)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="library/tps.html">3. Thin-plate spline module (symmetrize.tps)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../library/sym.html">1. Symmetrizer module (symmetrize.sym)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../library/pointops.html">2. Point operations module (symmetrize.pointops)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../library/tps.html">3. Thin-plate spline module (symmetrize.tps)</a></li>
 </ul>
 
             
@@ -115,7 +117,7 @@
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">symmetrize</a>
+          <a href="../index.html">symmetrize</a>
         
       </nav>
 
@@ -143,12 +145,16 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>Search</li>
+      <li>2. Overview of algorithm</li>
     
     
       <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/tutorial/T02_algorithm.md.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
     
@@ -160,19 +166,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <noscript>
-  <div id="fallback" class="admonition warning">
-    <p class="last">
-      Please activate JavaScript to enable the search
-      functionality.
-    </p>
-  </div>
-  </noscript>
+  <div class="section" id="overview-of-algorithm">
+<span id="overview-of-algorithm"></span><h1>2. Overview of algorithm<a class="headerlink" href="#overview-of-algorithm" title="Permalink to this headline">¶</a></h1>
+</div>
 
-  
-  <div id="search-results">
-  
-  </div>
 
            </div>
            <div class="articleComments">
@@ -180,6 +177,15 @@
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="T03_symmetry.html" class="btn btn-neutral float-right" title="3. Symmetrization-related metrics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="T01_installation.html" class="btn btn-neutral" title="1. Package installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
@@ -207,7 +213,7 @@
 
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
+            URL_ROOT:'../',
             VERSION:'0.4.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
@@ -215,17 +221,16 @@
             SOURCELINK_SUFFIX: '.txt'
         };
     </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
       <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-      <script type="text/javascript" src="_static/searchtools.js"></script>
 
   
 
   
   
-    <script type="text/javascript" src="_static/js/theme.js"></script>
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
   
 
   
@@ -235,14 +240,7 @@
           SphinxRtdTheme.StickyNav.enable();
       });
   </script>
-  
-  <script type="text/javascript">
-    jQuery(function() { Search.loadIndex("searchindex.js"); });
-  </script>
-  
-  <script type="text/javascript" id="searchindexloader"></script>
    
-
 
 </body>
 </html>

@@ -256,7 +256,7 @@ def _refsetcost(coeffs, landmarks, center, mcd, med, direction=-1, rotsym=6,
 def refsetopt(init, refpts, center, mcd, med, direction=-1, rotsym=6, weights=(1, 1, 1),
                 optfunc='minimize', optmethod='Nelder-Mead', include_center=False, **kwds):
     """
-    Optimization to find the optimal reference point set.
+    Optimization of the reference point set for image symmetrization.
 
     :Parameters:
         init : list/tuple
