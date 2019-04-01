@@ -36,10 +36,10 @@ from recommonmark.transform import AutoStructify
 extensions = ['sphinx.ext.autodoc',
     'sphinx.ext.doctest',
     'sphinx.ext.intersphinx',
-    'sphinx.ext.mathjax',
+    'sphinx.ext.imgmath',
     'sphinx.ext.viewcode',
     'sphinx.ext.githubpages']
-# 'sphinx.ext.imgmath'
+# 'sphinx.ext.imgmath', 'sphinx.ext.mathjax'
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
 
@@ -177,6 +177,8 @@ texinfo_documents = [
      author, 'symmetrize', 'One line description of project.',
      'Miscellaneous'),
 ]
+
+imgmath_image_format = 'svg'
 
 #mathjax_path = 'http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'
 mathjax_path = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js'

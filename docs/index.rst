@@ -25,6 +25,6 @@ Documentation for symmetrize
    library/tps
 
 
-Index
+Others
 ==================
 * :ref:`genindex`

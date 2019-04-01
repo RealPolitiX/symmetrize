@@ -37,7 +37,7 @@
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="symmetrize 0.4.2 documentation" href="../index.html"/>
         <link rel="next" title="5. Possible extension" href="T05_extensions.html"/>
-        <link rel="prev" title="3. Symmetrization-related metrics" href="T03_symmetry.html"/> 
+        <link rel="prev" title="3. Metrics of symmetrization" href="T03_symmetry.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -94,7 +94,7 @@
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="T01_installation.html">1. Package installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="T02_algorithm.html">2. Overview of algorithm</a></li>
-<li class="toctree-l1"><a class="reference internal" href="T03_symmetry.html">3. Symmetrization-related metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="T03_symmetry.html">3. Metrics of symmetrization</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">4. Example workflow</a></li>
 <li class="toctree-l1"><a class="reference internal" href="T05_extensions.html">5. Possible extension</a></li>
 </ul>
@@ -168,15 +168,15 @@
             
   <div class="section" id="example-workflow">
 <span id="example-workflow"></span><h1>4. Example workflow<a class="headerlink" href="#example-workflow" title="Permalink to this headline">¶</a></h1>
-<p>The example for shape symmetrization of band mapping data of <span class="math">\(\text{WSe}_2\)</span></p>
+<p>The example for shape symmetrization of band mapping data of <img class="math" src="../_images/math/ca0992271b39807d09f0d15e865cda71f5e39060.svg" alt="\text{WSe}_2"/></p>
 <ol class="simple">
-<li>Pick the source image (with distortion) from measured band mapping data, <span class="math">\(I(k_x, k_y, E)​\)</span>, that contains salient features such as discernible intensity local maxima/minima. For <span class="math">\(\text{WSe}_2​\)</span> data, the source image, <span class="math">\(I(k_x, k_y)​\)</span>, is selected from the energy region near the valence band maxima <span class="math">\((E \sim E_{\text{VBM}})​\)</span>, where the sixfold symmetric pattern is visible and sharp.</li>
-<li>Determine the pixel coordinates of the landmarks from the source image by manual selection. The seven landmarks consist of the three <span class="math">\(K\)</span> and <span class="math">\(K’\)</span> points on the outer edge and the <span class="math">\(\Gamma\)</span> point at the center of the source image. These pixel coordinates form the reference point set <span class="math">\(\tilde{P}\)</span>.</li>
-<li>With manual landmark selection, the ordering and specification (i.e. center or vertex) of the points may be determine by the operator directly, but for algorithmically detected point set, subsequent steps are needed to separate the center (<span class="math">\(\Gamma\)</span> point) from the vertices (<span class="math">\(K\)</span> and <span class="math">\(K’\)</span> points) and to order the vertices in a clockwise or counterclockwise fashion with respect to the center.</li>
-<li>Calculate the geometric quantities to be used in the subsequent registration. This includes the average center-vertex distance, <span class="math">\(\overline{\Vert \tilde{P}_i - \tilde{P}_C \Vert}\)</span>, and the average nearest neighbor vertex-vertex distance, <span class="math">\(\overline{\Vert \tilde{P}_i - \tilde{P}_j \Vert}_{\text{NN}}\)</span>.</li>
-<li>Generate a set of points as the target point set using the existing corresponding coordinates from the source image. For <span class="math">\(\text{WSe}_2\)</span> data, select one (e.g. the first) of the <span class="math">\(K\)</span> or <span class="math">\(K’\)</span> points determined in step (4), compute the pixel coordinates of the of perfectly symmetric hexagon vertices with respect to the fixed points.</li>
-<li>Determine the coordinate transform <span class="math">\(\mathcal{L}\)</span> computationally using the reference and target point sets.</li>
-<li>If necessary, adjust the pose (i.e. rotation and position) of the pattern such that a diagonal of the hexagon is parallel with one of the image axes (<span class="math">\(x\)</span> or <span class="math">\(y\)</span>). Combine the additional transforms with the symmetrization transform determined in step (6).</li>
+<li>Pick the source image (with distortion) from measured band mapping data, <img class="math" src="../_images/math/ac1da927d0d01a396f7710166ef330a7d4f7b435.svg" alt="I(k_x, k_y, E)​"/>, that contains salient features such as discernible intensity local maxima/minima. For <img class="math" src="../_images/math/a1d1f7853dac5369b3734384e1b716ee97335550.svg" alt="\text{WSe}_2​"/> data, the source image, <img class="math" src="../_images/math/fa49738dcb294405330cec65ac1da6e6fb0581fb.svg" alt="I(k_x, k_y)​"/>, is selected from the energy region near the valence band maxima <img class="math" src="../_images/math/6c0dd48165fd0dbe6d384e61074fe62b6b5ac9ff.svg" alt="(E \sim E_{\text{VBM}})​"/>, where the sixfold symmetric pattern is visible and sharp.</li>
+<li>Determine the pixel coordinates of the landmarks from the source image by manual selection. The seven landmarks consist of the three <img class="math" src="../_images/math/684381a21cd73ebbf43b63a087d3f7410ee99ce8.svg" alt="K"/> and <img class="math" src="../_images/math/86a263f43f72204329f5d337c1757af911110a71.svg" alt="K’"/> points on the outer edge and the <img class="math" src="../_images/math/d872993ed0c7c420e73e77a1d285ac100c516806.svg" alt="\Gamma"/> point at the center of the source image. These pixel coordinates form the reference point set <img class="math" src="../_images/math/ca161d6c7071d8a8d4e1bb862bff96f361f5d9ef.svg" alt="\tilde{P}"/>.</li>
+<li>With manual landmark selection, the ordering and specification (i.e. center or vertex) of the points may be determine by the operator directly, but for algorithmically detected point set, subsequent steps are needed to separate the center (<img class="math" src="../_images/math/d872993ed0c7c420e73e77a1d285ac100c516806.svg" alt="\Gamma"/> point) from the vertices (<img class="math" src="../_images/math/684381a21cd73ebbf43b63a087d3f7410ee99ce8.svg" alt="K"/> and <img class="math" src="../_images/math/86a263f43f72204329f5d337c1757af911110a71.svg" alt="K’"/> points) and to order the vertices in a clockwise or counterclockwise fashion with respect to the center.</li>
+<li>Calculate the geometric quantities to be used in the subsequent registration. This includes the average center-vertex distance, <img class="math" src="../_images/math/cd564c66e544cc1f52c14153816da9d70b89d960.svg" alt="\overline{\Vert \tilde{P}_i - \tilde{P}_C \Vert}"/>, and the average nearest neighbor vertex-vertex distance, <img class="math" src="../_images/math/8e8332229df4fe582d64ddf87c98a95b27a5a2d8.svg" alt="\overline{\Vert \tilde{P}_i - \tilde{P}_j \Vert}_{\text{NN}}"/>.</li>
+<li>Generate a set of points as the target point set using the existing corresponding coordinates from the source image. For <img class="math" src="../_images/math/ca0992271b39807d09f0d15e865cda71f5e39060.svg" alt="\text{WSe}_2"/> data, select one (e.g. the first) of the <img class="math" src="../_images/math/684381a21cd73ebbf43b63a087d3f7410ee99ce8.svg" alt="K"/> or <img class="math" src="../_images/math/86a263f43f72204329f5d337c1757af911110a71.svg" alt="K’"/> points determined in step (4), compute the pixel coordinates of the of perfectly symmetric hexagon vertices with respect to the fixed points.</li>
+<li>Determine the coordinate transform <img class="math" src="../_images/math/fbafa98177a4e80f5b20c54216c5fa7ed736f5f0.svg" alt="\mathcal{L}"/> computationally using the reference and target point sets.</li>
+<li>If necessary, adjust the pose (i.e. rotation and position) of the pattern such that a diagonal of the hexagon is parallel with one of the image axes (<img class="math" src="../_images/math/a59f68a4202623bb859a7093f0316bf466e6f75d.svg" alt="x"/> or <img class="math" src="../_images/math/276f7e256cbddeb81eee42e1efc348f3cb4ab5f8.svg" alt="y"/>). Combine the additional transforms with the symmetrization transform determined in step (6).</li>
 <li>Apply the final version of the transform to the stack of images along the energy axis.</li>
 </ol>
 </div>
@@ -194,7 +194,7 @@
         <a href="T05_extensions.html" class="btn btn-neutral float-right" title="5. Possible extension" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="T03_symmetry.html" class="btn btn-neutral" title="3. Symmetrization-related metrics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="T03_symmetry.html" class="btn btn-neutral" title="3. Metrics of symmetrization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -235,7 +235,6 @@
       <script type="text/javascript" src="../_static/jquery.js"></script>
       <script type="text/javascript" src="../_static/underscore.js"></script>
       <script type="text/javascript" src="../_static/doctools.js"></script>
-      <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 
   
 
