@@ -107,7 +107,7 @@ def rotVertexGenerator(center, fixedvertex=None, cvd=None, arot=None, nside=None
     if type(scale) in (int, float):
         scale = np.ones((nangles,)) * scale
 
-    # Generate reference points by rotation and scaling
+    # Generate new points by rotation and scaling
     for ira, ra in enumerate(rotangles):
 
         rmat = cv2.getRotationMatrix2D(center, ra, scale[ira])
@@ -117,9 +117,9 @@ def rotVertexGenerator(center, fixedvertex=None, cvd=None, arot=None, nside=None
     return np.asarray(vertices, dtype=rettype)
 
 
-def _symcentcost(pts, center, mean_center_dist, mean_edge_dist, rotsym=6, weights=(1, 1, 1)):
+def _sym_cost(pts, center, mean_center_dist, mean_edge_dist, rotsym=6, weights=(1, 1, 1)):
     """
-    Symmetrization-centralization loss function.
+    Symmetrization cost function.
 
     :Parameters:
         pts : list/tuple
@@ -137,7 +137,7 @@ def _symcentcost(pts, center, mean_center_dist, mean_edge_dist, rotsym=6, weight
 
     :Return:
         sc_cost : float
-            The overall cost function.
+            The overall scalar (sc) value of the cost function.
     """
 
     halfsym = rotsym // 2
@@ -173,15 +173,15 @@ def _symcentcost(pts, center, mean_center_dist, mean_edge_dist, rotsym=6, weight
         f_vvdist = weights[2] * np.sum(vvdev**2) / rotsym
 
     # Calculate the overall cost function
-    fsymcent = np.array([f_centeredness, f_cvdist, f_vvdist])
-    sc_cost = np.sum(fsymcent)
+    fsym = np.array([f_centeredness, f_cvdist, f_vvdist])
+    sc_cost = np.sum(fsym)
 
     return sc_cost
 
 
-def _refset(coeffs, landmarks, center, direction=1, include_center=False):
+def _target_set(coeffs, landmarks, center, direction=1, include_center=False):
     """
-    Calculate the reference point set.
+    Calculate the target point set.
 
     :Parameters:
         coeffs : 1D array
@@ -195,24 +195,24 @@ def _refset(coeffs, landmarks, center, direction=1, include_center=False):
 
     :Returns:
         lmkwarped : 2D array
-            Exactly transformed landmark positions (acting as reference positions).
+            Exactly transformed landmark positions (acting as target positions).
         H : 2D array
             Estimated homography.
     """
 
     arots, scales = coeffs.reshape((2, coeffs.size // 2))
 
-    # Generate reference point set
-    refs = rotVertexGenerator(center, fixedvertex=landmarks[0,:], arot=arots,
+    # Generate the target point set
+    targs = rotVertexGenerator(center, fixedvertex=landmarks[0,:], arot=arots,
                            direction=direction, scale=scales, ret='generated')
 
     # Include the center if it needs to be included
     if include_center:
         landmarks = np.concatenate((landmarks, np.asarray(center)[None,:]), axis=0)
-        refs = np.concatenate((refs, np.asarray(center)[None,:]), axis=0)
+        targs = np.concatenate((targs, np.asarray(center)[None,:]), axis=0)
 
-    # Determine the homography that bridges the landmark and reference point sets
-    H, _ = cv2.findHomography(landmarks, refs)
+    # Determine the homography that bridges the reference (landmarks) and target point sets
+    H, _ = cv2.findHomography(landmarks, targs)
     # Calculate the actual point set transformed by the homography
     # ([:,:2] is used to transform into Cartesian coordinate)
     lmkwarped = np.squeeze(cv2.transform(landmarks[None,...], H))[:,:2]
@@ -220,10 +220,10 @@ def _refset(coeffs, landmarks, center, direction=1, include_center=False):
     return lmkwarped, H
 
 
-def _refsetcost(coeffs, landmarks, center, mcd, med, direction=-1, rotsym=6,
+def _target_set_cost(coeffs, landmarks, center, mcd, med, direction=-1, rotsym=6,
                 weights=(1, 1, 1), include_center=False):
     """
-    Reference point set generator cost function.
+    Cost function for optimizing the target point set generator.
 
     :Parameters:
         coeffs : 1D array
@@ -243,26 +243,27 @@ def _refsetcost(coeffs, landmarks, center, mcd, med, direction=-1, rotsym=6,
             Option to include the center of pattern.
 
     :Return:
-        rs_cost : float
-            Scalar value of the reference set cost function.
+        ts_cost : float
+            Scalar value of the target set (ts) cost function.
     """
 
-    landmarks_warped, _ = _refset(coeffs, landmarks, center, direction=direction, include_center=include_center)
-    rs_cost = _symcentcost(landmarks_warped, center, mcd, med, rotsym, weights=weights)
+    landmarks_warped, _ = _target_set(coeffs, landmarks, center, direction=direction,
+                                        include_center=include_center)
+    ts_cost = _sym_cost(landmarks_warped, center, mcd, med, rotsym, weights=weights)
 
-    return rs_cost
+    return ts_cost
 
 
-def refsetopt(init, refpts, center, mcd, med, direction=-1, rotsym=6, weights=(1, 1, 1),
-                optfunc='minimize', optmethod='Nelder-Mead', include_center=False, **kwds):
+def target_set_optimize(init, targpts, center, mcd, med, direction=-1, rotsym=6, weights=(1, 1, 1),
+                optfunc='minimize', optmethod='Nelder-Mead', include_center=False, ret='lean', **kwds):
     """
-    Optimization of the reference point set for image symmetrization.
+    Optimization of the target point set for image symmetrization.
 
     :Parameters:
         init : list/tuple
             Initial conditions.
-        refpts : 2D array
-            Reference points.
+        targpts : 2D array
+            Pixel coordinates of the target point set.
         center : list/tuple/array
             Image center position.
         mcd : numeric
@@ -291,28 +292,33 @@ def refsetopt(init, refpts, center, mcd, med, direction=-1, rotsym=6, weights=(1
 
     :Returns:
         ptsw : 2D array
-            Collection of landmarks (pts = points) after warping.
+            Collection of landmarks (pts = points) after warping (w).
         H : 2D array
             Coordinate transform matrix.
+        res : dictionary
+            Full optimization outcome given by the optimizer (when ``ret='all'`` is set).
     """
 
     if optfunc == 'basinhopping':
         niter = int(kwds.pop('niter', 50))
-        res = opt.basinhopping(_refsetcost, init, niter=niter, minimizer_kwargs={'method':optmethod,
-        'args':(refpts, center, mcd, med, direction, rotsym, weights, include_center)}, **kwds)
+        res = opt.basinhopping(_target_set_cost, init, niter=niter, minimizer_kwargs={'method':optmethod,
+        'args':(targpts, center, mcd, med, direction, rotsym, weights, include_center)}, **kwds)
 
     elif optfunc == 'minimize':
         image = kwds.pop('image', None)
-        res = opt.minimize(_refsetcost, init, args=(refpts, center, mcd, med, direction, rotsym,
+        res = opt.minimize(_target_set_cost, init, args=(targpts, center, mcd, med, direction, rotsym,
                         weights, include_center), method=optmethod, **kwds)
 
     else: # Use other optimization function
-        res = optfunc(_refsetcost, init, args, **kwds)
+        res = optfunc(_target_set_cost, init, args, **kwds)
 
     # Calculate the optimal warped point set and the corresponding homography
-    ptsw, H = _refset(res['x'], refpts, center, direction, include_center)
+    ptsw, H = _target_set(res['x'], targpts, center, direction, include_center)
 
-    return ptsw, H
+    if ret == 'lean':
+        return ptsw, H
+    elif ret == 'all':
+        return ptsw, H, res
 
 
 # ======================= #
@@ -418,7 +424,7 @@ def shearing2D(xshear, yshear):
 #  Deformation fields and their algebra  #
 # ====================================== #
 
-def imgWarping(img, hgmat=None, landmarks=None, refs=None, rotangle=None, **kwds):
+def imgWarping(img, hgmat=None, landmarks=None, targs=None, rotangle=None, **kwds):
     """
     Perform image warping based on a generic affine transform (homography).
 
@@ -428,9 +434,9 @@ def imgWarping(img, hgmat=None, landmarks=None, refs=None, rotangle=None, **kwds
         hgmat : 2D array
             Homography matrix.
         landmarks : list/array
-            Pixel coordinates of landmarks (distorted).
-        refs : list/array
-            Pixel coordinates of reference points (undistorted).
+            Pixel coordinates of reference landmarks (distorted).
+        targs : list/array
+            Pixel coordinates of target landmarks (undistorted).
         rotangle : float
             Rotation angle (in degrees).
         ``**kwds`` : keyword argument
@@ -451,8 +457,8 @@ def imgWarping(img, hgmat=None, landmarks=None, refs=None, rotangle=None, **kwds
     if hgmat is None:
 
         landmarks = np.asarray(landmarks, dtype='float32')
-        refs = np.asarray(refs, dtype='float32')
-        hgmat, _ = cv2.findHomography(landmarks, refs)
+        targs = np.asarray(targs, dtype='float32')
+        hgmat, _ = cv2.findHomography(landmarks, targs)
 
     # Add rotation to the transformation, if specified
     if rotangle is not None:
@@ -483,9 +489,9 @@ def applyWarping(imgstack, axis, warptype='matrix', hgmat=None, dfield=None, **k
         warptype : str | 'matrix'
             Type of warping ('matrix' or 'deform_field').
         hgmat : 2D array | None
-            3 x 3 homography matrix.
+            3 x 3 homography (hg) matrix.
         dfield : list | None
-            Deformation field.
+            Deformation fields for the x and y image coordinates.
         ``**kwds`` : keyword arguments
             :outshape: tuple/list
                 Shape of the output image.
