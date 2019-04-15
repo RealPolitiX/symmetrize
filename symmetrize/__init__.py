@@ -2,6 +2,6 @@
 
 from . import sym, pointops, tps
 
-__version__ = '0.4.2'
+__version__ = '0.5.5'
 __author__ = 'R. Patrick Xian'
 __all__ = []
