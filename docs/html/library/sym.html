@@ -188,10 +188,10 @@
 <dd><p class="first last">Type of warping (‘matrix’ or ‘deform_field’).</p>
 </dd>
 <dt>hgmat <span class="classifier-delimiter">:</span> <span class="classifier">2D array | None</span></dt>
-<dd><p class="first last">3 x 3 homography matrix.</p>
+<dd><p class="first last">3 x 3 homography (hg) matrix.</p>
 </dd>
 <dt>dfield <span class="classifier-delimiter">:</span> <span class="classifier">list | None</span></dt>
-<dd><p class="first last">Deformation field.</p>
+<dd><p class="first last">Deformation fields for the x and y image coordinates.</p>
 </dd>
 <dt><code class="docutils literal"><span class="pre">**kwds</span></code> <span class="classifier-delimiter">:</span> <span class="classifier">keyword arguments</span></dt>
 <dd><table class="first last docutils field-list" frame="void" rules="none">
@@ -348,7 +348,7 @@ the unfolded part of the image matrix.</p>
 
 <dl class="function">
 <dt id="symmetrize.sym.imgWarping">
-<code class="descclassname">symmetrize.sym.</code><code class="descname">imgWarping</code><span class="sig-paren">(</span><em>img</em>, <em>hgmat=None</em>, <em>landmarks=None</em>, <em>refs=None</em>, <em>rotangle=None</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/sym.html#imgWarping"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.imgWarping" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">symmetrize.sym.</code><code class="descname">imgWarping</code><span class="sig-paren">(</span><em>img</em>, <em>hgmat=None</em>, <em>landmarks=None</em>, <em>targs=None</em>, <em>rotangle=None</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/sym.html#imgWarping"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.imgWarping" title="Permalink to this definition">¶</a></dt>
 <dd><p>Perform image warping based on a generic affine transform (homography).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -362,10 +362,10 @@ the unfolded part of the image matrix.</p>
 <dd><p class="first last">Homography matrix.</p>
 </dd>
 <dt>landmarks <span class="classifier-delimiter">:</span> <span class="classifier">list/array</span></dt>
-<dd><p class="first last">Pixel coordinates of landmarks (distorted).</p>
+<dd><p class="first last">Pixel coordinates of reference landmarks (distorted).</p>
 </dd>
-<dt>refs <span class="classifier-delimiter">:</span> <span class="classifier">list/array</span></dt>
-<dd><p class="first last">Pixel coordinates of reference points (undistorted).</p>
+<dt>targs <span class="classifier-delimiter">:</span> <span class="classifier">list/array</span></dt>
+<dd><p class="first last">Pixel coordinates of target landmarks (undistorted).</p>
 </dd>
 <dt>rotangle <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
 <dd><p class="first last">Rotation angle (in degrees).</p>
@@ -425,74 +425,6 @@ the unfolded part of the image matrix.</p>
 <tr class="field-even field"><th class="field-name">Return:</th><td class="field-body"><dl class="first last docutils">
 <dt>points_transformed <span class="classifier-delimiter">:</span> <span class="classifier">2D array</span></dt>
 <dd><p class="first last">Transformed Cartesian pixel coordinates.</p>
-</dd>
-</dl>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="symmetrize.sym.refsetopt">
-<code class="descclassname">symmetrize.sym.</code><code class="descname">refsetopt</code><span class="sig-paren">(</span><em>init</em>, <em>refpts</em>, <em>center</em>, <em>mcd</em>, <em>med</em>, <em>direction=-1</em>, <em>rotsym=6</em>, <em>weights=(1</em>, <em>1</em>, <em>1)</em>, <em>optfunc='minimize'</em>, <em>optmethod='Nelder-Mead'</em>, <em>include_center=False</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/sym.html#refsetopt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.refsetopt" title="Permalink to this definition">¶</a></dt>
-<dd><p>Optimization of the reference point set for image symmetrization.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt>init <span class="classifier-delimiter">:</span> <span class="classifier">list/tuple</span></dt>
-<dd><p class="first last">Initial conditions.</p>
-</dd>
-<dt>refpts <span class="classifier-delimiter">:</span> <span class="classifier">2D array</span></dt>
-<dd><p class="first last">Reference points.</p>
-</dd>
-<dt>center <span class="classifier-delimiter">:</span> <span class="classifier">list/tuple/array</span></dt>
-<dd><p class="first last">Image center position.</p>
-</dd>
-<dt>mcd <span class="classifier-delimiter">:</span> <span class="classifier">numeric</span></dt>
-<dd><p class="first last">Mean center-vertex distance.</p>
-</dd>
-<dt>med <span class="classifier-delimiter">:</span> <span class="classifier">numeric</span></dt>
-<dd><p class="first last">Mean edge distance.</p>
-</dd>
-<dt>niter <span class="classifier-delimiter">:</span> <span class="classifier">int | 200</span></dt>
-<dd><p class="first last">Number of iterations.</p>
-</dd>
-<dt>direction <span class="classifier-delimiter">:</span> <span class="classifier">int | -1</span></dt>
-<dd><p class="first last">Direction of the target generator.</p>
-</dd>
-<dt>rotsym <span class="classifier-delimiter">:</span> <span class="classifier">int | 6</span></dt>
-<dd><p class="first last">Order of rotational symmetry.</p>
-</dd>
-<dt>weights <span class="classifier-delimiter">:</span> <span class="classifier">tuple/list/array | (1, 1, 1)</span></dt>
-<dd><p class="first last">Weights assigned to the objective function.</p>
-</dd>
-<dt>optfunc <span class="classifier-delimiter">:</span> <span class="classifier">str/function | ‘minimize’</span></dt>
-<dd><p class="first">Name of the optimizer function.</p>
-<p><code class="docutils literal"><span class="pre">'basinhopping'</span></code> Use the <code class="docutils literal"><span class="pre">scipy.optimize.basinhopping()</span></code> function.</p>
-<p><code class="docutils literal"><span class="pre">'minimize'</span></code> Use the <code class="docutils literal"><span class="pre">scipy.optimize.minimize()</span></code> function.</p>
-<p class="last"><code class="docutils literal"><span class="pre">others</span></code> Use other user-specified optimization function <cite>optfunc</cite>.</p>
-</dd>
-<dt>optmethod <span class="classifier-delimiter">:</span> <span class="classifier">string | ‘Nelder-Mead’</span></dt>
-<dd><p class="first last">Name of the optimization method.</p>
-</dd>
-<dt>include_center <span class="classifier-delimiter">:</span> <span class="classifier">bool | False</span></dt>
-<dd><p class="first last">Option to include center.</p>
-</dd>
-<dt><code class="docutils literal"><span class="pre">**kwds</span></code> <span class="classifier-delimiter">:</span> <span class="classifier">keyword arguments</span></dt>
-<dd><p class="first last">Keyword arguments passed to the specified optimizer function.</p>
-</dd>
-</dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt>ptsw <span class="classifier-delimiter">:</span> <span class="classifier">2D array</span></dt>
-<dd><p class="first last">Collection of landmarks (pts = points) after warping.</p>
-</dd>
-<dt>H <span class="classifier-delimiter">:</span> <span class="classifier">2D array</span></dt>
-<dd><p class="first last">Coordinate transform matrix.</p>
 </dd>
 </dl>
 </td>
@@ -720,6 +652,77 @@ angles and pick the angle that minimizes this difference.</p>
 </dd>
 <dt>imrot <span class="classifier-delimiter">:</span> <span class="classifier">2d array</span></dt>
 <dd><p class="first last">Image rotated to the optimal presenting angle.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="symmetrize.sym.target_set_optimize">
+<code class="descclassname">symmetrize.sym.</code><code class="descname">target_set_optimize</code><span class="sig-paren">(</span><em>init</em>, <em>targpts</em>, <em>center</em>, <em>mcd</em>, <em>med</em>, <em>direction=-1</em>, <em>rotsym=6</em>, <em>weights=(1</em>, <em>1</em>, <em>1)</em>, <em>optfunc='minimize'</em>, <em>optmethod='Nelder-Mead'</em>, <em>include_center=False</em>, <em>ret='lean'</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/symmetrize/sym.html#target_set_optimize"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#symmetrize.sym.target_set_optimize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optimization of the target point set for image symmetrization.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt>init <span class="classifier-delimiter">:</span> <span class="classifier">list/tuple</span></dt>
+<dd><p class="first last">Initial conditions.</p>
+</dd>
+<dt>targpts <span class="classifier-delimiter">:</span> <span class="classifier">2D array</span></dt>
+<dd><p class="first last">Pixel coordinates of the target point set.</p>
+</dd>
+<dt>center <span class="classifier-delimiter">:</span> <span class="classifier">list/tuple/array</span></dt>
+<dd><p class="first last">Image center position.</p>
+</dd>
+<dt>mcd <span class="classifier-delimiter">:</span> <span class="classifier">numeric</span></dt>
+<dd><p class="first last">Mean center-vertex distance.</p>
+</dd>
+<dt>med <span class="classifier-delimiter">:</span> <span class="classifier">numeric</span></dt>
+<dd><p class="first last">Mean edge distance.</p>
+</dd>
+<dt>niter <span class="classifier-delimiter">:</span> <span class="classifier">int | 200</span></dt>
+<dd><p class="first last">Number of iterations.</p>
+</dd>
+<dt>direction <span class="classifier-delimiter">:</span> <span class="classifier">int | -1</span></dt>
+<dd><p class="first last">Direction of the target generator.</p>
+</dd>
+<dt>rotsym <span class="classifier-delimiter">:</span> <span class="classifier">int | 6</span></dt>
+<dd><p class="first last">Order of rotational symmetry.</p>
+</dd>
+<dt>weights <span class="classifier-delimiter">:</span> <span class="classifier">tuple/list/array | (1, 1, 1)</span></dt>
+<dd><p class="first last">Weights assigned to the objective function.</p>
+</dd>
+<dt>optfunc <span class="classifier-delimiter">:</span> <span class="classifier">str/function | ‘minimize’</span></dt>
+<dd><p class="first">Name of the optimizer function.</p>
+<p><code class="docutils literal"><span class="pre">'basinhopping'</span></code> Use the <code class="docutils literal"><span class="pre">scipy.optimize.basinhopping()</span></code> function.</p>
+<p><code class="docutils literal"><span class="pre">'minimize'</span></code> Use the <code class="docutils literal"><span class="pre">scipy.optimize.minimize()</span></code> function.</p>
+<p class="last"><code class="docutils literal"><span class="pre">others</span></code> Use other user-specified optimization function <cite>optfunc</cite>.</p>
+</dd>
+<dt>optmethod <span class="classifier-delimiter">:</span> <span class="classifier">string | ‘Nelder-Mead’</span></dt>
+<dd><p class="first last">Name of the optimization method.</p>
+</dd>
+<dt>include_center <span class="classifier-delimiter">:</span> <span class="classifier">bool | False</span></dt>
+<dd><p class="first last">Option to include center.</p>
+</dd>
+<dt><code class="docutils literal"><span class="pre">**kwds</span></code> <span class="classifier-delimiter">:</span> <span class="classifier">keyword arguments</span></dt>
+<dd><p class="first last">Keyword arguments passed to the specified optimizer function.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt>ptsw <span class="classifier-delimiter">:</span> <span class="classifier">2D array</span></dt>
+<dd><p class="first last">Collection of landmarks (pts = points) after warping (w).</p>
+</dd>
+<dt>H <span class="classifier-delimiter">:</span> <span class="classifier">2D array</span></dt>
+<dd><p class="first last">Coordinate transform matrix.</p>
+</dd>
+<dt>res <span class="classifier-delimiter">:</span> <span class="classifier">dictionary</span></dt>
+<dd><p class="first last">Full optimization outcome given by the optimizer (when <code class="docutils literal"><span class="pre">ret='all'</span></code> is set).</p>
 </dd>
 </dl>
 </td>

@@ -275,7 +275,7 @@
     <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">scale</span><span class="p">)</span> <span class="ow">in</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
         <span class="n">scale</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">nangles</span><span class="p">,))</span> <span class="o">*</span> <span class="n">scale</span>
 
-    <span class="c1"># Generate reference points by rotation and scaling</span>
+    <span class="c1"># Generate new points by rotation and scaling</span>
     <span class="k">for</span> <span class="n">ira</span><span class="p">,</span> <span class="n">ra</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">rotangles</span><span class="p">):</span>
 
         <span class="n">rmat</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">getRotationMatrix2D</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="n">scale</span><span class="p">[</span><span class="n">ira</span><span class="p">])</span>
@@ -285,9 +285,9 @@
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">vertices</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">rettype</span><span class="p">)</span></div>
 
 
-<span class="k">def</span> <span class="nf">_symcentcost</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">mean_center_dist</span><span class="p">,</span> <span class="n">mean_edge_dist</span><span class="p">,</span> <span class="n">rotsym</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)):</span>
+<span class="k">def</span> <span class="nf">_sym_cost</span><span class="p">(</span><span class="n">pts</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">mean_center_dist</span><span class="p">,</span> <span class="n">mean_edge_dist</span><span class="p">,</span> <span class="n">rotsym</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Symmetrization-centralization loss function.</span>
+<span class="sd">    Symmetrization cost function.</span>
 
 <span class="sd">    :Parameters:</span>
 <span class="sd">        pts : list/tuple</span>
@@ -305,7 +305,7 @@
 
 <span class="sd">    :Return:</span>
 <span class="sd">        sc_cost : float</span>
-<span class="sd">            The overall cost function.</span>
+<span class="sd">            The overall scalar (sc) value of the cost function.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">halfsym</span> <span class="o">=</span> <span class="n">rotsym</span> <span class="o">//</span> <span class="mi">2</span>
@@ -341,15 +341,15 @@
         <span class="n">f_vvdist</span> <span class="o">=</span> <span class="n">weights</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">vvdev</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">rotsym</span>
 
     <span class="c1"># Calculate the overall cost function</span>
-    <span class="n">fsymcent</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">f_centeredness</span><span class="p">,</span> <span class="n">f_cvdist</span><span class="p">,</span> <span class="n">f_vvdist</span><span class="p">])</span>
-    <span class="n">sc_cost</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">fsymcent</span><span class="p">)</span>
+    <span class="n">fsym</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">f_centeredness</span><span class="p">,</span> <span class="n">f_cvdist</span><span class="p">,</span> <span class="n">f_vvdist</span><span class="p">])</span>
+    <span class="n">sc_cost</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">fsym</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">sc_cost</span>
 
 
-<span class="k">def</span> <span class="nf">_refset</span><span class="p">(</span><span class="n">coeffs</span><span class="p">,</span> <span class="n">landmarks</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">include_center</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">_target_set</span><span class="p">(</span><span class="n">coeffs</span><span class="p">,</span> <span class="n">landmarks</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">include_center</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Calculate the reference point set.</span>
+<span class="sd">    Calculate the target point set.</span>
 
 <span class="sd">    :Parameters:</span>
 <span class="sd">        coeffs : 1D array</span>
@@ -363,24 +363,24 @@
 
 <span class="sd">    :Returns:</span>
 <span class="sd">        lmkwarped : 2D array</span>
-<span class="sd">            Exactly transformed landmark positions (acting as reference positions).</span>
+<span class="sd">            Exactly transformed landmark positions (acting as target positions).</span>
 <span class="sd">        H : 2D array</span>
 <span class="sd">            Estimated homography.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">arots</span><span class="p">,</span> <span class="n">scales</span> <span class="o">=</span> <span class="n">coeffs</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="n">coeffs</span><span class="o">.</span><span class="n">size</span> <span class="o">//</span> <span class="mi">2</span><span class="p">))</span>
 
-    <span class="c1"># Generate reference point set</span>
-    <span class="n">refs</span> <span class="o">=</span> <span class="n">rotVertexGenerator</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">fixedvertex</span><span class="o">=</span><span class="n">landmarks</span><span class="p">[</span><span class="mi">0</span><span class="p">,:],</span> <span class="n">arot</span><span class="o">=</span><span class="n">arots</span><span class="p">,</span>
+    <span class="c1"># Generate the target point set</span>
+    <span class="n">targs</span> <span class="o">=</span> <span class="n">rotVertexGenerator</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">fixedvertex</span><span class="o">=</span><span class="n">landmarks</span><span class="p">[</span><span class="mi">0</span><span class="p">,:],</span> <span class="n">arot</span><span class="o">=</span><span class="n">arots</span><span class="p">,</span>
                            <span class="n">direction</span><span class="o">=</span><span class="n">direction</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scales</span><span class="p">,</span> <span class="n">ret</span><span class="o">=</span><span class="s1">&#39;generated&#39;</span><span class="p">)</span>
 
     <span class="c1"># Include the center if it needs to be included</span>
     <span class="k">if</span> <span class="n">include_center</span><span class="p">:</span>
         <span class="n">landmarks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">landmarks</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">center</span><span class="p">)[</span><span class="kc">None</span><span class="p">,:]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        <span class="n">refs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">refs</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">center</span><span class="p">)[</span><span class="kc">None</span><span class="p">,:]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">targs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">targs</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">center</span><span class="p">)[</span><span class="kc">None</span><span class="p">,:]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-    <span class="c1"># Determine the homography that bridges the landmark and reference point sets</span>
-    <span class="n">H</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">findHomography</span><span class="p">(</span><span class="n">landmarks</span><span class="p">,</span> <span class="n">refs</span><span class="p">)</span>
+    <span class="c1"># Determine the homography that bridges the reference (landmarks) and target point sets</span>
+    <span class="n">H</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">findHomography</span><span class="p">(</span><span class="n">landmarks</span><span class="p">,</span> <span class="n">targs</span><span class="p">)</span>
     <span class="c1"># Calculate the actual point set transformed by the homography</span>
     <span class="c1"># ([:,:2] is used to transform into Cartesian coordinate)</span>
     <span class="n">lmkwarped</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">landmarks</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span><span class="o">...</span><span class="p">],</span> <span class="n">H</span><span class="p">))[:,:</span><span class="mi">2</span><span class="p">]</span>
@@ -388,10 +388,10 @@
     <span class="k">return</span> <span class="n">lmkwarped</span><span class="p">,</span> <span class="n">H</span>
 
 
-<span class="k">def</span> <span class="nf">_refsetcost</span><span class="p">(</span><span class="n">coeffs</span><span class="p">,</span> <span class="n">landmarks</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">mcd</span><span class="p">,</span> <span class="n">med</span><span class="p">,</span> <span class="n">direction</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">rotsym</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
+<span class="k">def</span> <span class="nf">_target_set_cost</span><span class="p">(</span><span class="n">coeffs</span><span class="p">,</span> <span class="n">landmarks</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">mcd</span><span class="p">,</span> <span class="n">med</span><span class="p">,</span> <span class="n">direction</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">rotsym</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span>
                 <span class="n">weights</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">include_center</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Reference point set generator cost function.</span>
+<span class="sd">    Cost function for optimizing the target point set generator.</span>
 
 <span class="sd">    :Parameters:</span>
 <span class="sd">        coeffs : 1D array</span>
@@ -411,26 +411,27 @@
 <span class="sd">            Option to include the center of pattern.</span>
 
 <span class="sd">    :Return:</span>
-<span class="sd">        rs_cost : float</span>
-<span class="sd">            Scalar value of the reference set cost function.</span>
+<span class="sd">        ts_cost : float</span>
+<span class="sd">            Scalar value of the target set (ts) cost function.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">landmarks_warped</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_refset</span><span class="p">(</span><span class="n">coeffs</span><span class="p">,</span> <span class="n">landmarks</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="n">direction</span><span class="p">,</span> <span class="n">include_center</span><span class="o">=</span><span class="n">include_center</span><span class="p">)</span>
-    <span class="n">rs_cost</span> <span class="o">=</span> <span class="n">_symcentcost</span><span class="p">(</span><span class="n">landmarks_warped</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">mcd</span><span class="p">,</span> <span class="n">med</span><span class="p">,</span> <span class="n">rotsym</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="n">weights</span><span class="p">)</span>
+    <span class="n">landmarks_warped</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_target_set</span><span class="p">(</span><span class="n">coeffs</span><span class="p">,</span> <span class="n">landmarks</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="n">direction</span><span class="p">,</span>
+                                        <span class="n">include_center</span><span class="o">=</span><span class="n">include_center</span><span class="p">)</span>
+    <span class="n">ts_cost</span> <span class="o">=</span> <span class="n">_sym_cost</span><span class="p">(</span><span class="n">landmarks_warped</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">mcd</span><span class="p">,</span> <span class="n">med</span><span class="p">,</span> <span class="n">rotsym</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="n">weights</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">rs_cost</span>
+    <span class="k">return</span> <span class="n">ts_cost</span>
 
 
-<div class="viewcode-block" id="refsetopt"><a class="viewcode-back" href="../../library/sym.html#symmetrize.sym.refsetopt">[docs]</a><span class="k">def</span> <span class="nf">refsetopt</span><span class="p">(</span><span class="n">init</span><span class="p">,</span> <span class="n">refpts</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">mcd</span><span class="p">,</span> <span class="n">med</span><span class="p">,</span> <span class="n">direction</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">rotsym</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
-                <span class="n">optfunc</span><span class="o">=</span><span class="s1">&#39;minimize&#39;</span><span class="p">,</span> <span class="n">optmethod</span><span class="o">=</span><span class="s1">&#39;Nelder-Mead&#39;</span><span class="p">,</span> <span class="n">include_center</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+<div class="viewcode-block" id="target_set_optimize"><a class="viewcode-back" href="../../library/sym.html#symmetrize.sym.target_set_optimize">[docs]</a><span class="k">def</span> <span class="nf">target_set_optimize</span><span class="p">(</span><span class="n">init</span><span class="p">,</span> <span class="n">targpts</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">mcd</span><span class="p">,</span> <span class="n">med</span><span class="p">,</span> <span class="n">direction</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">rotsym</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                <span class="n">optfunc</span><span class="o">=</span><span class="s1">&#39;minimize&#39;</span><span class="p">,</span> <span class="n">optmethod</span><span class="o">=</span><span class="s1">&#39;Nelder-Mead&#39;</span><span class="p">,</span> <span class="n">include_center</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ret</span><span class="o">=</span><span class="s1">&#39;lean&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Optimization of the reference point set for image symmetrization.</span>
+<span class="sd">    Optimization of the target point set for image symmetrization.</span>
 
 <span class="sd">    :Parameters:</span>
 <span class="sd">        init : list/tuple</span>
 <span class="sd">            Initial conditions.</span>
-<span class="sd">        refpts : 2D array</span>
-<span class="sd">            Reference points.</span>
+<span class="sd">        targpts : 2D array</span>
+<span class="sd">            Pixel coordinates of the target point set.</span>
 <span class="sd">        center : list/tuple/array</span>
 <span class="sd">            Image center position.</span>
 <span class="sd">        mcd : numeric</span>
@@ -459,28 +460,33 @@
 
 <span class="sd">    :Returns:</span>
 <span class="sd">        ptsw : 2D array</span>
-<span class="sd">            Collection of landmarks (pts = points) after warping.</span>
+<span class="sd">            Collection of landmarks (pts = points) after warping (w).</span>
 <span class="sd">        H : 2D array</span>
 <span class="sd">            Coordinate transform matrix.</span>
+<span class="sd">        res : dictionary</span>
+<span class="sd">            Full optimization outcome given by the optimizer (when ``ret=&#39;all&#39;`` is set).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="n">optfunc</span> <span class="o">==</span> <span class="s1">&#39;basinhopping&#39;</span><span class="p">:</span>
         <span class="n">niter</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">kwds</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;niter&#39;</span><span class="p">,</span> <span class="mi">50</span><span class="p">))</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">basinhopping</span><span class="p">(</span><span class="n">_refsetcost</span><span class="p">,</span> <span class="n">init</span><span class="p">,</span> <span class="n">niter</span><span class="o">=</span><span class="n">niter</span><span class="p">,</span> <span class="n">minimizer_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;method&#39;</span><span class="p">:</span><span class="n">optmethod</span><span class="p">,</span>
-        <span class="s1">&#39;args&#39;</span><span class="p">:(</span><span class="n">refpts</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">mcd</span><span class="p">,</span> <span class="n">med</span><span class="p">,</span> <span class="n">direction</span><span class="p">,</span> <span class="n">rotsym</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">include_center</span><span class="p">)},</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">basinhopping</span><span class="p">(</span><span class="n">_target_set_cost</span><span class="p">,</span> <span class="n">init</span><span class="p">,</span> <span class="n">niter</span><span class="o">=</span><span class="n">niter</span><span class="p">,</span> <span class="n">minimizer_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;method&#39;</span><span class="p">:</span><span class="n">optmethod</span><span class="p">,</span>
+        <span class="s1">&#39;args&#39;</span><span class="p">:(</span><span class="n">targpts</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">mcd</span><span class="p">,</span> <span class="n">med</span><span class="p">,</span> <span class="n">direction</span><span class="p">,</span> <span class="n">rotsym</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">include_center</span><span class="p">)},</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
 
     <span class="k">elif</span> <span class="n">optfunc</span> <span class="o">==</span> <span class="s1">&#39;minimize&#39;</span><span class="p">:</span>
         <span class="n">image</span> <span class="o">=</span> <span class="n">kwds</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;image&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">_refsetcost</span><span class="p">,</span> <span class="n">init</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">refpts</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">mcd</span><span class="p">,</span> <span class="n">med</span><span class="p">,</span> <span class="n">direction</span><span class="p">,</span> <span class="n">rotsym</span><span class="p">,</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">opt</span><span class="o">.</span><span class="n">minimize</span><span class="p">(</span><span class="n">_target_set_cost</span><span class="p">,</span> <span class="n">init</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">targpts</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">mcd</span><span class="p">,</span> <span class="n">med</span><span class="p">,</span> <span class="n">direction</span><span class="p">,</span> <span class="n">rotsym</span><span class="p">,</span>
                         <span class="n">weights</span><span class="p">,</span> <span class="n">include_center</span><span class="p">),</span> <span class="n">method</span><span class="o">=</span><span class="n">optmethod</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
 
     <span class="k">else</span><span class="p">:</span> <span class="c1"># Use other optimization function</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="n">optfunc</span><span class="p">(</span><span class="n">_refsetcost</span><span class="p">,</span> <span class="n">init</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">optfunc</span><span class="p">(</span><span class="n">_target_set_cost</span><span class="p">,</span> <span class="n">init</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">)</span>
 
     <span class="c1"># Calculate the optimal warped point set and the corresponding homography</span>
-    <span class="n">ptsw</span><span class="p">,</span> <span class="n">H</span> <span class="o">=</span> <span class="n">_refset</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="n">refpts</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">direction</span><span class="p">,</span> <span class="n">include_center</span><span class="p">)</span>
+    <span class="n">ptsw</span><span class="p">,</span> <span class="n">H</span> <span class="o">=</span> <span class="n">_target_set</span><span class="p">(</span><span class="n">res</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="n">targpts</span><span class="p">,</span> <span class="n">center</span><span class="p">,</span> <span class="n">direction</span><span class="p">,</span> <span class="n">include_center</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">ptsw</span><span class="p">,</span> <span class="n">H</span></div>
+    <span class="k">if</span> <span class="n">ret</span> <span class="o">==</span> <span class="s1">&#39;lean&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">ptsw</span><span class="p">,</span> <span class="n">H</span>
+    <span class="k">elif</span> <span class="n">ret</span> <span class="o">==</span> <span class="s1">&#39;all&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">ptsw</span><span class="p">,</span> <span class="n">H</span><span class="p">,</span> <span class="n">res</span></div>
 
 
 <span class="c1"># ======================= #</span>
@@ -586,7 +592,7 @@
 <span class="c1">#  Deformation fields and their algebra  #</span>
 <span class="c1"># ====================================== #</span>
 
-<div class="viewcode-block" id="imgWarping"><a class="viewcode-back" href="../../library/sym.html#symmetrize.sym.imgWarping">[docs]</a><span class="k">def</span> <span class="nf">imgWarping</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">hgmat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">landmarks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">refs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rotangle</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+<div class="viewcode-block" id="imgWarping"><a class="viewcode-back" href="../../library/sym.html#symmetrize.sym.imgWarping">[docs]</a><span class="k">def</span> <span class="nf">imgWarping</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">hgmat</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">landmarks</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">targs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rotangle</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Perform image warping based on a generic affine transform (homography).</span>
 
@@ -596,9 +602,9 @@
 <span class="sd">        hgmat : 2D array</span>
 <span class="sd">            Homography matrix.</span>
 <span class="sd">        landmarks : list/array</span>
-<span class="sd">            Pixel coordinates of landmarks (distorted).</span>
-<span class="sd">        refs : list/array</span>
-<span class="sd">            Pixel coordinates of reference points (undistorted).</span>
+<span class="sd">            Pixel coordinates of reference landmarks (distorted).</span>
+<span class="sd">        targs : list/array</span>
+<span class="sd">            Pixel coordinates of target landmarks (undistorted).</span>
 <span class="sd">        rotangle : float</span>
 <span class="sd">            Rotation angle (in degrees).</span>
 <span class="sd">        ``**kwds`` : keyword argument</span>
@@ -619,8 +625,8 @@
     <span class="k">if</span> <span class="n">hgmat</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 
         <span class="n">landmarks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">landmarks</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float32&#39;</span><span class="p">)</span>
-        <span class="n">refs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">refs</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float32&#39;</span><span class="p">)</span>
-        <span class="n">hgmat</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">findHomography</span><span class="p">(</span><span class="n">landmarks</span><span class="p">,</span> <span class="n">refs</span><span class="p">)</span>
+        <span class="n">targs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">targs</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float32&#39;</span><span class="p">)</span>
+        <span class="n">hgmat</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">findHomography</span><span class="p">(</span><span class="n">landmarks</span><span class="p">,</span> <span class="n">targs</span><span class="p">)</span>
 
     <span class="c1"># Add rotation to the transformation, if specified</span>
     <span class="k">if</span> <span class="n">rotangle</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -651,9 +657,9 @@
 <span class="sd">        warptype : str | &#39;matrix&#39;</span>
 <span class="sd">            Type of warping (&#39;matrix&#39; or &#39;deform_field&#39;).</span>
 <span class="sd">        hgmat : 2D array | None</span>
-<span class="sd">            3 x 3 homography matrix.</span>
+<span class="sd">            3 x 3 homography (hg) matrix.</span>
 <span class="sd">        dfield : list | None</span>
-<span class="sd">            Deformation field.</span>
+<span class="sd">            Deformation fields for the x and y image coordinates.</span>
 <span class="sd">        ``**kwds`` : keyword arguments</span>
 <span class="sd">            :outshape: tuple/list</span>
 <span class="sd">                Shape of the output image.</span>
