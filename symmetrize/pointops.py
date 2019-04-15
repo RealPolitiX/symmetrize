@@ -177,6 +177,36 @@ def pointset_order(pset, center=None, direction='ccw'):
     return pset_ordered
 
 
+def pointset_locate(image, method='daofind', center='detected', centermethod='centroidnn',
+                    direction='ccw', **kwds):
+    """ A combination of detecting, sorting and ordering peaks from a 2D image.
+
+    :Parameters:
+        image : 2D array
+            2D image for locating the point feature positions.
+        method : str | 'daofind'
+            Method for detecting peaks ('daofind' or 'maxlist').
+        center : str/tuple/list
+            Center position in (row, column) form.
+        centermethod : str | 'centroidnn'
+        direction : str | 'ccw'
+            Direction of the ordering of the vertices ('cw' for clockwise, or 'ccw' for counterclockwise).
+        **kwds : keyword arguments
+            Extra arguments for the feature detection algorithms.
+    """
+
+    peaks = peakdetect2d(image, method=method, **kwds)
+    if center == 'detected':
+        pcenter, pverts = pointset_center(peaks, method=centermethod, ret='cnc')
+        pverts_ord = pointset_order(pverts, center=None, direction=direction)
+
+    elif type(center) in (list, tuple):
+        pcenter = center
+        pverts_ord = pointset_order(peaks, center=center, direction=direction)
+
+    return pcenter, pverts_ord
+
+
 def vvdist(verts, neighbor=1):
     """
     Calculate the neighboring vertex-vertex distance.
