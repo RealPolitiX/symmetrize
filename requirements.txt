@@ -11,3 +11,4 @@ opencv-python
 sphinx_rtd_theme
 sphinx
 recommonmark
+pillow>=8.2.0 # not directly required, pinned by Snyk to avoid a vulnerability
