@@ -194,7 +194,7 @@ mathjax_config = {
 }
 
 # Example configuration for intersphinx: refer to the Python standard library.
-intersphinx_mapping = {'https://docs.python.org/': None}
+intersphinx_mapping = {'python': ('https://docs.python.org/', None)}
 
 
 # Deploy AutoStructify when converting markdown
