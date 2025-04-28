@@ -12,22 +12,19 @@ Symmetrization of 2D pattern using nonrigid landmark registration with symmetry 
 
 ### Installation
 
-Install the PyPI version
+1. Install the PyPI version
 
-```bash
-pip install symmetrize
-```
+    <pre><code class="console"> pip install symmetrize </code></pre>
 
-Install the latest version from source repository
+2. Install the latest version from source repository
 
-```bash
-pip install git+https://github.com/RealPolitiX/symmetrize.git
-```
+    <pre><code class="console"> pip install git+https://github.com/RealPolitiX/symmetrize.git </code></pre>
 
 
 ### Requirements
 
 See [requirements](https://github.com/RealPolitiX/symmetrize/blob/master/requirements.txt)
+
 
 ### Documentation and use
 
